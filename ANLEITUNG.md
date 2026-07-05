@@ -99,6 +99,8 @@ etwas davon fixen soll:
 | 10 | Die Seite `/works/showreel/` ist von nirgendwo verlinkt | übernommen |
 | 11 | Videodateien mit Umlauten im Namen („Berg-Looüp…", „…für…") hätten auf dem neuen Hosting 404-Fehler erzeugt | ✅ umbenannt (ASCII) |
 | 12 | Showreel + 2 Trailer lagen auf fabipoldi.github.io | ✅ ins Projekt geholt (self-contained) |
+| 13 | Zwei Sidebar-Sticker-Bilder waren im Webflow-Export kaputt (Dateiname mit Leerzeichen, HTML erwartet Bindestriche) — der Export zeigte sie gar nicht | ✅ repariert, Sticker wieder sichtbar |
+| 14 | Vimeo-Embeds auf Oracles/Golf (Embedly) liefern beim lokalen Testen 401 — auf der echten Domain laden sie normal | Hinweis |
 
 ## 6. Kleine Änderungen per Terminal (mit Claude)
 
