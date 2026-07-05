@@ -33,14 +33,11 @@ const NEUTRALIZE_CSS = `
 `;
 
 const browser = await chromium.launch();
-// Ein gemeinsamer Kontext: Fonts/Assets werden gecacht, weniger Netzwerk-Flakes
-const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
 
 async function shoot(baseUrl, urlPath, file, width, height) {
-  const page = await context.newPage();
-  await page.setViewportSize({ width, height });
-  await page.goto(baseUrl + urlPath, { waitUntil: 'load', timeout: 30000 }).catch(() => {});
-  await page.addStyleTag({ content: NEUTRALIZE_CSS }).catch(() => {});
+  const page = await browser.newPage({ viewport: { width, height } });
+  await page.goto(baseUrl + urlPath, { waitUntil: 'networkidle', timeout: 30000 }).catch(() => {});
+  await page.addStyleTag({ content: NEUTRALIZE_CSS });
   // Einmal komplett durchscrollen, damit lazy-Bilder laden
   await page.evaluate(async () => {
     await new Promise((resolve) => {
@@ -58,14 +55,9 @@ async function shoot(baseUrl, urlPath, file, width, height) {
       step();
     });
   }).catch(() => {});
-  await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
+  await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});
   await page.waitForTimeout(1200);
-  try {
-    await page.screenshot({ path: file, fullPage: true, timeout: 20000 });
-  } catch {
-    // Retry ohne Font-Warten (Typekit-Flake)
-    await page.screenshot({ path: file, fullPage: true, timeout: 20000, caret: 'initial' }).catch(() => {});
-  }
+  await page.screenshot({ path: file, fullPage: true });
   await page.close();
 }
 
@@ -74,7 +66,7 @@ for (const [name, origPath, newPath] of PAGES) {
   for (const [vp, w, h] of VIEWPORTS) {
     const fOrig = path.join(OUT, `${name}-${vp}-orig.png`);
     const fNew = path.join(OUT, `${name}-${vp}-neu.png`);
-    await shoot('http://localhost:4600', origPath, fOrig, w, h);
+    await shoot('http://localhost:4602', origPath, fOrig, w, h);
     await shoot('http://localhost:4601', newPath, fNew, w, h);
     // Diff
     const a = PNG.sync.read(fs.readFileSync(fOrig));
