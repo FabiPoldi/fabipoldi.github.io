@@ -1,0 +1,37 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Sidebar from '../components/Sidebar.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import { getNav } from '../lib/nav';
+import { inline } from '../lib/text';
+
+const legal = (await getEntry('globals', 'legal'))!.data as any;
+const nav = await getNav('legal');
+const wfPageId = '6a4619bec66319687dc3692d';
+---
+
+<Base title={legal.title} ogTitle={legal.title} wfPageId={wfPageId} bodyClass="body" scrollbarStyle={false}>
+  <MobileMenu nav={nav} current="legal" />
+  <Sidebar nav={nav} current="legal" />
+  <div class="legal-body">
+    <div class="impressum">
+      <div class="works-headline">
+        <h1 class="capital text-size h1 legal" set:html={inline(legal.impressum.title)}></h1><img src="/images/Line.png" loading="lazy" alt="" class="image-4 legal">
+        <h1 class="capital text-size h3 impressum" set:html={inline(legal.impressum.address)}></h1>
+        <p class="text-size" set:html={inline(legal.impressum.contact)}></p>
+        <p class="text-size p-legal" set:html={inline(legal.impressum.disputeText)}></p>
+      </div>
+    </div>
+    <div class="impressum privacy">
+      <div class="works-headline">
+        <h1 class="capital text-size h1 legal" set:html={inline(legal.privacy.title)}></h1><img src="/images/Line.png" loading="lazy" alt="" class="image-4 legal">
+        {legal.privacy.paragraphs.map((p: string) => (
+          <p class="text-size" set:html={inline(p)}></p>
+        ))}
+      </div>
+    </div>
+  </div>
+  <CookieConsent wfPageId={wfPageId} legalCurrent={true} />
+</Base>

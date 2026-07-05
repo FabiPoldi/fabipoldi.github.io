@@ -1,0 +1,21 @@
+---
+// Credit-Spalte im Stil von LUZ/Oracles: zentrierte Zeilen mit Trennlinien.
+import { inline } from '../lib/text';
+
+interface Props {
+  items: string[];
+  /** Nach dem letzten Eintrag noch eine Linie zeichnen (wie bei LUZ) */
+  trailingLine?: boolean;
+  id?: string;
+  class?: string;
+}
+const { items, trailingLine = false, id, class: cls = 'credits-sub-div luz' } = Astro.props;
+---
+<div id={id} class={cls}>
+  {items.map((item, i) => (
+    <>
+      <div class="capital text-size centered" set:html={inline(item)}></div>
+      {(i < items.length - 1 || trailingLine) && <img src="/images/Line.png" loading="lazy" alt="" class="line-small">}
+    </>
+  ))}
+</div>

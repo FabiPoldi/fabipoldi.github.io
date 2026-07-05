@@ -1,0 +1,31 @@
+---
+// Projektseite "Milky Chance — Rush" — exakte Struktur des Webflow-Exports.
+import Img from '../Img.astro';
+import BgVideo from '../BgVideo.astro';
+import VimeoGated from '../VimeoGated.astro';
+import { inline } from '../../lib/text';
+
+const { data } = Astro.props;
+const { hero, posterLoops, vimeo } = data;
+---
+<div class="milky-chance-hero-div">
+  <div class="w-layout-grid film-img-grid milcky-chance">
+    <BgVideo base={hero.video} wrapperId="w-node-_08da7530-dd00-5910-b3d4-410f7fc8fe94-7dc36927" videoId="08da7530-dd00-5910-b3d4-410f7fc8fe94-video" wrapperClass="background-video-2" />
+  </div>
+  <div id="w-node-f87dc0d8-de2e-9b54-7b70-5420d289695c-7dc36927" class="capital text-size" set:html={inline(hero.text)}></div>
+</div>
+<div class="div-block-75">
+  <div class="w-layout-grid grid-7"><Img src={posterLoops.poster} class="image-35" />
+    <div id="w-node-efcfa6e8-05bc-ef82-ba7b-eb7e39077230-7dc36927" class="div-block-66">
+      {posterLoops.videos.map((base: string, i: number) => (
+        <BgVideo base={base} videoId={['0f013051-9abb-14db-e929-6b5bc297a879-video', '73b088ec-9612-baa1-5f20-67181267a2d6-video', 'ff993573-dcfa-c70a-9e0b-a7279206e487-video'][i] ?? `milky-loop-${i}-video`} wrapperClass="milky-backround-video" />
+      ))}
+    </div>
+  </div>
+  <div class="capital text-size hide-mobil" set:html={inline(posterLoops.text)}></div>
+</div>
+<div id="w-node-be3ff371-7cf4-4236-bd3f-8492b35d51db-7dc36927" class="capital text-size hide-desktop" set:html={inline(posterLoops.text)}></div>
+<div class="video-div showreel">
+  <VimeoGated vimeoId={vimeo.id} placeholderId="placeholder_milky" />
+  <BgVideo base={vimeo.thumbnailVideo} dataWId="09fbce76-b45c-5007-241a-0c1953e73df5" videoId="09fbce76-b45c-5007-241a-0c1953e73df5-video" wrapperClass="video-thumbnail milcky-chance" /><img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" data-w-id="09fbce76-b45c-5007-241a-0c1953e73df6" alt="" class="cta-img">
+</div>

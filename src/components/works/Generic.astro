@@ -1,0 +1,72 @@
+---
+// Generisches Projektseiten-Layout für NEUE Projekte aus dem CMS.
+// Baut die Seite aus Blöcken zusammen, die die vorhandenen Design-Muster
+// der Website wiederverwenden (Galerie, Vimeo-Player, Video-Loop, Text, Credits).
+import Img from '../Img.astro';
+import BgVideo from '../BgVideo.astro';
+import VimeoGated from '../VimeoGated.astro';
+import CreditLines from '../CreditLines.astro';
+import { inline } from '../../lib/text';
+
+const { data } = Astro.props;
+const blocks = data.blocks ?? [];
+---
+{blocks.map((b: any, i: number) => {
+  if (b.type === 'text') {
+    return <div class={b.centered ? 'capital text-size centered' : 'capital text-size'} set:html={inline(b.text)}></div>;
+  }
+  if (b.type === 'gallery') {
+    const images = b.images ?? [];
+    const left = images.filter((_: any, idx: number) => idx % 2 === 0);
+    const right = images.filter((_: any, idx: number) => idx % 2 === 1);
+    return (
+      <div class="junk-jornal-div hero">
+        <div class="w-layout-grid junk-grid page">
+          {[left, right].map((column) => (
+            <div class="w-layout-vflex flex-fotos">
+              {column.map((img: any) => (
+                <Img src={img.src ?? img} class="img-flex-massonary" alt={img.alt} />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  if (b.type === 'vimeo') {
+    return (
+      <div class="video-div showreel">
+        <VimeoGated vimeoId={b.vimeoId} placeholderId={`placeholder_block_${i}`} />
+        {b.thumbnail && <Img src={b.thumbnail} dataWId="a868358e-1468-bd3b-5852-f1d9161aa9e9" class="video-thumbnail say-wuff" />}
+        {b.thumbnail && <img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" data-w-id="46e5e6e0-0f29-1221-00e9-a6c64818eab0" alt="" class="cta-img">}
+        {b.caption && <div class="capital text-size" set:html={inline(b.caption)}></div>}
+      </div>
+    );
+  }
+  if (b.type === 'loop') {
+    return (
+      <div class="div-block-62-copy">
+        <div>
+          <BgVideo base={b.base} file={b.file} videoId={`generic-loop-${i}-video`} wrapperClass="background-video-4" />
+        </div>
+      </div>
+    );
+  }
+  if (b.type === 'credits') {
+    return (
+      <div class="video-div luz">
+        <CreditLines items={b.items ?? []} class="credits-sub-div luz" />
+      </div>
+    );
+  }
+  if (b.type === 'laurels') {
+    return (
+      <div class="festival-div">
+        {(b.images ?? []).map((img: any) => (
+          <Img src={img.src ?? img} alt={img.alt} />
+        ))}
+      </div>
+    );
+  }
+  return null;
+})}

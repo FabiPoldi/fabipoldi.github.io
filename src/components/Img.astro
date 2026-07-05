@@ -1,0 +1,23 @@
+---
+// Responsives Bild im Webflow-Stil: srcset/sizes werden automatisch aus den
+// vorhandenen -p-*-Varianten abgeleitet; explizite Props überschreiben das.
+import { responsive } from '../lib/images';
+
+interface Props {
+  src: string;
+  alt?: string;
+  class?: string;
+  id?: string;
+  width?: number | string;
+  loading?: 'lazy' | 'eager';
+  sizes?: string;
+  srcset?: string;
+  /** data-w-id für Webflow-IX2-Interaktionen */
+  dataWId?: string;
+}
+const { src, alt = '', class: cls, id, width, loading = 'lazy', dataWId, ...rest } = Astro.props;
+const auto = responsive(src);
+const srcset = rest.srcset ?? auto.srcset;
+const sizes = rest.sizes ?? (srcset ? auto.sizes : undefined);
+---
+<img src={src} loading={loading} id={id} width={width} data-w-id={dataWId} sizes={srcset ? sizes : undefined} srcset={srcset} alt={alt} class={cls} />

@@ -1,0 +1,44 @@
+---
+// Mobiles Menü (full-mobil-menu): Header mit Logo + Menü-Button (IX2-Toggle)
+// und aufklappbares Works-Untermenü. Markup exakt wie im Webflow-Export.
+import type { Nav } from '../lib/nav';
+import { navClass } from '../lib/nav';
+
+interface Props {
+  nav: Nav;
+  current: string;
+}
+const { nav, current } = Astro.props;
+const isHome = current === 'home';
+const isAbout = current === 'about';
+---
+
+<div class="full-mobil-menu">
+  <div class="mobil-header"><img src="/images/Handy-sticker.png" loading="lazy" alt="" class="mobil-sticker">
+    <div class="mobil-header-inside-div">
+      <a href="/" aria-current={isHome ? 'page' : undefined} class:list={['w-inline-block', { 'w--current': isHome }]}><img src="/images/Handy-Name-logo.png" loading="lazy" width="91" alt=""></a>
+      <div data-w-id="4fc12d74-81ec-a122-2c42-db1aaf0635e9" class="mobil-menu-button-div"><img src="/images/Menu-mobil-clicked.png" loading="lazy" width="90" sizes="(max-width: 479px) 100vw, 90px" alt="" srcset="/images/Menu-mobil-clicked-p-500.png 500w, /images/Menu-mobil-clicked.png 595w" class="mobil-menu-button clicked"><img src="/images/Menu-mobil-standby.png" loading="lazy" width="90" sizes="(max-width: 479px) 100vw, 90px" alt="" srcset="/images/Menu-mobil-standby-p-500.png 500w, /images/Menu-mobil-standby.png 595w" class="mobil-menu-button standby"></div>
+    </div><img src="/images/Handy-Red-misprint.png" loading="lazy" width="25" alt="" class="mobil-missprint">
+  </div>
+  <div class="works-sub-menu mobil">
+    <a href={`mailto:${nav.email}`} class="w-inline-block"><img src="/images/e-mail-standby_1e-mail-standby.png" loading="lazy" alt="" class="email-mobil-menu"></a>
+    <div class="works-sub-menu mobil just-works">
+      <div class="films">
+        {nav.films.map((item) => (
+          <a href={item.href ?? '#'} aria-current={item.current ? 'page' : undefined} class={navClass(item)}>{item.label}</a>
+        ))}
+      </div>
+      <div class="music-videos">
+        {nav.musicvideos.map((item) => (
+          <a href={item.href ?? '#'} aria-current={item.current ? 'page' : undefined} class={navClass(item)}>{item.label}</a>
+        ))}
+      </div>
+      <div class="showreel">
+        <a href="/" aria-current={isHome ? 'page' : undefined} class:list={['sidebar-button', 'text-size', 'w-button', { 'w--current': isHome }]}>Showreel</a>
+      </div>
+      <div class="about-mobil">
+        <a href="/about/" aria-current={isAbout ? 'page' : undefined} class:list={['sidebar-button', 'text-size', 'w-button', { 'w--current': isAbout }]}>about</a>
+      </div>
+    </div>
+  </div>
+</div>

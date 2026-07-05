@@ -1,0 +1,74 @@
+title: "Fabian Podeszwa"
+hero:
+  welcomeImage: /images/Start-Page-Farbe-Mit-Hi-There.png
+  welcomeText: /images/WELCOME-TEXT-klein-new.png
+  showreelMp4: /videos/Showreel-2024-F-b.mp4
+  thumbnailVideo: Showreel-Thumbnail-Video
+sections:
+  - layout: say-wuff-landing
+    heading: "say wuff!"
+    lineMobil: true
+    meta: "Fiction  •  Germany  •  2024  •  17min   •  16mm"
+    link: /works/say-wuff/
+    poster: /images/Say-Wuff-Poster-Laurels-New.jpg
+    images:
+      - src: /images/07-Say-Wuff-Still.jpg
+        id: w-node-_70f2ac0e-2f50-c270-6c34-34d507289fd9-7dc36922
+      - src: /images/02-Say-Wuff-Still-klein.jpg
+        id: w-node-_84180a6e-41ee-b68e-9987-8f99d91651fe-7dc36922
+      - src: /images/01-Say-Wuff-Still-1.png
+        id: w-node-_16133a4d-50db-fe0b-7eb1-236be4d53ed1-7dc36922
+    teaserMp4: /videos/Say-Wuff-Trailer-H264-mini.mp4
+    textLeft: "'SAY WUFF' - A ROMANTIC OUTSIDER LOVESTORYSHOT ON 16MM KODAK FILM        FUNDED BY 'FILM- UND MEDIENSTIFTUNG NRW'"
+    textRight: "'A DECLARATION OF LOVE TO THE BEAUTY OF SIMPLICITY  - TO QUIRKY ODDITIES OF LIFE «'"
+  - layout: milky-landing
+    heading: "Milky Chance"
+    meta: "MUSICVIDEO  •  GERMANY  •  2019  •  4MIN   •  STOP MOTION"
+    link: /works/milky-chance/
+    poster: /images/milky-chance-posterklein.png
+    videos:
+      - Milky-Chance-Rush-ProRe-bett-grabb
+      - Milky-Chance-Egg-ausschnitt-Quivcktimebcd
+      - Uhrklein
+    teaserMp4: /videos/Milky-Chance-Rush-ProRes-Teaser.mp4
+    textLeft: "Milky Chance - Rush"
+    textRight: ""
+  - layout: oracles-landing
+    heading: "Ωracles"
+    meta: "MUSICVIDEO  •  FRANCE  •  2014  •  4MIN   •  MIXED MEDIA"
+    link: /works/oracals/
+    videos:
+      - -Zoom-Gif-Small
+      - Berg-Looup-Logomov
+      - guitar-dance-loop
+    textLeft: "Ωracles  'Melt Tonight'   "
+    textRight: ""
+  - layout: junk-landing
+    heading: "Junk Jornal"
+    meta: "Photography-Series  •  ongoing  •  35mm / 120mm / Polaroid "
+    link: /works/junk-jornal/
+    images:
+      - src: /images/Illford-HP5-Basel23-2ana.jpg
+      - src: /images/Illford-HP5-Basel12-2.jpgana-.jpg
+      - src: /images/Ill-Delta-Dez16ana.jpg
+  - layout: luz-landing
+    heading: "LUZ"
+    meta: "Fiction, Germany, 2018, 70 min, 16mm"
+    link: /works/luz/
+    poster: /images/LUZ_Poster-1.jpeg
+    images:
+      - src: /images/Main-Photo-Luz.jpg
+        id: w-node-_3c92eadf-e079-636d-603b-4424ed69ee24-7dc36922
+      - src: /images/Luz_022-1024x431.jpeg
+        id: w-node-_3c92eadf-e079-636d-603b-4424ed69ee25-7dc36922
+    textLeft: "Podeszwa worked in ‘LUZ’ as an Editor, BTS Photographer and Prob-Artist."
+    textRight: ""
+  - layout: junk-landing
+    heading: "Junk Jornal"
+    meta: "Photography-Series  •  ongoing  •  35mm / 120mm / Polaroid "
+    link: /works/junk-jornal/
+    images:
+      - src: /images/Illford-Dia-200-Elba2ana.jpg
+      - src: /images/Run-Finalana.jpg
+      - src: /images/Heavenb-Kopieana.jpg
+        sizes: 100vw

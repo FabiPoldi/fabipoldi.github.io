@@ -1,0 +1,88 @@
+---
+// Finsweet-Cookie-Consent-Komponenten: Banner, Manager-Button, Preferences-Modal.
+// Markup exakt wie im Webflow-Export.
+interface Props {
+  wfPageId: string;
+  /** Manager-Zahnrad einblenden (Original: überall außer About, dort sitzt er im Inhalt) */
+  includeManager?: boolean;
+  /** Auf der Legal-Seite ist der Privacy-Policy-Link als aktuell markiert */
+  legalCurrent?: boolean;
+  /** Webflow-Element-ID des Preferences-Formulars (About hat eine eigene) */
+  formElementId?: string;
+}
+const { wfPageId, includeManager = true, legalCurrent = false, formElementId = '7d4384a6-02f1-591b-0c62-d60ec140b5a2' } = Astro.props;
+---
+
+<div class="fs-cc-components">
+  <div fs-cc="banner" class="fs-cc-banner2_component">
+    <div class="fs-cc-banner2_container">
+      <h4 class="heading capital cookies">To view Videos you have to accept cookies</h4>
+      <div class="fs-cc-banner2_text">By clicking “Accept”, you agree to the storing of cookies on your device to enhance site navigation and analyze site usage. View our <a href="/legal/" aria-current={legalCurrent ? 'page' : undefined} class:list={['fs-cc-banner2_text-link', { 'w--current': legalCurrent }]}>Privacy Policy</a> for more information.</div>
+      <div class="fs-cc-banner2_buttons-wrapper">
+        <a fs-cc="deny" href="#" class="fs-cc-banner2_button fs-cc-button-alt w-button">Deny</a>
+        <a fs-cc="allow" href="#" class="fs-cc-banner2_button w-button">Accept</a>
+      </div>
+    </div>
+  </div>
+  {includeManager && <div fs-cc="manager" class="fs-cc-manager2_component">
+    <div fs-cc="open-preferences" role="button" tabindex="0" title="Cookie Preferences" aria-label="Cookie Preferences" class="fs-cc-manager2_button w-embed"><svg viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 8L9 8.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M16 15L16 15.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M10 17L10 17.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M11 13L11 13.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M6 12L6 12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M12 21C16.9706 21 21 16.9706 21 12C21 11.4402 20.9489 10.8924 20.8511 10.361C20.3413 10.7613 19.6985 11 19 11C18.4536 11 17.9413 10.8539 17.5 10.5987C17.0587 10.8539 16.5464 11 16 11C14.3431 11 13 9.65685 13 8C13 7.60975 13.0745 7.23691 13.2101 6.89492C11.9365 6.54821 11 5.38347 11 4C11 3.66387 11.0553 3.34065 11.1572 3.03894C6.58185 3.46383 3 7.31362 3 12C3 16.9706 7.02944 21 12 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg></div>
+  </div>}
+  <div fs-cc-scroll="disable" fs-cc="preferences" class="fs-cc-prefs2_component">
+    <div class="fs-cc-prefs2_form-wrapper w-form">
+      <form id="cookie-preferences" name="wf-form-Cookie-Preferences" data-name="Cookie Preferences" method="get" class="fs-cc-prefs2_form" data-wf-page-id={wfPageId} data-wf-element-id={formElementId}>
+        <div fs-cc="close" class="fs-cc-prefs2_close">
+          <div class="fs-cc-preferences2_close-icon w-embed"><svg fill="currentColor" aria-hidden="true" focusable="false" viewbox="0 0 16 16">
+              <path d="M9.414 8l4.293-4.293-1.414-1.414L8 6.586 3.707 2.293 2.293 3.707 6.586 8l-4.293 4.293 1.414 1.414L8 9.414l4.293 4.293 1.414-1.414L9.414 8z"></path>
+            </svg></div>
+        </div>
+        <div class="fs-cc-prefs2_content">
+          <div class="fs-cc-prefs2_space-small">
+            <div class="fs-cc-prefs2_title">Privacy Preferences</div>
+          </div>
+          <div class="fs-cc-prefs2_option">
+            <div class="fs-cc-prefs2_toggle-wrapper">
+              <div class="fs-cc-prefs2_label">Essential cookies</div>
+              <div>Required</div>
+            </div>
+          </div>
+          <div class="fs-cc-prefs2_option">
+            <div class="fs-cc-prefs2_toggle-wrapper">
+              <div class="fs-cc-prefs2_label">Marketing cookies</div><label class="w-checkbox fs-cc-prefs2_checkbox-field">
+                <div class="w-checkbox-input w-checkbox-input--inputType-custom fs-cc-prefs2_checkbox"></div><input type="checkbox" id="marketing-2" name="marketing-2" data-name="Marketing 2" fs-cc-checkbox="marketing" style="opacity:0;position:absolute;z-index:-1"><span for="marketing-2" class="fs-cc-prefs2_checkbox-label w-form-label">Essential</span>
+              </label>
+            </div>
+          </div>
+          <div class="fs-cc-prefs2_option">
+            <div class="fs-cc-prefs2_toggle-wrapper">
+              <div class="fs-cc-prefs2_label">Personalization cookies</div><label class="w-checkbox fs-cc-prefs2_checkbox-field">
+                <div class="w-checkbox-input w-checkbox-input--inputType-custom fs-cc-prefs2_checkbox"></div><input type="checkbox" id="personalization-2" name="personalization-2" data-name="Personalization 2" fs-cc-checkbox="personalization" style="opacity:0;position:absolute;z-index:-1"><span for="personalization-2" class="fs-cc-prefs2_checkbox-label w-form-label">Essential</span>
+              </label>
+            </div>
+          </div>
+          <div class="fs-cc-prefs2_option">
+            <div class="fs-cc-prefs2_toggle-wrapper">
+              <div class="fs-cc-prefs2_label">Analytics cookies</div><label class="w-checkbox fs-cc-prefs2_checkbox-field">
+                <div class="w-checkbox-input w-checkbox-input--inputType-custom fs-cc-prefs2_checkbox"></div><input type="checkbox" id="analytics-2" name="analytics-2" data-name="Analytics 2" fs-cc-checkbox="analytics" style="opacity:0;position:absolute;z-index:-1"><span for="analytics-2" class="fs-cc-prefs2_checkbox-label w-form-label">Essential</span>
+              </label>
+            </div>
+          </div>
+          <div class="fs-cc-prefs2_buttons-wrapper">
+            <a fs-cc="deny" href="#" class="fs-cc-prefs2_button fs-cc-button-alt w-button">Reject all cookies</a>
+            <a fs-cc="allow" href="#" class="fs-cc-prefs2_button w-button">Allow all cookies</a>
+            <a fs-cc="submit" href="#" class="fs-cc-prefs2_submit w-button">Save preferences</a>
+          </div>
+        </div>
+      </form>
+      <div class="w-form-done"></div>
+      <div class="w-form-fail"></div>
+      <div fs-cc="close" class="fs-cc-prefs2_overlay"></div>
+    </div>
+  </div>
+</div>

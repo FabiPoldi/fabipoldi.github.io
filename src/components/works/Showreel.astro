@@ -1,0 +1,32 @@
+---
+// Projektseite "Showreel" — direktes Vimeo-Embed, exakt wie im Webflow-Export.
+import BgVideo from '../BgVideo.astro';
+
+const { data } = Astro.props;
+const { vimeo } = data;
+const src = `https://player.vimeo.com/video/${vimeo.id}?autoplay=1&loop=1&autopause=0&muted=1`;
+---
+<div id="showreel" class="video-div showreel">
+  <div style="display:none" class="vimeo-video w-embed w-iframe">
+    <style is:inline>
+    .embed-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0; overflow: hidden;
+        max-width: 100%; height: auto;
+    }
+    .embed-container iframe, .embed-container object, .embed-container embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+</style>
+    <div class="embed-container">
+      <iframe loading="lazy" src={src} width="100%" frameborder="0" allow="autoplay"></iframe>
+    </div>
+  </div>
+  <BgVideo base={vimeo.thumbnailVideo} dataWId="4c0e84d6-d4dd-ebe4-c8b7-d6aa1013ed64" videoId="4c0e84d6-d4dd-ebe4-c8b7-d6aa1013ed64-video" wrapperClass="video-thumbnail showreel" /><img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" alt="" class="cta-img">
+</div>

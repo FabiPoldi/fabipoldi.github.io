@@ -1,0 +1,186 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Sidebar from '../components/Sidebar.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import Img from '../components/Img.astro';
+import BgVideo from '../components/BgVideo.astro';
+import CodeEmbedVideo from '../components/CodeEmbedVideo.astro';
+import { getNav } from '../lib/nav';
+import { inline } from '../lib/text';
+
+const home = (await getEntry('globals', 'home'))!.data as any;
+const nav = await getNav('home');
+const wfPageId = '6a4619bec66319687dc36922';
+
+// Feste IX2-IDs der Startseiten-Video-Loops (aus dem Original übernommen)
+const milkyVideoIds = [
+  '3c797a5b-92f3-ea2f-3cca-e8c419b1c9a7-video',
+  '3c797a5b-92f3-ea2f-3cca-e8c419b1c9a8-video',
+  '3c797a5b-92f3-ea2f-3cca-e8c419b1c9a9-video',
+];
+const oraclesVideos = [
+  { wrapperId: undefined, videoId: '60cb6a01-5c61-8492-9792-d82f7607be85-video', class: 'background-video-8' },
+  { wrapperId: 'w-node-e3df307f-d07a-1f36-53fb-d4878e667b4f-7dc36922', videoId: 'e3df307f-d07a-1f36-53fb-d4878e667b4f-video', class: 'background-video-10' },
+  { wrapperId: undefined, videoId: 'ae8d3eb1-c37d-f7e9-587b-78be00c0d1a9-video', class: 'background-video-10' },
+];
+---
+
+<Base title={home.title} wfPageId={wfPageId} bodyClass="body">
+  <MobileMenu nav={nav} current="home" />
+  <Sidebar nav={nav} current="home" worksClicked={true} />
+  <div class="main-body">
+    <div class="hero-landing">
+      <div class="hello-div"><img src="/images/Sticker-Fabi-Neu.png" loading="lazy" alt="" class="fabi-sticker hide-mobil"><Img src={home.hero.welcomeImage} class="image-25" /><Img src={home.hero.welcomeText} class="image-36" /></div>
+      <div id="showreel" class="video-div showreel">
+        <div id="placeholder_showreel" class="placeholder vimeo-video">
+          <div class="capital video-error-message">To view this video please accept cookies. </div>
+          <a fs-cc="open-preferences" href="#" class="open-cookies-button capital w-button">Manage cookies</a>
+        </div>
+        <CodeEmbedVideo src={home.hero.showreelMp4} variant="hero" />
+        <BgVideo base={home.hero.thumbnailVideo} dataWId="3c865caf-5d46-6362-b319-60fe1f58e2f4" videoId="3c865caf-5d46-6362-b319-60fe1f58e2f4-video" wrapperClass="video-thumbnail showreel" /><Img src="/images/Click-to-Watch-mit-Pfeil-small.png" dataWId="962b98ee-f725-dd9b-d5be-0d86c3b4dccf" class="cta-img" />
+      </div>
+    </div>
+    {home.sections.map((s: any) => {
+      const wrapperClass = s.layout === 'junk-landing' ? 'junk-jornal-div' : 'main-film-layout';
+      return (
+        <div class={wrapperClass}>
+          <div class="heading-div">
+            <h1 class="h1 text-size" set:html={inline(s.heading)}></h1><img src="/images/Line.png" loading="lazy" alt="" class={s.lineMobil ? 'line mobil' : 'line'} />
+            <div class="capital text-size centered" set:html={inline(s.meta)}></div>
+          </div>
+
+          {s.layout === 'say-wuff-landing' && (
+            <div class="w-layout-grid grid say-wuff landing">
+              <a href={s.link} class="w-inline-block"><Img src={s.poster} class="img-in-grid" /></a>
+              <a href={s.link} class="grid-inner-div index say-wuff w-inline-block">
+                {s.images.map((img: any) => (
+                  <Img src={img.src} id={img.id} class="img-in-grid cut" alt={img.alt} />
+                ))}
+              </a>
+            </div>
+          )}
+
+          {s.layout === 'milky-landing' && (
+            <a href={s.link} class="w-inline-block">
+              <div class="w-layout-grid grid-7"><Img src={s.poster} class="image-35" />
+                <div id="w-node-_3c797a5b-92f3-ea2f-3cca-e8c419b1c9a6-7dc36922" class="div-block-66">
+                  {s.videos.map((base: string, i: number) => (
+                    <BgVideo base={base} videoId={milkyVideoIds[i] ?? `home-milky-${i}-video`} wrapperClass="milky-backround-video" />
+                  ))}
+                </div>
+              </div>
+            </a>
+          )}
+
+          {s.layout === 'oracles-landing' && (
+            <div class="w-layout-grid grid-9">
+              <a id="w-node-_673b79ac-6560-3bc8-b097-9782c434ed26-7dc36922" href={s.link} class="w-inline-block">
+                <BgVideo base={s.videos[0]} videoId={oraclesVideos[0].videoId} wrapperClass={oraclesVideos[0].class} />
+              </a>
+              {s.videos.slice(1).map((base: string, i: number) => (
+                <BgVideo base={base} wrapperId={oraclesVideos[i + 1]?.wrapperId} videoId={oraclesVideos[i + 1]?.videoId ?? `home-oracles-${i}-video`} wrapperClass={oraclesVideos[i + 1]?.class ?? 'background-video-10'} />
+              ))}
+            </div>
+          )}
+
+          {s.layout === 'junk-landing' && (
+            <a href={s.link} class="junk-div w-inline-block">
+              {s.images.map((img: any) => (
+                <Img src={img.src} sizes={img.sizes} class="junk-img" alt={img.alt} />
+              ))}
+            </a>
+          )}
+
+          {s.layout === 'luz-landing' && (
+            <div class="w-layout-grid grid luz landing">
+              <a href={s.link} class="w-inline-block"><Img src={s.poster} class="image-in-grid" /></a>
+              <a href={s.link} class="grid-inner-div w-inline-block">
+                {s.images.map((img: any) => (
+                  <Img src={img.src} id={img.id} class="image-in-grid" alt={img.alt} />
+                ))}
+              </a>
+            </div>
+          )}
+
+          {s.teaserMp4 && <CodeEmbedVideo src={s.teaserMp4} variant="teaser" />}
+
+          {(s.textLeft !== undefined || s.textRight !== undefined) && (
+            <div class="film-text landing">
+              <div class="left-right-text">
+                <div class="text-block-2 left capital text-size" set:html={inline(s.textLeft)}></div>
+                <div class="text-block-2 right capital text-size" set:html={inline(s.textRight)}></div>
+              </div>
+            </div>
+          )}
+
+          <a href={s.link} class="div-block-65 w-inline-block"><img src="/images/More-Here-klein.png" loading="lazy" alt="" class="image-34 gelb"><img src="/images/More-Here-klein-hover.png" loading="lazy" data-w-id="8fa63e34-41d9-fd0b-4fcc-428bb874a7a0" alt="" class="image-33"></a>
+        </div>
+      );
+    })}
+  </div>
+  <CookieConsent wfPageId={wfPageId} />
+
+  <script is:inline slot="tail">
+  document.addEventListener("DOMContentLoaded", function () {
+    const videos = document.querySelectorAll("video.bg-video");
+    const buttons = document.querySelectorAll(".mute-toggle");
+    const thumbnails = document.querySelectorAll(".video-thumbnail");
+    // SVG icons
+    const mutedIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-icon lucide-volume"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/></svg>`;
+    const unmutedIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume2-icon lucide-volume-2"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>`;
+    videos.forEach((video, index) => {
+      const btn = buttons[index];
+      const thumb = thumbnails[index];
+      let hasLoopedOnce = false;
+      // Set initial icon
+      if (btn) btn.innerHTML = mutedIcon;
+      // Handle thumbnail click
+      if (thumb) {
+        thumb.addEventListener("click", () => {
+          // Hide all thumbnails
+          thumbnails.forEach(t => t.style.display = "block");
+          thumb.style.display = "none";
+          // Mute all videos
+          videos.forEach((v, i) => {
+            v.muted = true;
+            if (buttons[i]) buttons[i].innerHTML = mutedIcon;
+          });
+          // Unmute and play the clicked one
+          video.muted = false;
+          video.play();
+          if (btn) btn.innerHTML = unmutedIcon;
+        });
+      }
+      // Handle mute toggle button
+      if (btn) {
+        btn.addEventListener("click", () => {
+          const isMuted = video.muted;
+          // Mute all videos
+          videos.forEach((v, i) => {
+            v.muted = true;
+            if (buttons[i]) buttons[i].innerHTML = mutedIcon;
+          });
+          // Unmute this one if it was muted
+          if (isMuted) {
+            video.muted = false;
+            btn.innerHTML = unmutedIcon;
+            hasLoopedOnce = false;
+          }
+        });
+      }
+      // Loop behavior
+      video.addEventListener("ended", () => {
+        if (!hasLoopedOnce) {
+          hasLoopedOnce = true;
+          video.muted = true;
+          if (btn) btn.innerHTML = mutedIcon;
+        }
+        video.currentTime = 0;
+        video.play();
+      });
+    });
+  });
+  </script>
+</Base>

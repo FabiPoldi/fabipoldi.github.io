@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import MobileMenu from '../../components/MobileMenu.astro';
+import CookieConsent from '../../components/CookieConsent.astro';
+import WorksHeadline from '../../components/WorksHeadline.astro';
+import { getNav } from '../../lib/nav';
+
+import SayWuff from '../../components/works/SayWuff.astro';
+import JunkJornal from '../../components/works/JunkJornal.astro';
+import Luz from '../../components/works/Luz.astro';
+import MilkyChance from '../../components/works/MilkyChance.astro';
+import Oracals from '../../components/works/Oracals.astro';
+import Golf from '../../components/works/Golf.astro';
+import Showreel from '../../components/works/Showreel.astro';
+import Generic from '../../components/works/Generic.astro';
+
+export async function getStaticPaths() {
+  const works = await getCollection('works');
+  return works.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const data = entry.data as any;
+const nav = await getNav(entry.id);
+
+// Bestehende Seiten haben ein maßgeschneidertes Layout, neue nutzen "generic"
+const layouts: Record<string, any> = {
+  'say-wuff': SayWuff,
+  'junk-jornal': JunkJornal,
+  luz: Luz,
+  'milky-chance': MilkyChance,
+  oracals: Oracals,
+  golf: Golf,
+  showreel: Showreel,
+  generic: Generic,
+};
+const Layout = layouts[data.layout ?? 'generic'] ?? Generic;
+
+// data-wf-page: Original-ID der Seite; neue Seiten erben die von say-wuff,
+// damit die Webflow-Interaktionen (IX2) greifen.
+const wfPageId = data.wfPageId ?? '6a4619bec66319687dc36924';
+---
+
+<Base
+  title={data.title}
+  description={data.seo?.description}
+  ogTitle={data.seo?.ogTitle ?? data.title}
+  fullOg={data.seo?.fullOg ?? false}
+  wfPageId={wfPageId}
+  bodyClass="body-4"
+>
+  <MobileMenu nav={nav} current={entry.id} />
+  <Sidebar nav={nav} current={entry.id} worksClicked={data.sidebarWorksClicked ?? false} />
+  <div class="main-body desktop works">
+    <WorksHeadline {...data.headline} />
+    <Layout data={data} />
+  </div>
+  <CookieConsent wfPageId={wfPageId} />
+</Base>

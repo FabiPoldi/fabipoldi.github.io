@@ -1,0 +1,20 @@
+---
+// Überschrift einer Projektseite: optionales Logo, Titel, Linie, Meta-Zeilen.
+import Img from './Img.astro';
+import { inline } from '../lib/text';
+
+interface Props {
+  logo?: string;
+  logoClass?: string;
+  title: string;
+  metaLines?: string[];
+}
+const { logo, logoClass = 'image-40', title, metaLines = [] } = Astro.props;
+---
+<div class="works-headline">
+  {logo && <Img src={logo} class={logoClass} />}
+  <h1 class="capital text-size h1" set:html={inline(title)}></h1><img src="/images/Line.png" loading="lazy" alt="" class="image-4">
+  {metaLines.map((line) => (
+    <h1 class="capital text-size h3" set:html={inline(line)}></h1>
+  ))}
+</div>

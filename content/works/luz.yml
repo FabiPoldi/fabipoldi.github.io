@@ -1,0 +1,47 @@
+title: "Luz"
+layout: luz
+wfPageId: 6a4619bec66319687dc36928
+seo:
+  ogTitle: "Luz"
+headline:
+  title: "luz"
+  metaLines:
+    - "Fiction  •  Germany  •  2018  •  70min   •  16mm"
+    - "editor & Behind the Scenes Photography"
+posterGrid:
+  poster: /images/LUZ_Poster-1.jpeg
+  images:
+    - src: /images/Main-Photo-Luz.jpg
+      id: w-node-_550db75a-285c-4ec1-7c33-14dc32b4dcdb-7dc36928
+    - src: /images/Luz_022-1024x431.jpeg
+      id: w-node-_550db75a-285c-4ec1-7c33-14dc32b4dcdc-7dc36928
+  quote: "‘Tilman Singer’s surreally experimental take on demonic possession is as baffling as it is beautiful.’ \n<em class=\"times\">The New York Times</em>"
+imageText:
+  image: /images/LUZ00010-1024x429.jpeg
+  text: "Singer and Podeszwa met in film school, where their unique styles and love for experimental visuals quickly sparked their interest in each other's work.Podeszwa worked in ‘LUZ’ as an Editor,  BTS Photographer and Prob-Artist."
+collage:
+  linkImage: /images/Camcar-NEw-klein.jpg
+  clusterImages:
+    - src: /images/Eva-smog-d-Kopie-klein.jpg
+      id: w-node-_7622a258-1fe1-94b1-32e1-4eb42e4df37e-7dc36928
+      class: image-21
+    - src: /images/Station-b-Kopie-klein.jpg
+      id: w-node-_1500e65d-be6c-ec9e-7a8c-38b198b5d201-7dc36928
+      class: image-19
+    - src: /images/stuehle-b-Kopie-klein.jpg
+      id: w-node-_8b12f97f-ec90-d612-8486-6380be23f033-7dc36928
+      class: image-20
+  soloImage:
+    src: /images/Eva-Mess-klein.jpg
+    id: w-node-f8dbcb0a-2ab9-2a51-8538-3d7f2077333b-7dc36928
+    sizes: 100vw
+  text: "\"Podeszwa shot all the BTS photos for 'LUZ' with a Half-Frame camera. These cameras use 35mm film but capture a smaller frame, resulting in a 16mm format, which is equivalent to the film medium used in the movie. After the shoot, a unique print was created, especially for the director.\""
+vimeo:
+  id: 282196192
+  thumbnailVideo: Showreel-Thumbnail-Video
+credits:
+  - "<strong>Writer & Director </strong>\nTilman Singer"
+  - "<strong>Director of Photography</strong>\nPaul Faltz "
+  - "<strong>editor</strong>\nfabian podeszwa "
+  - "Premiere at the 68th Berlin International Film Festival"
+outro: "‘Fleeing from the grasp of a possessed woman, a distressed cabdriver begins a confession in a rundown police station that endangers everyone who crosses her path.’\n<em class=\"times\">Yellow Veil Pictures</em>"

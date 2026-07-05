@@ -1,0 +1,32 @@
+title: "Golf"
+layout: golf
+wfPageId: 6a4619bec66319687dc3692b
+seo:
+  ogTitle: "Golf"
+headline:
+  title: "Golf"
+  metaLines:
+    - "musicvideos"
+videos:
+  - type: gated
+    vimeoId: 278543814
+    placeholderId: placeholder_Laterne
+    thumbnailVideo: Showreel-Thumbnail-Video
+    thumbWId: 7674b4e3-bd8a-b092-287b-3850f4175064
+    caption: "laterne Live — golf & Dagobert"
+  - type: embedly
+    embedSrc: "https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fplayer.vimeo.com%2Fvideo%2F278519277%3Fapp_id%3D122963&dntp=1&display_name=Vimeo&url=https%3A%2F%2Fvimeo.com%2F278519277&image=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F711572010-63929a7dbb4f80ae98131e2e55e851dd71739482014c9a1bc0b901232023cd1b-d_1280&key=96f1f04c5f4143bcb0f2e68c87d65feb&type=text%2Fhtml&schema=vimeo"
+    paddingTop: "56.27659574468085%"
+    height: 529
+    title: "Golf - Macaulay Culkin"
+    thumbClass: "video-thumbnail golf _2"
+    playButtonWId: df87628b-550a-9ee3-2e43-0e8add585e82
+    caption: "Macualay culkin"
+  - type: embedly
+    embedSrc: "https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fplayer.vimeo.com%2Fvideo%2F278517247%3Fapp_id%3D122963&dntp=1&display_name=Vimeo&url=https%3A%2F%2Fvimeo.com%2F278517247&image=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F711579018-db47885396bbdf37155c28f0888df60e5b1c10db710095e1e05e55e9933597ef-d_1280&key=96f1f04c5f4143bcb0f2e68c87d65feb&type=text%2Fhtml&schema=vimeo"
+    paddingTop: "56.27659574468085%"
+    height: 529
+    title: "Golf - Ping Pong"
+    thumbClass: "video-thumbnail golf _3"
+    playButtonWId: c19d2d61-2963-e960-45b1-b43fecefbe02
+    caption: "Ping pong"

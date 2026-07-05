@@ -1,0 +1,24 @@
+---
+// Projektseite "Golf" — Liste von Musikvideos, exakt wie im Webflow-Export.
+import BgVideo from '../BgVideo.astro';
+import VimeoGated from '../VimeoGated.astro';
+import { inline } from '../../lib/text';
+
+const { data } = Astro.props;
+---
+{data.videos.map((v: any) => (
+  <div class="video-div golf">
+    {v.type === 'gated' ? (
+      <>
+        <VimeoGated vimeoId={v.vimeoId} placeholderId={v.placeholderId} />
+        <BgVideo base={v.thumbnailVideo} dataWId={v.thumbWId} videoId={`${v.thumbWId}-video`} wrapperClass="video-thumbnail golf" /><img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" alt="" class="cta-img">
+      </>
+    ) : (
+      <>
+        <div style={`display:none;padding-top:${v.paddingTop}`} class="vimeo-video w-video w-embed"><iframe class="embedly-embed" src={v.embedSrc} width="940" height={v.height} scrolling="no" allowfullscreen title={v.title}></iframe></div>
+        <div class={v.thumbClass}><img src="/images/playbutton.png" loading="lazy" data-w-id={v.playButtonWId} alt="" class="play-button"></div>
+      </>
+    )}
+    <div class="capital text-size" set:html={inline(v.caption)}></div>
+  </div>
+))}

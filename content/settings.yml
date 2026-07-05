@@ -1,0 +1,27 @@
+# Globale Einstellungen: E-Mail-Adresse und Menü-Struktur.
+# Menüpunkte mit "work:" verlinken auf das Projekt mit diesem Dateinamen.
+# Einträge ohne "work:" sind graue Platzhalter (noch ohne Seite).
+# "deactivated: true" zeigt den Eintrag grau, verlinkt aber trotzdem.
+email: fabianschuhsohle@gmail.com
+nav:
+  films:
+    - label: Say Wuff
+      work: say-wuff
+    - label: Junk Jornal
+      work: junk-jornal
+    - label: LUZ
+      work: luz
+  musicvideos:
+    - label: Milky Chance
+      work: milky-chance
+    - label: Oracles
+      work: oracals
+    - label: Roosevelt
+    - label: Chuckamuck
+    - label: Golf
+      work: golf
+      deactivated: true
+    - label: Wolfgang Peréz
+    - label: Andrew Collberg
+    - label: the pollywogs
+    - label: melt trio

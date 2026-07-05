@@ -1,0 +1,52 @@
+---
+// Desktop-Sidebar: Logo, Works/About-Menü, E-Mail, Works-Untermenü.
+// Markup exakt wie im Webflow-Export inkl. data-w-id (IX2-Interaktionen).
+import type { Nav } from '../lib/nav';
+import { navClass } from '../lib/nav';
+
+interface Props {
+  nav: Nav;
+  /** 'home' | 'about' | 'legal' | Work-Slug */
+  current: string;
+  /** "Works"-Icon im Klick-Zustand zeigen. Original ist hier uneinheitlich:
+   *  vorhanden auf Startseite, About und Say-Wuff — nicht auf den übrigen Seiten. */
+  worksClicked?: boolean;
+}
+const { nav, current, worksClicked = false } = Astro.props;
+const isHome = current === 'home';
+const isAbout = current === 'about';
+---
+
+<div class="side">
+  <div class="sidemenu"><img src="/images/02-Sticker-1_102-Sticker-1.png" loading="lazy" alt="" class="sticker-1">
+    <a href="/" aria-current={isHome ? 'page' : undefined} class:list={['w-inline-block', { 'w--current': isHome }]}><img src="/images/Name.png" loading="lazy" width="230" alt="" class="logo"></a>
+    <div class="works-about-div">
+      <div class="div-menu-works">
+        <div data-w-id="b11a8af1-e90c-29e1-6a38-23c736acdd27" class="menu-item-works"><img src="/images/Works-Standby.png" loading="lazy" alt="" class="img_standby no_drag"><img src="/images/works_hover.png" loading="lazy" data-w-id="b11a8af1-e90c-29e1-6a38-23c736acdd29" alt="" class="img_hover no_drag">{worksClicked && <img src="/images/Works_clicked.png" loading="lazy" alt="" class="img_clicked works desktop no_drag">}</div>
+      </div>
+      <a href="/about/" aria-current={isAbout ? 'page' : undefined} class:list={['div-about-menu', 'w-inline-block', { 'w--current': isAbout }]}>
+        <div class="menu-item-about"><img src="/images/About_standby.png" loading="lazy" alt="" class="img_standby"><img src="/images/About-hover.png" loading="lazy" data-w-id="0a4fd670-6dfc-fe52-acdf-ddcfbd5d833b" alt="" class="img_hover">{isAbout && <img src="/images/About-clicked.png" loading="lazy" alt="" class="img_clicked">}</div>
+      </a>
+    </div>
+    <div class="email-n-1-div">
+      <a href={`mailto:${nav.email}`} class="email-div w-inline-block">
+        <div class="div-block-44"><img src="/images/e-mail-standby_1e-mail-standby.png" loading="lazy" alt="" class="img_standby email"><img src="/images/email-hover_1email-hover.png" loading="lazy" data-w-id="ae1a8cf3-501b-3501-e6de-186d1c9ae377" alt="" class="img_hover email"></div>
+      </a><img src="/images/02-Red-Misprint-Unten-1_small_102-Red-Misprint-Unten-1_small.png" loading="lazy" width="58" alt="" class="image-11">
+    </div>
+  </div>
+  <div class="works-sub-menu desktop">
+    <div class="films">
+      {nav.films.map((item) => (
+        <a href={item.href ?? '#'} aria-current={item.current ? 'page' : undefined} class={navClass(item)}>{item.label}</a>
+      ))}
+    </div>
+    <div class="music-videos">
+      {nav.musicvideos.map((item) => (
+        <a href={item.href ?? '#'} aria-current={item.current ? 'page' : undefined} class={navClass(item)}>{item.label}</a>
+      ))}
+    </div>
+    <div class="showreel">
+      <a href="/" aria-current={isHome ? 'page' : undefined} class:list={['sidebar-button', 'text-size', 'w-button', { 'w--current': isHome }]}>Showreel</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+---
+// Projektseite "Junk Jornal" — Foto-Masonry in zwei Spalten,
+// exakt wie im Webflow-Export. Spalten sind einzeln editierbar.
+import Img from '../Img.astro';
+
+const { data } = Astro.props;
+---
+<div class="junk-jornal-div hero">
+  <div class="w-layout-grid junk-grid page">
+    {data.columns.map((column: any) => (
+      <div class="w-layout-vflex flex-fotos">
+        {column.images.map((img: any) => (
+          <Img src={img.src} id={img.id} class="img-flex-massonary" alt={img.alt} />
+        ))}
+      </div>
+    ))}
+  </div>
+</div>

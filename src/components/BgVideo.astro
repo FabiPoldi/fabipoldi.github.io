@@ -1,0 +1,25 @@
+---
+// Webflow-Hintergrundvideo (w-background-video): Loop, stumm, mit Poster.
+// `base` = Dateiname ohne Endung in /videos (Webflow-Export mit -transcode-Paar),
+// alternativ `file` = einzelne Videodatei (z. B. neue Uploads über das CMS).
+interface Props {
+  base?: string;
+  file?: string;
+  poster?: string;
+  /** HTML-id des <video>-Elements (aus dem Original übernommen) */
+  videoId: string;
+  wrapperClass: string;
+  wrapperId?: string;
+  dataWId?: string;
+}
+const { base, file, poster: posterProp, videoId, wrapperClass, wrapperId, dataWId } = Astro.props;
+
+const mp4 = base ? `/videos/${base}-transcode.mp4` : file!;
+const webm = base ? `/videos/${base}-transcode.webm` : undefined;
+const poster = posterProp ?? (base ? `/videos/${base}-poster-00001.jpg` : undefined);
+const videoUrls = webm ? `${mp4},${webm}` : mp4;
+---
+<div data-poster-url={poster} data-video-urls={videoUrls} data-autoplay="true" data-loop="true" data-wf-ignore="true" id={wrapperId} data-w-id={dataWId} class={`${wrapperClass} w-background-video w-background-video-atom`}><video id={videoId} autoplay loop style={poster ? `background-image:url("${poster}")` : undefined} muted playsinline data-wf-ignore="true" data-object-fit="cover">
+    <source src={mp4} data-wf-ignore="true">
+    {webm && <source src={webm} data-wf-ignore="true">}
+  </video></div>

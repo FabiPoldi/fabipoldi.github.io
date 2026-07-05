@@ -1,0 +1,43 @@
+---
+// Projektseite "Ωracles 'Melt Tonight'" — exakte Struktur des Webflow-Exports.
+import Img from '../Img.astro';
+import BgVideo from '../BgVideo.astro';
+import CreditLines from '../CreditLines.astro';
+import { inline } from '../../lib/text';
+
+const { data } = Astro.props;
+const { singleLoop, loopGrid, pressLogos, player, credits, outro } = data;
+
+const loopIds = [
+  { wrapperId: 'w-node-_1af0dc54-d5f8-f6a6-322a-1aaf1b431d70-7dc3692c', videoId: '1af0dc54-d5f8-f6a6-322a-1aaf1b431d70-video' },
+  { wrapperId: 'w-node-b921e0fe-b6a6-86b2-0c6e-9f7dc5a72e97-7dc3692c', videoId: 'b921e0fe-b6a6-86b2-0c6e-9f7dc5a72e97-video' },
+  { wrapperId: 'w-node-a52f304e-3a92-4b45-d971-cc0ba56e8fe6-7dc3692c', videoId: 'a52f304e-3a92-4b45-d971-cc0ba56e8fe6-video' },
+  { wrapperId: 'w-node-dcfa8e54-0da8-0f20-1508-a24ef5600a37-7dc3692c', videoId: 'dcfa8e54-0da8-0f20-1508-a24ef5600a37-video' },
+];
+---
+<div class="div-block-62-copy">
+  <div>
+    <BgVideo base={singleLoop} videoId="718e24c9-7e9f-f397-1b4e-9f79eb09dad4-video" wrapperClass="background-video-4" />
+  </div>
+</div>
+<div class="div-block-61-copy">
+  <div class="w-layout-grid grid-8">
+    {loopGrid.map((base: string, i: number) => (
+      <BgVideo base={base} wrapperId={loopIds[i]?.wrapperId} videoId={loopIds[i]?.videoId ?? `oracles-loop-${i}-video`} wrapperClass="background-video-3" />
+    ))}
+  </div>
+</div>
+<div class="div-block-76">
+  {pressLogos.map((img: any) => (
+    <Img src={img.src} id={img.id} width={img.width} sizes={img.sizes} alt={img.alt} class={img.class} />
+  ))}
+</div>
+<div class="video-div luz">
+  <div class="placeholder vimeo-video">
+    <div class="capital video-error-message">To view this video please accept cookies. </div>
+  </div>
+  <div style={`display:none;padding-top:${player.paddingTop}`} class="vimeo-video w-video w-embed"><iframe class="embedly-embed" src={player.embedSrc} width="940" height={player.height} scrolling="no" allowfullscreen title={player.title}></iframe></div>
+  <div data-w-id="763717ab-5934-04cc-a543-ee8dd4ea9794" class="video-thumbnail oracles"></div><img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" alt="" class="cta-img">
+  <CreditLines items={credits} trailingLine={true} id="w-node-f58eaab3-8ddb-5c5f-c4db-dd2b01e39004-7dc3692c" />
+  <h1 id="w-node-c7b8420a-d080-03b7-ad93-1e3e0ebf1a25-7dc3692c" class="capital text-size h3 centered" set:html={inline(outro)}></h1>
+</div>

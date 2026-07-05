@@ -1,0 +1,42 @@
+---
+// Projektseite "LUZ" — exakte Struktur des Webflow-Exports.
+import Img from '../Img.astro';
+import BgVideo from '../BgVideo.astro';
+import VimeoGated from '../VimeoGated.astro';
+import CreditLines from '../CreditLines.astro';
+import { inline } from '../../lib/text';
+
+const { data } = Astro.props;
+const { posterGrid, imageText, collage, vimeo, credits, outro } = data;
+---
+<div class="div-block-62">
+  <div class="w-layout-grid grid luz landing _2">
+    <a href="/works/luz/" aria-current="page" class="w-inline-block w--current"><Img src={posterGrid.poster} class="image-in-grid" /></a>
+    <a href="/works/luz/" aria-current="page" class="grid-inner-div w-inline-block w--current">
+      {posterGrid.images.map((img: any) => (
+        <Img src={img.src} id={img.id} class="image-in-grid" alt={img.alt} />
+      ))}
+    </a>
+  </div>
+  <div class="capital text-size centered" set:html={inline(posterGrid.quote)}></div>
+</div>
+<div class="div-block-61"><Img src={imageText.image} />
+  <h1 class="capital text-size h3 left" set:html={inline(imageText.text)}></h1>
+</div>
+<div class="w-layout-grid grid-3">
+  <a id="w-node-_8b4fca88-9a9c-68cd-cc4a-d78e9890db2c-7dc36928" href="#" class="w-inline-block"><Img src={collage.linkImage} class="image-in-grid" /></a>
+  <div id="w-node-d75de7f0-0432-113f-91ce-b721f91794cc-7dc36928" class="div-block-60">
+    {collage.clusterImages.map((img: any) => (
+      <Img src={img.src} id={img.id} class={img.class} alt={img.alt} />
+    ))}
+  </div><Img src={collage.soloImage.src} id={collage.soloImage.id} sizes={collage.soloImage.sizes} class="image-17" />
+  <h1 id="w-node-bff3fcf2-130b-c7c0-557d-be6d5dffec6a-7dc36928" class="capital text-size h3" set:html={inline(collage.text)}></h1>
+</div>
+<div class="video-div luz">
+  <div class="video-div luz">
+    <VimeoGated vimeoId={vimeo.id} placeholderId="placeholder_luz" />
+    <BgVideo base={vimeo.thumbnailVideo} dataWId="53c01967-bc19-27d3-e1c6-59757d433db4" videoId="53c01967-bc19-27d3-e1c6-59757d433db4-video" wrapperClass="video-thumbnail luz" /><img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" alt="" class="cta-img">
+  </div>
+  <CreditLines items={credits} trailingLine={true} id="w-node-f58eaab3-8ddb-5c5f-c4db-dd2b01e39004-7dc36928" />
+  <h1 id="w-node-c7b8420a-d080-03b7-ad93-1e3e0ebf1a25-7dc36928" class="capital text-size h3 centered" set:html={inline(outro)}></h1>
+</div>

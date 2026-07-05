@@ -1,0 +1,63 @@
+title: "Say Wuff!"
+layout: say-wuff
+wfPageId: 6a4619bec66319687dc36924
+sidebarWorksClicked: true
+seo:
+  description: "Say Wuff!  is a declaration of love to the beauty of simplicity  - to quirky oddities of life and to the one and only believable truth  »Wuff!«"
+  ogTitle: "Say Wuff!"
+  fullOg: true
+headline:
+  title: "SAY wuff!"
+  metaLines:
+    - "Fiction  •  Germany  •  2024  •  17min   •  16mm"
+hero:
+  poster: /images/Say-Wuff-Poster-Laurels-New.jpg
+  posterSizes: "(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px"
+  text: "‘Say Wuff!’ is Podeszwa’s declaration of love to the beauty of simplicity to quirky oddities of life and to the one and only believable truth:\n‍<strong> »Wuff!«</strong>"
+stills:
+  images:
+    - src: /images/01-Say-Wuff-Still-3.png
+      class: image-41
+    - src: /images/04-Say-Wuff-Still.jpg
+    - src: /images/06-bSay-Wuff-Still-klein.jpg
+      class: image-27
+    - src: /images/05-Say-Wuff-Still_klein.jpg
+      class: image-7
+      id: w-node-_3937ba75-4ef0-214f-fc89-f0c7ea733bad-7dc36924
+    - src: /images/07-Say-Wuff-Still.jpg
+      class: image-7
+      id: w-node-_21bbd7c9-4aa5-1fc7-8643-19fc40b0d6cf-7dc36924
+    - src: /images/07-Say-Wuff-Still-klein.jpg
+      class: image-7
+      id: w-node-_65a24283-8896-b652-f439-d5db95b31dde-7dc36924
+  text: "Set in the streets of an unknown german city in the 90s - Jakarta, a 21-year-old Indonesian, is obsessed with the legendary stories his father told him as a child. Just like in those stories, he wants to create something special. When he falls in love with a mysterious, blue-haired hairdresser, he decides to gather all his friends and create the greatest magic trick ever seen."
+vimeo:
+  id: 1015245973
+  thumbnail: /images/Say-Wuff-Thumb-Website.jpg
+  caption: "The 30 minute long romantic outsider lovestory is Podeszwa’s thesis-film at the ‘Academy of Media Arts Cologne’. It was funded by ‘Film- und Medienstiftung NRW’."
+bts:
+  images:
+    - src: /images/11-BTS-klein.jpg
+      id: w-node-_0ed66dba-bec2-5926-d4ff-06c6ba4ec177-7dc36924
+    - src: /images/10-BTS.jpg
+  caption: "behind the scenes "
+credits:
+  logo: /images/Say-Wuff-Logo-Print-klein.png
+  starring: "<strong>Starring</strong>\nJulien Wolff\nCarlotta Truman\nBéla Gábor Lenz\nTatiana Feldman"
+  columns:
+    - entries:
+        - "<strong>Writer, Director & Editor</strong>\nFabian Podeszwa "
+        - "<strong>Director of Photography</strong>\nPaul Faltz "
+        - "<strong>Original Music</strong>\nAndrew Collberg "
+        - "<strong>Executive Producer</strong>\nFitore Muzaqi"
+    - entries:
+        - "<strong>Productiondesign</strong>\nNikolai Meierjohann"
+        - "<strong>CostumeDesign</strong>\nLeah Bauthamy "
+        - "<strong>SOUND Design</strong>\nJanis Ahnert "
+        - "<strong>Mixing</strong>\nHenry Uhl"
+  footer: "<strong>Producer</strong>\nFabian Podeszwa\nBéla Gábor Lenz\n‍\n© 2023 KHM / PODESZWA . ALL RIGHTS RESERVED"
+laurels:
+  - src: /images/SITGES-LAUREL-2024-1.png
+  - src: /images/Norwich-Laurel.png
+  - src: /images/Etuida-Laurel.png
+  - src: /images/Sitges-Laurels.png

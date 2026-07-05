@@ -1,0 +1,879 @@
+# Pages CMS Konfiguration (app.pagescms.org)
+# Damit kannst du alle Inhalte der Website im Browser bearbeiten.
+# Hinweis zu Textfeldern: Eine neue Zeile erzeugt einen Zeilenumbruch,
+# <strong>…</strong> oder **…** macht Text fett.
+
+media:
+  - name: images
+    label: Bilder
+    input: public/images
+    output: /images
+    categories: [image]
+  - name: videos
+    label: Videos
+    input: public/videos
+    output: /videos
+
+components:
+  bild:
+    label: Bild
+    type: object
+    fields:
+      - name: src
+        label: Bilddatei
+        type: image
+        options:
+          media: images
+      - name: alt
+        label: Beschreibung (Alt-Text)
+        type: string
+      - name: id
+        label: Technische Grid-ID (nicht ändern)
+        type: string
+        hidden: true
+      - name: class
+        label: Technische CSS-Klasse (nicht ändern)
+        type: string
+        hidden: true
+      - name: sizes
+        label: Technisches sizes-Attribut (nicht ändern)
+        type: string
+        hidden: true
+  seo:
+    label: Suchmaschinen (SEO)
+    type: object
+    fields:
+      - name: description
+        label: Beschreibung
+        type: text
+      - name: ogTitle
+        label: Titel für Social Media
+        type: string
+      - name: fullOg
+        label: Volle Social-Media-Metadaten
+        type: boolean
+        hidden: true
+  headline:
+    label: Überschrift
+    type: object
+    fields:
+      - name: logo
+        label: Logo (optional, über dem Titel)
+        type: image
+        options:
+          media: images
+      - name: title
+        label: Titel
+        type: string
+      - name: metaLines
+        label: Info-Zeilen (Jahr, Format …)
+        type: string
+        list: true
+
+content:
+  # ---------- Startseite ----------
+  - name: home
+    label: Startseite
+    type: file
+    path: content/home.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Browser-Titel
+        type: string
+      - name: hero
+        label: Kopfbereich (Hallo + Showreel)
+        type: object
+        fields:
+          - name: welcomeImage
+            label: Begrüßungsbild
+            type: image
+            options:
+              media: images
+          - name: welcomeText
+            label: Welcome-Text-Bild
+            type: image
+            options:
+              media: images
+          - name: showreelMp4
+            label: Showreel-Video (MP4-URL)
+            type: string
+          - name: thumbnailVideo
+            label: Vorschau-Loop (Video-Dateibasis, technisch)
+            type: string
+            hidden: true
+      - name: sections
+        label: Projekt-Abschnitte
+        type: block
+        list: true
+        blockKey: layout
+        blocks:
+          - name: say-wuff-landing
+            label: "Abschnitt: Say Wuff"
+            fields:
+              - name: heading
+                label: Überschrift
+                type: string
+              - name: meta
+                label: Info-Zeile
+                type: string
+              - name: lineMobil
+                label: Linie (Mobil-Variante)
+                type: boolean
+                hidden: true
+              - name: link
+                label: Link zur Projektseite
+                type: string
+              - name: poster
+                label: Poster
+                type: image
+                options:
+                  media: images
+              - name: images
+                label: Bilder
+                component: bild
+                list: true
+              - name: teaserMp4
+                label: Trailer-Video (MP4-URL)
+                type: string
+              - name: textLeft
+                label: Text links
+                type: text
+              - name: textRight
+                label: Text rechts
+                type: text
+          - name: milky-landing
+            label: "Abschnitt: Milky Chance"
+            fields:
+              - name: heading
+                label: Überschrift
+                type: string
+              - name: meta
+                label: Info-Zeile
+                type: string
+              - name: link
+                label: Link zur Projektseite
+                type: string
+              - name: poster
+                label: Poster
+                type: image
+                options:
+                  media: images
+              - name: videos
+                label: Video-Loops (Dateibasis)
+                type: string
+                list: true
+              - name: teaserMp4
+                label: Trailer-Video (MP4-URL)
+                type: string
+              - name: textLeft
+                label: Text links
+                type: text
+              - name: textRight
+                label: Text rechts
+                type: text
+          - name: oracles-landing
+            label: "Abschnitt: Oracles"
+            fields:
+              - name: heading
+                label: Überschrift
+                type: string
+              - name: meta
+                label: Info-Zeile
+                type: string
+              - name: link
+                label: Link zur Projektseite
+                type: string
+              - name: videos
+                label: Video-Loops (Dateibasis)
+                type: string
+                list: true
+              - name: textLeft
+                label: Text links
+                type: text
+              - name: textRight
+                label: Text rechts
+                type: text
+          - name: junk-landing
+            label: "Abschnitt: Junk Jornal (3 Fotos)"
+            fields:
+              - name: heading
+                label: Überschrift
+                type: string
+              - name: meta
+                label: Info-Zeile
+                type: string
+              - name: link
+                label: Link zur Projektseite
+                type: string
+              - name: images
+                label: Fotos (3 Stück)
+                component: bild
+                list: true
+          - name: luz-landing
+            label: "Abschnitt: LUZ"
+            fields:
+              - name: heading
+                label: Überschrift
+                type: string
+              - name: meta
+                label: Info-Zeile
+                type: string
+              - name: link
+                label: Link zur Projektseite
+                type: string
+              - name: poster
+                label: Poster
+                type: image
+                options:
+                  media: images
+              - name: images
+                label: Bilder
+                component: bild
+                list: true
+              - name: textLeft
+                label: Text links
+                type: text
+              - name: textRight
+                label: Text rechts
+                type: text
+
+  # ---------- Menü & Einstellungen ----------
+  - name: settings
+    label: Menü & Einstellungen
+    type: file
+    path: content/settings.yml
+    format: yaml
+    fields:
+      - name: email
+        label: E-Mail-Adresse
+        type: string
+      - name: nav
+        label: Menü
+        type: object
+        fields:
+          - name: films
+            label: "Menü: Films"
+            type: object
+            list: true
+            fields:
+              - name: label
+                label: Name im Menü
+                type: string
+              - name: work
+                label: Projekt-Dateiname (z. B. say-wuff) — leer = grauer Platzhalter
+                type: string
+              - name: deactivated
+                label: Grau anzeigen (trotz Link)
+                type: boolean
+          - name: musicvideos
+            label: "Menü: Musicvideos"
+            type: object
+            list: true
+            fields:
+              - name: label
+                label: Name im Menü
+                type: string
+              - name: work
+                label: Projekt-Dateiname (z. B. golf) — leer = grauer Platzhalter
+                type: string
+              - name: deactivated
+                label: Grau anzeigen (trotz Link)
+                type: boolean
+
+  # ---------- About ----------
+  - name: about
+    label: About-Seite
+    type: file
+    path: content/about.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Browser-Titel
+        type: string
+      - name: text
+        label: Über-mich-Text
+        type: text
+      - name: requestsLabel
+        label: Button-Text (Anfragen)
+        type: string
+      - name: requestsLink
+        label: Button-Link (Anfragen)
+        type: string
+      - name: email
+        label: E-Mail-Adresse (für den Mail-Link)
+        type: string
+      - name: emailLabel
+        label: Angezeigter E-Mail-Text
+        type: string
+      - name: designerUrl
+        label: Link Website-Designer
+        type: string
+      - name: designerLogo
+        label: Logo Website-Designer
+        type: image
+        options:
+          media: images
+
+  # ---------- Rechtliches ----------
+  - name: legal
+    label: Impressum & Datenschutz
+    type: file
+    path: content/legal.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Browser-Titel
+        type: string
+      - name: impressum
+        label: Impressum
+        type: object
+        fields:
+          - name: title
+            label: Überschrift
+            type: string
+          - name: address
+            label: Name & Adresse
+            type: text
+          - name: contact
+            label: Kontakt
+            type: text
+          - name: disputeText
+            label: Streitschlichtungs-Hinweis
+            type: text
+      - name: privacy
+        label: Datenschutzerklärung
+        type: object
+        fields:
+          - name: title
+            label: Überschrift
+            type: string
+          - name: paragraphs
+            label: Absätze
+            type: text
+            list: true
+
+  # ---------- Bestehende Projekte (maßgeschneiderte Formulare) ----------
+  - name: say-wuff
+    label: "Projekt: Say Wuff"
+    type: file
+    path: content/works/say-wuff.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Browser-Titel
+        type: string
+      - name: layout
+        type: string
+        hidden: true
+      - name: wfPageId
+        type: string
+        hidden: true
+      - name: sidebarWorksClicked
+        type: boolean
+        hidden: true
+      - name: seo
+        component: seo
+      - name: headline
+        component: headline
+      - name: hero
+        label: Kopfbereich (Poster + Text)
+        type: object
+        fields:
+          - name: poster
+            label: Poster
+            type: image
+            options:
+              media: images
+          - name: posterSizes
+            type: string
+            hidden: true
+          - name: text
+            label: Text neben dem Poster
+            type: text
+      - name: stills
+        label: Filmstills + Synopsis
+        type: object
+        fields:
+          - name: images
+            label: Bilder
+            component: bild
+            list: true
+          - name: text
+            label: Synopsis
+            type: text
+      - name: vimeo
+        label: Vimeo-Player
+        type: object
+        fields:
+          - name: id
+            label: Vimeo-Video-ID
+            type: string
+          - name: thumbnail
+            label: Vorschaubild
+            type: image
+            options:
+              media: images
+          - name: caption
+            label: Text unter dem Video
+            type: text
+      - name: bts
+        label: Behind the Scenes
+        type: object
+        fields:
+          - name: images
+            label: Bilder
+            component: bild
+            list: true
+          - name: caption
+            label: Bildunterschrift
+            type: string
+      - name: credits
+        label: Credits
+        type: object
+        fields:
+          - name: logo
+            label: Film-Logo
+            type: image
+            options:
+              media: images
+          - name: starring
+            label: Besetzung
+            type: text
+          - name: columns
+            label: Credit-Spalten
+            type: object
+            list: true
+            fields:
+              - name: entries
+                label: Einträge
+                type: text
+                list: true
+          - name: footer
+            label: Abschlusszeile (Producer/Copyright)
+            type: text
+      - name: laurels
+        label: Festival-Laurels
+        component: bild
+        list: true
+
+  - name: junk-jornal
+    label: "Projekt: Junk Jornal"
+    type: file
+    path: content/works/junk-jornal.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Browser-Titel
+        type: string
+      - name: layout
+        type: string
+        hidden: true
+      - name: wfPageId
+        type: string
+        hidden: true
+      - name: seo
+        component: seo
+      - name: headline
+        component: headline
+      - name: columns
+        label: Foto-Spalten
+        type: object
+        list: true
+        fields:
+          - name: images
+            label: Fotos
+            component: bild
+            list: true
+
+  - name: luz
+    label: "Projekt: LUZ"
+    type: file
+    path: content/works/luz.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Browser-Titel
+        type: string
+      - name: layout
+        type: string
+        hidden: true
+      - name: wfPageId
+        type: string
+        hidden: true
+      - name: seo
+        component: seo
+      - name: headline
+        component: headline
+      - name: posterGrid
+        label: Poster + Bilder + Zitat
+        type: object
+        fields:
+          - name: poster
+            label: Poster
+            type: image
+            options:
+              media: images
+          - name: images
+            label: Bilder
+            component: bild
+            list: true
+          - name: quote
+            label: Zitat
+            type: text
+      - name: imageText
+        label: Bild + Text
+        type: object
+        fields:
+          - name: image
+            label: Bild
+            type: image
+            options:
+              media: images
+          - name: text
+            label: Text
+            type: text
+      - name: collage
+        label: Foto-Collage
+        type: object
+        fields:
+          - name: linkImage
+            label: Großes Bild
+            type: image
+            options:
+              media: images
+          - name: clusterImages
+            label: Bild-Gruppe (3 Stück)
+            component: bild
+            list: true
+          - name: soloImage
+            label: Einzelbild
+            component: bild
+          - name: text
+            label: Text
+            type: text
+      - name: vimeo
+        label: Vimeo-Player
+        type: object
+        fields:
+          - name: id
+            label: Vimeo-Video-ID
+            type: string
+          - name: thumbnailVideo
+            label: Vorschau-Loop (Dateibasis, technisch)
+            type: string
+            hidden: true
+      - name: credits
+        label: Credits
+        type: text
+        list: true
+      - name: outro
+        label: Abschluss-Zitat
+        type: text
+
+  - name: milky-chance
+    label: "Projekt: Milky Chance"
+    type: file
+    path: content/works/milky-chance.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Browser-Titel
+        type: string
+      - name: layout
+        type: string
+        hidden: true
+      - name: wfPageId
+        type: string
+        hidden: true
+      - name: seo
+        component: seo
+      - name: headline
+        component: headline
+      - name: hero
+        label: Kopfbereich (Video + Text)
+        type: object
+        fields:
+          - name: video
+            label: Video-Loop (Dateibasis, technisch)
+            type: string
+            hidden: true
+          - name: text
+            label: Text
+            type: text
+      - name: posterLoops
+        label: Poster + Video-Loops + Text
+        type: object
+        fields:
+          - name: poster
+            label: Poster
+            type: image
+            options:
+              media: images
+          - name: videos
+            label: Video-Loops (Dateibasis, technisch)
+            type: string
+            list: true
+            hidden: true
+          - name: text
+            label: Text
+            type: text
+      - name: vimeo
+        label: Vimeo-Player
+        type: object
+        fields:
+          - name: id
+            label: Vimeo-Video-ID
+            type: string
+          - name: thumbnailVideo
+            label: Vorschau-Loop (Dateibasis, technisch)
+            type: string
+            hidden: true
+
+  - name: oracals
+    label: "Projekt: Oracles"
+    type: file
+    path: content/works/oracals.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Browser-Titel
+        type: string
+      - name: layout
+        type: string
+        hidden: true
+      - name: wfPageId
+        type: string
+        hidden: true
+      - name: seo
+        component: seo
+      - name: headline
+        component: headline
+      - name: singleLoop
+        label: Großer Video-Loop (Dateibasis, technisch)
+        type: string
+        hidden: true
+      - name: loopGrid
+        label: Video-Loop-Raster (Dateibasis, technisch)
+        type: string
+        list: true
+        hidden: true
+      - name: pressLogos
+        label: Presse-Logos
+        component: bild
+        list: true
+      - name: player
+        label: Video-Player (Embedly)
+        type: object
+        fields:
+          - name: embedSrc
+            label: Embed-URL
+            type: string
+          - name: paddingTop
+            type: string
+            hidden: true
+          - name: height
+            label: Höhe (Pixel)
+            type: number
+          - name: title
+            label: Titel
+            type: string
+      - name: credits
+        label: Credits
+        type: text
+        list: true
+      - name: outro
+        label: Abschlusstext
+        type: text
+
+  - name: golf
+    label: "Projekt: Golf"
+    type: file
+    path: content/works/golf.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Browser-Titel
+        type: string
+      - name: layout
+        type: string
+        hidden: true
+      - name: wfPageId
+        type: string
+        hidden: true
+      - name: seo
+        component: seo
+      - name: headline
+        component: headline
+      - name: videos
+        label: Videos
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+          - name: gated
+            label: Vimeo mit Cookie-Hinweis
+            fields:
+              - name: vimeoId
+                label: Vimeo-Video-ID
+                type: string
+              - name: placeholderId
+                type: string
+                hidden: true
+              - name: thumbnailVideo
+                label: Vorschau-Loop (Dateibasis, technisch)
+                type: string
+                hidden: true
+              - name: thumbWId
+                type: string
+                hidden: true
+              - name: caption
+                label: Titelzeile
+                type: string
+          - name: embedly
+            label: Embedly-Player
+            fields:
+              - name: embedSrc
+                label: Embed-URL
+                type: string
+              - name: paddingTop
+                type: string
+                hidden: true
+              - name: height
+                label: Höhe (Pixel)
+                type: number
+              - name: title
+                label: Titel
+                type: string
+              - name: thumbClass
+                type: string
+                hidden: true
+              - name: playButtonWId
+                type: string
+                hidden: true
+              - name: caption
+                label: Titelzeile
+                type: string
+
+  - name: showreel
+    label: "Projekt: Showreel"
+    type: file
+    path: content/works/showreel.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Browser-Titel
+        type: string
+      - name: layout
+        type: string
+        hidden: true
+      - name: wfPageId
+        type: string
+        hidden: true
+      - name: seo
+        component: seo
+      - name: headline
+        component: headline
+      - name: vimeo
+        label: Vimeo-Player
+        type: object
+        fields:
+          - name: id
+            label: Vimeo-Video-ID
+            type: string
+          - name: thumbnailVideo
+            label: Vorschau-Loop (Dateibasis, technisch)
+            type: string
+            hidden: true
+
+  # ---------- Neue Projekte ----------
+  - name: works
+    label: Neue Projekte
+    type: collection
+    path: content/works
+    format: yaml
+    filename: "{primary}.yml"
+    exclude:
+      - say-wuff.yml
+      - junk-jornal.yml
+      - luz.yml
+      - milky-chance.yml
+      - oracals.yml
+      - golf.yml
+      - showreel.yml
+    view:
+      fields: [title]
+      primary: title
+    fields:
+      - name: title
+        label: Titel
+        type: string
+        required: true
+      - name: layout
+        type: string
+        default: generic
+        hidden: true
+      - name: seo
+        component: seo
+      - name: headline
+        component: headline
+      - name: blocks
+        label: Seiten-Bausteine
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+          - name: text
+            label: Text
+            fields:
+              - name: text
+                label: Text
+                type: text
+              - name: centered
+                label: Zentriert
+                type: boolean
+          - name: gallery
+            label: Foto-Galerie
+            fields:
+              - name: images
+                label: Fotos
+                type: image
+                list: true
+                options:
+                  media: images
+          - name: vimeo
+            label: Vimeo-Video (mit Cookie-Hinweis)
+            fields:
+              - name: vimeoId
+                label: Vimeo-Video-ID (Zahl aus der Vimeo-URL)
+                type: string
+              - name: thumbnail
+                label: Vorschaubild (Click-to-watch)
+                type: image
+                options:
+                  media: images
+              - name: caption
+                label: Text unter dem Video
+                type: text
+          - name: loop
+            label: Video-Loop (ohne Ton, automatisch)
+            fields:
+              - name: file
+                label: Videodatei (MP4)
+                type: file
+                options:
+                  media: videos
+          - name: credits
+            label: Credits
+            fields:
+              - name: items
+                label: Einträge
+                type: text
+                list: true
+          - name: laurels
+            label: Festival-Laurels
+            fields:
+              - name: images
+                label: Laurel-Bilder
+                component: bild
+                list: true

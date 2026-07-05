@@ -1,0 +1,39 @@
+title: "Oracals"
+layout: oracals
+wfPageId: 6a4619bec66319687dc3692c
+seo:
+  ogTitle: "Oracals"
+headline:
+  logo: /images/Oracles-Logob.png
+  title: "Ωracles  'Melt Tonight'"
+  metaLines:
+    - "music video  •  2014  "
+    - "Director, Dop, Editor "
+singleLoop: guitar-dance-loop
+loopGrid:
+  - -Zoom-Gif-Small
+  - Kaputze-Gid-Small-b
+  - Berg-Looup-Logomov
+  - -Diamond-Gif-Smalllllll
+pressLogos:
+  - src: /images/Diffus-mit-Text.png
+  - src: /images/spex-mit-text.png
+    width: 446
+    id: w-node-d2275d18-6419-0f01-52c6-564ba36c6a62-7dc3692c
+    sizes: "(max-width: 479px) 100vw, 446px"
+    alt: "‘top 10 musicvideo of the year’ Spex"
+    class: spex-img
+  - src: /images/nme-mit-text.png
+player:
+  embedSrc: "https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fplayer.vimeo.com%2Fvideo%2F278552417%3Fapp_id%3D122963&dntp=1&display_name=Vimeo&url=https%3A%2F%2Fvimeo.com%2F278552417&image=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F711609838-e060a85fe9c281b00f9560d01d9b48ed9ef3acc50fb3a76cd594ff94780214ec-d_1280&key=96f1f04c5f4143bcb0f2e68c87d65feb&type=text%2Fhtml&schema=vimeo"
+  paddingTop: "62.23404255319149%"
+  height: 585
+  title: "Oracles - Melt Tonight"
+credits:
+  - "<strong>Director, Dop, Editor </strong>\nFabian Podeszwa"
+  - "<strong>Assistant Director\n</strong>Elodie Paul "
+  - "<strong>Storyboard\n</strong>Joshua Gottmanns "
+  - "<strong>SFX\n</strong>Henrik Frankenfeld "
+  - "<strong>Executive Producer\n</strong>Clouds Hill Studios"
+  - "Album 'Bedroom Eyes'\n2014"
+outro: "In appreciation to the underground filmmaking movement of the 60s\nShot in Côte d'Azur"

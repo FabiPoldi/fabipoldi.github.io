@@ -1,0 +1,24 @@
+title: "Junk Jornal"
+layout: junk-jornal
+wfPageId: 6a4619bec66319687dc3692a
+seo:
+  ogTitle: "Junk Jornal"
+headline:
+  title: "junk jornal"
+  metaLines:
+    - "Photography-Series  •  ongoing  •  35mm / 120mm / Polaroid "
+columns:
+  - images:
+      - src: /images/Run-Finalana.jpg
+      - src: /images/JujiRDP30115-klein.jpg
+      - src: /images/Illford-HP5-Basel12-2.jpgana-.jpg
+      - src: /images/Heavenb-Kopie-klein.jpg
+      - src: /images/Image-A051726_klein.jpg
+  - images:
+      - src: /images/Fuji-RDP-Mountains27-klein.jpg
+        id: w-node-_12297873-6d29-01e5-3159-d61a97b62c93-7dc3692a
+      - src: /images/JujiRDP333_small.jpg
+      - src: /images/Illford-Dia-200-Elba2ana.jpg
+      - src: /images/Illford-HP5-Basel23-2ana.jpg
+      - src: /images/Fuji-RDP-Mountains03-klein.jpg
+      - src: /images/Ill-Delta-Dez16ana.jpg

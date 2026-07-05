@@ -1,0 +1,42 @@
+---
+// Vimeo-Embed mit Finsweet-Cookie-Gate: Placeholder + verstecktes iframe,
+// das fs-cc erst nach Consent lädt. Thumbnail/CTA rendert der Aufrufer.
+interface Props {
+  vimeoId: string | number;
+  placeholderId?: string;
+  manageButton?: boolean;
+  params?: string;
+}
+const {
+  vimeoId,
+  placeholderId,
+  manageButton = true,
+  params = 'autoplay=0&loop=0&autopause=1&muted=0&portrait=0&byline=0',
+} = Astro.props;
+const src = `https://player.vimeo.com/video/${vimeoId}?${params}`;
+---
+<div id={placeholderId} class="placeholder vimeo-video">
+  <div class="capital video-error-message">To view this video please accept cookies. </div>
+  {manageButton && <a fs-cc="open-preferences" href="#" class="open-cookies-button capital w-button">Manage cookies</a>}
+</div>
+<div style="display:none" class="vimeo-video w-embed w-iframe">
+  <style is:inline>
+    .embed-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0; overflow: hidden;
+        max-width: 100%; height: auto;
+    }
+    .embed-container iframe, .embed-container object, .embed-container embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+</style>
+  <div class="embed-container">
+    <iframe fs-cc-src={src} fs-cc-placeholder={placeholderId ? `#${placeholderId}` : undefined} fs-cc-category="analytics" width="100%" frameborder="0" allow="autoplay"></iframe>
+  </div>
+</div>
