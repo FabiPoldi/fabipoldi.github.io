@@ -1,8 +1,11 @@
 # Anleitung: Deine Website selbst pflegen
 
-Diese Website läuft komplett kostenlos: Der Code liegt auf **GitHub**,
-gehostet wird über **GitHub Pages**, und bearbeiten kannst du alles über
-**Pages CMS** im Browser — ohne Code anzufassen.
+**Live unter: https://fabian-podeszwa.com** (www und fabipoldi.github.io
+leiten dorthin um). Die Website läuft komplett kostenlos: Der Code liegt auf
+**GitHub** (Repo `FabiPoldi/fabipoldi.github.io`), gehostet wird über
+**GitHub Pages**, und bearbeiten kannst du alles über **Pages CMS** im
+Browser — ohne Code anzufassen. Die DNS-Verwaltung der Domain liegt bei
+Cargo (cargo.site), die Domain-Registrierung bei eNom.
 
 ---
 
