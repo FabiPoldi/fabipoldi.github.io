@@ -11,8 +11,10 @@ interface Props {
 const { entries, starring, footer } = Astro.props;
 ---
 <div class="fp-credits">
-  <img src="/images/Line.png" loading="lazy" alt="" class="fp-credits-line">
-  <div class="fp-credits-title capital">Credits</div>
+  <div class="fp-credits-head">
+    <div class="fp-credits-title capital">Credits</div>
+    <img src="/images/Line.png" loading="lazy" alt="" class="fp-credits-line">
+  </div>
   {starring && <div class="fp-credit fp-credit-starring capital text-size centered" set:html={inline(starring)}></div>}
   <div class="fp-credits-billing">
     {entries.map((e) => (

@@ -80,7 +80,9 @@ const oraclesVideos = [
                 <BgVideo base={s.videos[0]} videoId={oraclesVideos[0].videoId} wrapperClass={oraclesVideos[0].class} />
               </a>
               {s.videos.slice(1).map((base: string, i: number) => (
-                <BgVideo base={base} wrapperId={oraclesVideos[i + 1]?.wrapperId} videoId={oraclesVideos[i + 1]?.videoId ?? `home-oracles-${i}-video`} wrapperClass={oraclesVideos[i + 1]?.class ?? 'background-video-10'} />
+                <a id={oraclesVideos[i + 1]?.wrapperId} href={s.link} class="w-inline-block">
+                  <BgVideo base={base} videoId={oraclesVideos[i + 1]?.videoId ?? `home-oracles-${i}-video`} wrapperClass={oraclesVideos[i + 1]?.class ?? 'background-video-10'} />
+                </a>
               ))}
             </div>
           )}

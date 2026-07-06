@@ -179,10 +179,10 @@ video { pointer-events: none; }
   align-items: center;
   gap: .75rem 3.5rem;
   align-self: center;
-  margin-top: -1rem;
-  margin-bottom: .5rem;
+  margin-top: -2.1rem;
+  margin-bottom: -1.6rem;
 }
-.fp-press img { height: 34px; width: auto; max-width: none; }
+.fp-press img { height: 44px; width: auto; max-width: none; }
 
 /* Oracles: einzeilige Notiz dicht unter den GIFs */
 .fp-oracles-note {
@@ -192,34 +192,31 @@ video { pointer-events: none; }
 }
 
 /* ---------- 6) Play-Cursor + Hover-Verhalten ----------
-   Schlichtes Play-Dreieck als Mauszeiger auf allen abspielbaren Flächen. */
+   Play-Symbol nur als weiße/graue Umrisslinie (ohne Füllung). */
 .video-thumbnail,
 .video-thumbnail img,
 .play-button,
-.cta-img,
-.video-wrapper {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><path d="M7 4 L26 15 L7 26 Z" fill="white" stroke="black" stroke-width="2.4" stroke-linejoin="round"/></svg>') 15 15, pointer;
+.fp-play-main {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M9 5 L27 16 L9 27 Z" fill="none" stroke="rgba(40,40,40,0.45)" stroke-width="5" stroke-linejoin="round"/><path d="M9 5 L27 16 L9 27 Z" fill="none" stroke="%23f2f2f2" stroke-width="2.4" stroke-linejoin="round"/></svg>') 16 16, pointer;
 }
 
 /* Click-to-Watch-Flächen: beim Hover leicht verkleinern und halten,
    beim Verlassen federnd zurück in die Originalgröße */
 .video-thumbnail { transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
-.video-thumbnail:hover { transform: scale(.96); }
+.video-thumbnail:hover { transform: scale(.98); }
 .video-thumbnail.oracles:hover { filter: brightness(.92); }
 
-/* Click-to-Watch-Grafik: keine Einblende-Animation, beim Hover kräftiger */
-.cta-img { transition: filter .15s ease; }
-.cta-img:hover { filter: saturate(1.8) contrast(1.35); }
+/* Click-to-Watch-Grafik ist eine reine Anmerkung: keine Animation, kein Hover */
 
-/* ---------- 7) Ton-Button: nur weißes Symbol, ohne Rahmen ---------- */
-.mute-toggle {
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-  color: #fff;
-  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, .55));
+/* ---------- 7) Ton-Videos: Cursor zeigt den Zustand ----------
+   Stumm: Lautsprecher mit Wellen (Klick = Ton an).
+   Ton an: Lautsprecher mit X (Klick = Ton aus). Kein Overlay-Button mehr. */
+.video-wrapper {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g fill="none" stroke="rgba(40,40,40,0.45)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><path d="M4 12 h5 l7 -6 v20 l-7 -6 h-5 z"/><path d="M21 12 a6 6 0 0 1 0 8"/><path d="M24.5 8.5 a11 11 0 0 1 0 15"/></g><g fill="none" stroke="%23f2f2f2" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 12 h5 l7 -6 v20 l-7 -6 h-5 z"/><path d="M21 12 a6 6 0 0 1 0 8"/><path d="M24.5 8.5 a11 11 0 0 1 0 15"/></g></svg>') 16 16, pointer;
 }
-.mute-toggle svg { width: 30px; height: 30px; display: block; }
+.video-wrapper.fp-unmuted {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g fill="none" stroke="rgba(40,40,40,0.45)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><path d="M4 12 h5 l7 -6 v20 l-7 -6 h-5 z"/><path d="M21 12.5 L28.5 19.5"/><path d="M28.5 12.5 L21 19.5"/></g><g fill="none" stroke="%23f2f2f2" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 12 h5 l7 -6 v20 l-7 -6 h-5 z"/><path d="M21 12.5 L28.5 19.5"/><path d="M28.5 12.5 L21 19.5"/></g></svg>') 16 16, pointer;
+}
 
 /* ---------- 8) Sidebar: alles skaliert weich mit (statt in Stufen) ----------
    Caps in vh, abgeleitet vom Seitenverhältnis des Banner-Hintergrunds
@@ -293,3 +290,73 @@ video { pointer-events: none; }
   padding-right: 0 !important;
 }
 .main-body.works img.video-thumbnail.say-wuff { width: 100%; height: auto; }
+
+/* ---------- 11) LUZ: Player-Vorschau unbeschnitten + Zitat mittig ---------- */
+.main-body.works .video-thumbnail.luz {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1024 / 429; /* Seitenverhältnis des Vorschau-Stills */
+  background-size: contain;
+}
+.video-div.luz > .fp-quote {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: 100%;
+}
+
+/* Vorschaubilder mit Standbild-Hintergrund: das innen liegende Loop-Video
+   bleibt unsichtbar (sonst blitzt es beim Hover über dem Standbild auf) */
+.video-thumbnail.luz video,
+.video-thumbnail.milcky-chance video,
+.video-thumbnail.golf video { display: none !important; }
+
+/* Startseite: "More here" bei Oracles nicht an den GIFs kleben */
+.grid-9 + .div-block-65 { margin-top: 2.5rem; }
+
+/* ---------- 12) Credits: rote Linie als Unterstrich von "Credits" ---------- */
+.fp-credits-head {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: max-content;
+  max-width: 100%;
+}
+.fp-credits-head .fp-credits-line {
+  width: 100%;
+  height: 6px;
+  object-fit: fill;
+  margin-top: .25rem;
+}
+
+/* ---------- 13) Next Project (Fuß jeder Projektseite) ---------- */
+.fp-next {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+  margin: 4.5rem auto 1.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+.fp-next-label {
+  font-size: .62rem;
+  letter-spacing: .3em;
+  text-indent: .3em;
+  opacity: .65;
+  text-transform: uppercase;
+}
+.fp-next-title {
+  font-family: myriad-pro, 'Source Sans 3', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: opacity .15s ease;
+}
+.fp-next-line {
+  align-self: stretch;
+  height: 6px;
+  object-fit: fill;
+  margin-top: .2rem;
+}
+.fp-next:hover .fp-next-title { opacity: .65; }

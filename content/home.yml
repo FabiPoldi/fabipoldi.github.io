@@ -8,7 +8,7 @@ sections:
   - layout: say-wuff-landing
     heading: "say wuff!"
     lineMobil: true
-    meta: "Fiction  •  Germany  •  2024  •  17min   •  16mm"
+    meta: "Short Film  •  Germany  •  2024  •  17min   •  16mm"
     link: /works/say-wuff/
     poster: /images/Say-Wuff-Poster-Laurels-New.jpg
     images:
@@ -49,7 +49,7 @@ sections:
       - src: /images/Ill-Delta-Dez16ana.jpg
   - layout: luz-landing
     heading: "LUZ"
-    meta: "Fiction  •  Germany  •  2018  •  70min   •  16mm"
+    meta: "Feature  •  Germany  •  2018  •  70min   •  16mm"
     link: /works/luz/
     poster: /images/LUZ_Poster-1.jpeg
     images:

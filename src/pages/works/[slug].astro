@@ -25,6 +25,11 @@ const { entry } = Astro.props;
 const data = entry.data as any;
 const nav = await getNav(entry.id);
 
+// "Next Project": nächstes Projekt in Menü-Reihenfolge (Films, dann Musicvideos)
+const ordered = [...nav.films, ...nav.musicvideos].filter((i) => i.href);
+const currentIndex = ordered.findIndex((i) => i.current);
+const nextProject = ordered.length > 1 ? ordered[(currentIndex + 1) % ordered.length] : null;
+
 // Bestehende Seiten haben ein maßgeschneidertes Layout, neue nutzen "generic"
 const layouts: Record<string, any> = {
   'say-wuff': SayWuff,
@@ -56,6 +61,13 @@ const wfPageId = data.wfPageId ?? '6a4619bec66319687dc36924';
   <div class="main-body desktop works">
     <WorksHeadline {...data.headline} />
     <Layout data={data} />
+    {nextProject && !nextProject.current && (
+      <a href={nextProject.href} class="fp-next w-inline-block">
+        <div class="fp-next-label capital">Next Project</div>
+        <div class="fp-next-title capital">{nextProject.label} →</div>
+        <img src="/images/Line.png" loading="lazy" alt="" class="fp-next-line">
+      </a>
+    )}
   </div>
   <CookieConsent wfPageId={wfPageId} />
 </Base>

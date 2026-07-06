@@ -1,32 +1,29 @@
 // site.js — Video-/Interaktionsverhalten der Website
-// (läuft auf allen Seiten, ersetzt das frühere Inline-Script der Startseite)
 document.addEventListener('DOMContentLoaded', function () {
   var videos = Array.prototype.slice.call(document.querySelectorAll('video.bg-video'));
 
-  function buttonFor(video) {
-    var wrap = video.closest('.video-wrapper') || video.parentElement;
-    return wrap ? wrap.querySelector('.mute-toggle') : null;
+  function wrapperFor(video) {
+    return video.closest('.video-wrapper') || video.parentElement;
   }
 
-  // Ton-Symbol nur zeigen, solange das Video stumm ist
-  function syncButton(video) {
-    var btn = buttonFor(video);
-    if (btn) btn.style.display = video.muted ? 'flex' : 'none';
+  // Der Mauszeiger kommuniziert den Ton-Zustand (Lautsprecher mit Wellen / mit X)
+  function syncCursor(video) {
+    var w = wrapperFor(video);
+    if (w) w.classList.toggle('fp-unmuted', !video.muted);
   }
 
   function muteAll() {
     videos.forEach(function (v) {
       v.muted = true;
-      syncButton(v);
+      syncCursor(v);
     });
   }
 
   videos.forEach(function (video) {
     var loopedOnce = false;
-    syncButton(video);
+    syncCursor(video);
 
-    // Klick aufs Video (oder den Ton-Button) schaltet den Ton um;
-    // alle anderen Videos werden dabei stumm.
+    // Klick auf die Videofläche schaltet den Ton um; alle anderen werden stumm.
     function toggleSound() {
       var wasMuted = video.muted;
       muteAll();
@@ -35,49 +32,28 @@ document.addEventListener('DOMContentLoaded', function () {
         loopedOnce = false;
         video.play();
       }
-      syncButton(video);
+      syncCursor(video);
     }
 
-    // Videos selbst sind nicht klickbar (pointer-events: none, damit der
-    // Browser keine eigenen Overlay-Buttons einblendet) — der Wrapper fängt den Klick.
-    var clickTarget = video.closest('.video-wrapper') || video.parentElement;
+    var clickTarget = wrapperFor(video);
     if (clickTarget) clickTarget.addEventListener('click', toggleSound);
-    var btn = buttonFor(video);
-    if (btn) {
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        toggleSound();
-      });
-    }
 
     // Nach einem kompletten Durchlauf mit Ton wieder stumm loopen (wie im Original)
     video.addEventListener('ended', function () {
       if (!loopedOnce) {
         loopedOnce = true;
         video.muted = true;
-        syncButton(video);
+        syncCursor(video);
       }
       video.currentTime = 0;
       video.play();
     });
   });
 
-  // Click-to-Watch: Beim Klick auf ein Vorschau-Standbild/GIF soll das Video
-  // sofort loslaufen — selbstgehostete Videos bekommen direkt Ton,
-  // Vimeo-Player werden mit autoplay neu geladen (das Ausblenden des
-  // Thumbnails übernimmt weiterhin die Webflow-Interaktion).
+  // Click-to-Watch: Klick aufs Vorschaubild spielt das Video sofort ab —
+  // selbstgehostete Videos bekommen direkt Ton, Vimeo-Player werden mit
+  // autoplay neu geladen (das Ausblenden übernimmt die Webflow-Interaktion).
   document.addEventListener('click', function (e) {
-    // Klick auf die Click-to-Watch-Grafik zählt wie ein Klick aufs Vorschaubild
-    var cta = e.target.closest('.cta-img');
-    if (cta) {
-      var ctaWrap = cta.closest('.video-div') || cta.parentElement;
-      var ctaThumb = ctaWrap && ctaWrap.querySelector('.video-thumbnail');
-      if (ctaThumb && ctaThumb.style.display !== 'none') {
-        ctaThumb.click();
-        return;
-      }
-    }
-
     var thumb = e.target.closest('.video-thumbnail');
     if (!thumb) return;
     var wrap = thumb.closest('.video-div') || thumb.parentElement;
@@ -89,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
       muteAll();
       video.muted = false;
       video.play();
-      syncButton(video);
+      syncCursor(video);
       return;
     }
 
@@ -102,6 +78,17 @@ document.addEventListener('DOMContentLoaded', function () {
         iframe.src = u.toString();
       } catch (err) { /* ungültige URL — nichts tun */ }
     }
+  });
+
+  // Oracles: Klick auf den großen Loop startet den Haupt-Player weiter unten
+  Array.prototype.slice.call(document.querySelectorAll('.fp-play-main')).forEach(function (el) {
+    el.addEventListener('click', function () {
+      var thumb = document.querySelector('.main-body .video-div .video-thumbnail');
+      if (!thumb) return;
+      var vd = thumb.closest('.video-div');
+      thumb.click();
+      if (vd) vd.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
   });
 
   // Junk Jornal: beide Foto-Spalten so breit machen, dass sie oben UND
