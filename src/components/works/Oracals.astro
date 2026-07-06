@@ -18,6 +18,11 @@ const loopIds = [
 
 const playerSrc = `https://player.vimeo.com/video/${player.vimeoId}?autoplay=0&loop=0&autopause=1&muted=0&portrait=0&byline=0&title=0&dnt=1`;
 ---
+<div class="fp-press">
+  {pressLogos.map((img: any) => (
+    <Img src={img.src} alt={img.alt} />
+  ))}
+</div>
 <div class="div-block-62-copy">
   <div>
     <BgVideo base={singleLoop} videoId="718e24c9-7e9f-f397-1b4e-9f79eb09dad4-video" wrapperClass="background-video-4" />
@@ -31,11 +36,6 @@ const playerSrc = `https://player.vimeo.com/video/${player.vimeoId}?autoplay=0&l
   </div>
 </div>
 <div class="capital text-size centered fp-oracles-note" set:html={inline(outro)}></div>
-<div class="div-block-76">
-  {pressLogos.map((img: any) => (
-    <Img src={img.src} id={img.id} width={img.width} sizes={img.sizes} alt={img.alt} class={img.class} />
-  ))}
-</div>
 <div class="video-div luz">
   <div id="placeholder_oracles" class="placeholder vimeo-video">
     <div class="capital video-error-message">To view this video please accept cookies. </div>

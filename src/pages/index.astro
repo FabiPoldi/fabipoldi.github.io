@@ -39,7 +39,7 @@ const oraclesVideos = [
           <a fs-cc="open-preferences" href="#" class="open-cookies-button capital w-button">Manage cookies</a>
         </div>
         <CodeEmbedVideo src={home.hero.showreelMp4} variant="hero" />
-        <BgVideo base={home.hero.thumbnailVideo} dataWId="3c865caf-5d46-6362-b319-60fe1f58e2f4" videoId="3c865caf-5d46-6362-b319-60fe1f58e2f4-video" wrapperClass="video-thumbnail showreel" /><Img src="/images/Click-to-Watch-mit-Pfeil-small.png" dataWId="962b98ee-f725-dd9b-d5be-0d86c3b4dccf" class="cta-img" />
+        <BgVideo base={home.hero.thumbnailVideo} dataWId="3c865caf-5d46-6362-b319-60fe1f58e2f4" videoId="3c865caf-5d46-6362-b319-60fe1f58e2f4-video" wrapperClass="video-thumbnail showreel" /><Img src="/images/Click-to-Watch-mit-Pfeil-small.png" class="cta-img" />
       </div>
     </div>
     {home.sections.map((s: any) => {
@@ -47,7 +47,7 @@ const oraclesVideos = [
       return (
         <div class={wrapperClass}>
           <div class="heading-div">
-            <a href={s.link} class="fp-heading-link"><h1 class="h1 text-size" set:html={inline(s.heading)}></h1></a><img src="/images/Line.png" loading="lazy" alt="" class={s.lineMobil ? 'line mobil' : 'line'} />
+            <a href={s.link} class="fp-heading-link"><h1 class="h1 text-size" set:html={inline(s.heading)}></h1><img src="/images/Line.png" loading="lazy" alt="" class={s.lineMobil ? 'line mobil' : 'line'} /></a>
             <div class="capital text-size centered" set:html={inline(s.meta)}></div>
           </div>
 

@@ -38,7 +38,10 @@ document.addEventListener('DOMContentLoaded', function () {
       syncButton(video);
     }
 
-    video.addEventListener('click', toggleSound);
+    // Videos selbst sind nicht klickbar (pointer-events: none, damit der
+    // Browser keine eigenen Overlay-Buttons einblendet) — der Wrapper fängt den Klick.
+    var clickTarget = video.closest('.video-wrapper') || video.parentElement;
+    if (clickTarget) clickTarget.addEventListener('click', toggleSound);
     var btn = buttonFor(video);
     if (btn) {
       btn.addEventListener('click', function (e) {
@@ -64,6 +67,17 @@ document.addEventListener('DOMContentLoaded', function () {
   // Vimeo-Player werden mit autoplay neu geladen (das Ausblenden des
   // Thumbnails übernimmt weiterhin die Webflow-Interaktion).
   document.addEventListener('click', function (e) {
+    // Klick auf die Click-to-Watch-Grafik zählt wie ein Klick aufs Vorschaubild
+    var cta = e.target.closest('.cta-img');
+    if (cta) {
+      var ctaWrap = cta.closest('.video-div') || cta.parentElement;
+      var ctaThumb = ctaWrap && ctaWrap.querySelector('.video-thumbnail');
+      if (ctaThumb && ctaThumb.style.display !== 'none') {
+        ctaThumb.click();
+        return;
+      }
+    }
+
     var thumb = e.target.closest('.video-thumbnail');
     if (!thumb) return;
     var wrap = thumb.closest('.video-div') || thumb.parentElement;

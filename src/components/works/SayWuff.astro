@@ -9,6 +9,11 @@ import { inline } from '../../lib/text';
 const { data } = Astro.props;
 const { hero, stills, vimeo, bts, credits, laurels } = data;
 ---
+<div class="fp-laurels">
+  {laurels.map((img: any) => (
+    <Img src={img.src} alt={img.alt} />
+  ))}
+</div>
 <div class="w-layout-blockcontainer say-wuff-hero-block w-container">
   <div class="film-img-grid say-wuff-hero"><Img src={hero.poster} loading="eager" sizes={hero.posterSizes} class="image-5 _2" /></div>
   <div id="w-node-_881943ee-af2a-2523-3206-5afa6a78cd53-7dc36924" class="capital text-size" set:html={inline(hero.text)}></div>
@@ -24,7 +29,7 @@ const { hero, stills, vimeo, bts, credits, laurels } = data;
 <div class="video-div">
   <div class="video-div showreel">
     <VimeoGated vimeoId={vimeo.id} placeholderId="placeholder_say_wuff" />
-    <Img src={vimeo.thumbnail} dataWId="a868358e-1468-bd3b-5852-f1d9161aa9e9" class="video-thumbnail say-wuff" /><img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" data-w-id="46e5e6e0-0f29-1221-00e9-a6c64818eab0" alt="" class="cta-img">
+    <Img src={vimeo.thumbnail} dataWId="a868358e-1468-bd3b-5852-f1d9161aa9e9" class="video-thumbnail say-wuff" /><img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" alt="" class="cta-img">
   </div>
   <div class="capital text-size" set:html={inline(vimeo.caption)}></div>
 </div>
@@ -38,9 +43,4 @@ const { hero, stills, vimeo, bts, credits, laurels } = data;
 </div>
 <div id="w-node-_40f4c1e5-789b-2ad9-8cfc-fcd7477229f9-7dc36924" class="div-block-51"><Img src={credits.logo} class="image-16" />
   <PosterCredits starring={credits.starring} entries={credits.columns.flatMap((c: any) => c.entries)} footer={credits.footer} />
-</div>
-<div class="festival-div">
-  {laurels.map((img: any) => (
-    <Img src={img.src} alt={img.alt} />
-  ))}
 </div>
