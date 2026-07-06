@@ -1,12 +1,16 @@
 ---
-// Projektseite "Golf" — Liste von Musikvideos, exakt wie im Webflow-Export.
+// Projektseite "Golf" — Liste von Musikvideos. Alle Player sind direkte,
+// Cookie-gegatete Vimeo-Embeds (die früheren Embedly-Umwege sind ersetzt);
+// Klick aufs Standbild spielt direkt ab (site.js).
 import BgVideo from '../BgVideo.astro';
 import VimeoGated from '../VimeoGated.astro';
 import { inline } from '../../lib/text';
 
 const { data } = Astro.props;
+
+const gatedParams = 'autoplay=0&loop=0&autopause=1&muted=0&portrait=0&byline=0&title=0&dnt=1';
 ---
-{data.videos.map((v: any) => (
+{data.videos.map((v: any, i: number) => (
   <div class="video-div golf">
     {v.type === 'gated' ? (
       <>
@@ -15,7 +19,11 @@ const { data } = Astro.props;
       </>
     ) : (
       <>
-        <div style={`display:none;padding-top:${v.paddingTop}`} class="vimeo-video w-video w-embed"><iframe class="embedly-embed" src={v.embedSrc} width="940" height={v.height} scrolling="no" allowfullscreen title={v.title}></iframe></div>
+        <div id={`placeholder_golf_${i}`} class="placeholder vimeo-video">
+          <div class="capital video-error-message">To view this video please accept cookies. </div>
+          <a fs-cc="open-preferences" href="#" class="open-cookies-button capital w-button">Manage cookies</a>
+        </div>
+        <div style="display:none;padding-top:56.25%" class="vimeo-video w-video w-embed"><iframe fs-cc-src={`https://player.vimeo.com/video/${v.vimeoId}?${gatedParams}`} fs-cc-placeholder={`#placeholder_golf_${i}`} fs-cc-category="analytics" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title={v.title}></iframe></div>
         <div class={v.thumbClass}><img src="/images/playbutton.png" loading="lazy" data-w-id={v.playButtonWId} alt="" class="play-button"></div>
       </>
     )}

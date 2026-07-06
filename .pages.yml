@@ -663,18 +663,12 @@ content:
         component: bild
         list: true
       - name: player
-        label: Video-Player (Embedly)
+        label: Video-Player
         type: object
         fields:
-          - name: embedSrc
-            label: Embed-URL
+          - name: vimeoId
+            label: Vimeo-Video-ID
             type: string
-          - name: paddingTop
-            type: string
-            hidden: true
-          - name: height
-            label: Höhe (Pixel)
-            type: number
           - name: title
             label: Titel
             type: string
@@ -731,17 +725,11 @@ content:
                 label: Titelzeile
                 type: string
           - name: embedly
-            label: Embedly-Player
+            label: Vimeo mit Play-Button
             fields:
-              - name: embedSrc
-                label: Embed-URL
+              - name: vimeoId
+                label: Vimeo-Video-ID
                 type: string
-              - name: paddingTop
-                type: string
-                hidden: true
-              - name: height
-                label: Höhe (Pixel)
-                type: number
               - name: title
                 label: Titel
                 type: string

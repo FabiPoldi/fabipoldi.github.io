@@ -19,7 +19,7 @@ const webm = base ? `/media/${base}-transcode.webm` : undefined;
 const poster = posterProp ?? (base ? `/media/${base}-poster-00001.jpg` : undefined);
 const videoUrls = webm ? `${mp4},${webm}` : mp4;
 ---
-<div data-poster-url={poster} data-video-urls={videoUrls} data-autoplay="true" data-loop="true" data-wf-ignore="true" id={wrapperId} data-w-id={dataWId} class={`${wrapperClass} w-background-video w-background-video-atom`}><video id={videoId} autoplay loop style={poster ? `background-image:url("${poster}")` : undefined} muted playsinline data-wf-ignore="true" data-object-fit="cover">
+<div data-poster-url={poster} data-video-urls={videoUrls} data-autoplay="true" data-loop="true" data-wf-ignore="true" id={wrapperId} data-w-id={dataWId} class={`${wrapperClass} w-background-video w-background-video-atom`}><video id={videoId} autoplay loop style={poster ? `background-image:url("${poster}")` : undefined} muted playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload noremoteplayback noplaybackrate" data-wf-ignore="true" data-object-fit="cover">
     <source src={mp4} data-wf-ignore="true">
     {webm && <source src={webm} data-wf-ignore="true">}
   </video></div>

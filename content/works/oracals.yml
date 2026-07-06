@@ -25,9 +25,7 @@ pressLogos:
     class: spex-img
   - src: /images/nme-mit-text.png
 player:
-  embedSrc: "https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fplayer.vimeo.com%2Fvideo%2F278552417%3Fapp_id%3D122963&dntp=1&display_name=Vimeo&url=https%3A%2F%2Fvimeo.com%2F278552417&image=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F711609838-e060a85fe9c281b00f9560d01d9b48ed9ef3acc50fb3a76cd594ff94780214ec-d_1280&key=96f1f04c5f4143bcb0f2e68c87d65feb&type=text%2Fhtml&schema=vimeo"
-  paddingTop: "62.23404255319149%"
-  height: 585
+  vimeoId: "278552417"
   title: "Oracles - Melt Tonight"
 credits:
   - "<strong>Director, Dop, Editor </strong>\nFabian Podeszwa"
@@ -36,4 +34,4 @@ credits:
   - "<strong>SFX\n</strong>Henrik Frankenfeld "
   - "<strong>Executive Producer\n</strong>Clouds Hill Studios"
   - "Album 'Bedroom Eyes'\n2014"
-outro: "In appreciation to the underground filmmaking movement of the 60s\nShot in Côte d'Azur"
+outro: "In appreciation to the underground filmmaking movement of the 60s — Shot in Côte d'Azur"

@@ -1,8 +1,9 @@
 ---
-// Projektseite "Ωracles 'Melt Tonight'" — exakte Struktur des Webflow-Exports.
+// Projektseite "Ωracles 'Melt Tonight'" — Struktur 2026 überarbeitet:
+// Loops → einzeilige Notiz → Presse-Logos → Player → Credits (Filmplakat-Stil).
 import Img from '../Img.astro';
 import BgVideo from '../BgVideo.astro';
-import CreditLines from '../CreditLines.astro';
+import PosterCredits from '../PosterCredits.astro';
 import { inline } from '../../lib/text';
 
 const { data } = Astro.props;
@@ -14,6 +15,8 @@ const loopIds = [
   { wrapperId: 'w-node-a52f304e-3a92-4b45-d971-cc0ba56e8fe6-7dc3692c', videoId: 'a52f304e-3a92-4b45-d971-cc0ba56e8fe6-video' },
   { wrapperId: 'w-node-dcfa8e54-0da8-0f20-1508-a24ef5600a37-7dc3692c', videoId: 'dcfa8e54-0da8-0f20-1508-a24ef5600a37-video' },
 ];
+
+const playerSrc = `https://player.vimeo.com/video/${player.vimeoId}?autoplay=0&loop=0&autopause=1&muted=0&portrait=0&byline=0&title=0&dnt=1`;
 ---
 <div class="div-block-62-copy">
   <div>
@@ -27,17 +30,18 @@ const loopIds = [
     ))}
   </div>
 </div>
+<div class="capital text-size centered fp-oracles-note" set:html={inline(outro)}></div>
 <div class="div-block-76">
   {pressLogos.map((img: any) => (
     <Img src={img.src} id={img.id} width={img.width} sizes={img.sizes} alt={img.alt} class={img.class} />
   ))}
 </div>
 <div class="video-div luz">
-  <div class="placeholder vimeo-video">
+  <div id="placeholder_oracles" class="placeholder vimeo-video">
     <div class="capital video-error-message">To view this video please accept cookies. </div>
+    <a fs-cc="open-preferences" href="#" class="open-cookies-button capital w-button">Manage cookies</a>
   </div>
-  <div style={`display:none;padding-top:${player.paddingTop}`} class="vimeo-video w-video w-embed"><iframe class="embedly-embed" src={player.embedSrc} width="940" height={player.height} scrolling="no" allowfullscreen title={player.title}></iframe></div>
+  <div style="display:none;padding-top:56.25%" class="vimeo-video w-video w-embed"><iframe fs-cc-src={playerSrc} fs-cc-placeholder="#placeholder_oracles" fs-cc-category="analytics" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title={player.title}></iframe></div>
   <div data-w-id="763717ab-5934-04cc-a543-ee8dd4ea9794" class="video-thumbnail oracles"></div><img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" alt="" class="cta-img">
-  <CreditLines items={credits} trailingLine={true} id="w-node-f58eaab3-8ddb-5c5f-c4db-dd2b01e39004-7dc3692c" />
-  <h1 id="w-node-c7b8420a-d080-03b7-ad93-1e3e0ebf1a25-7dc3692c" class="capital text-size h3 centered" set:html={inline(outro)}></h1>
 </div>
+<PosterCredits entries={credits} />

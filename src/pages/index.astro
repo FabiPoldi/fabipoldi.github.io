@@ -47,7 +47,7 @@ const oraclesVideos = [
       return (
         <div class={wrapperClass}>
           <div class="heading-div">
-            <h1 class="h1 text-size" set:html={inline(s.heading)}></h1><img src="/images/Line.png" loading="lazy" alt="" class={s.lineMobil ? 'line mobil' : 'line'} />
+            <a href={s.link} class="fp-heading-link"><h1 class="h1 text-size" set:html={inline(s.heading)}></h1></a><img src="/images/Line.png" loading="lazy" alt="" class={s.lineMobil ? 'line mobil' : 'line'} />
             <div class="capital text-size centered" set:html={inline(s.meta)}></div>
           </div>
 
@@ -121,66 +121,4 @@ const oraclesVideos = [
     })}
   </div>
   <CookieConsent wfPageId={wfPageId} />
-
-  <script is:inline slot="tail">
-  document.addEventListener("DOMContentLoaded", function () {
-    const videos = document.querySelectorAll("video.bg-video");
-    const buttons = document.querySelectorAll(".mute-toggle");
-    const thumbnails = document.querySelectorAll(".video-thumbnail");
-    // SVG icons
-    const mutedIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-icon lucide-volume"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/></svg>`;
-    const unmutedIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume2-icon lucide-volume-2"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>`;
-    videos.forEach((video, index) => {
-      const btn = buttons[index];
-      const thumb = thumbnails[index];
-      let hasLoopedOnce = false;
-      // Set initial icon
-      if (btn) btn.innerHTML = mutedIcon;
-      // Handle thumbnail click
-      if (thumb) {
-        thumb.addEventListener("click", () => {
-          // Hide all thumbnails
-          thumbnails.forEach(t => t.style.display = "block");
-          thumb.style.display = "none";
-          // Mute all videos
-          videos.forEach((v, i) => {
-            v.muted = true;
-            if (buttons[i]) buttons[i].innerHTML = mutedIcon;
-          });
-          // Unmute and play the clicked one
-          video.muted = false;
-          video.play();
-          if (btn) btn.innerHTML = unmutedIcon;
-        });
-      }
-      // Handle mute toggle button
-      if (btn) {
-        btn.addEventListener("click", () => {
-          const isMuted = video.muted;
-          // Mute all videos
-          videos.forEach((v, i) => {
-            v.muted = true;
-            if (buttons[i]) buttons[i].innerHTML = mutedIcon;
-          });
-          // Unmute this one if it was muted
-          if (isMuted) {
-            video.muted = false;
-            btn.innerHTML = unmutedIcon;
-            hasLoopedOnce = false;
-          }
-        });
-      }
-      // Loop behavior
-      video.addEventListener("ended", () => {
-        if (!hasLoopedOnce) {
-          hasLoopedOnce = true;
-          video.muted = true;
-          if (btn) btn.innerHTML = mutedIcon;
-        }
-        video.currentTime = 0;
-        video.play();
-      });
-    });
-  });
-  </script>
 </Base>

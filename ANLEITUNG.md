@@ -95,7 +95,7 @@ etwas davon fixen soll:
 | 3 | „Works"-Icon zeigt den Klick-Zustand nur auf Startseite, About und Say Wuff — nicht auf den anderen Projektseiten | übernommen |
 | 4 | About: Button zeigt „studio@radicalchildren.com", öffnet aber Mail an fabianschuhsohle@gmail.com | übernommen (im CMS änderbar) |
 | 5 | About: „Requests and licensing"-Button führt nirgendwohin | übernommen (im CMS änderbar) |
-| 6 | Oracles, Golf (2 Videos) und Showreel-Seite laden Vimeo/Embedly OHNE Cookie-Einwilligung — Datenschutz-Lücke | übernommen (Verhalten identisch) |
+| 6 | Oracles, Golf (2 Videos) und Showreel-Seite laden Vimeo/Embedly OHNE Cookie-Einwilligung — Datenschutz-Lücke | ✅ gefixt (07/2026): alle Player laufen jetzt über die Cookie-Abfrage, Embedly komplett entfernt, Vimeo mit "Do Not Track" |
 | 7 | Datenschutzerklärung nennt noch Webflow + Cargo Collective als Hoster und Google Fonts | ⚠️ solltest du nach dem Umzug aktualisieren (neuer Hoster: GitHub Pages; Schriften: Adobe Fonts) |
 | 8 | Menü-Platzhalter ohne Seiten: Roosevelt, Chuckamuck, Wolfgang Peréz, Andrew Collberg, the pollywogs, melt trio | übernommen |
 | 9 | Schreibweisen wie „Junk Jornal", „Macualay culkin", „LOVESTORYSHOT" (fehlendes Leerzeichen) | übernommen (evtl. Absicht) |

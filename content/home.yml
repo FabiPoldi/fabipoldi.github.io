@@ -22,7 +22,7 @@ sections:
     textLeft: "'SAY WUFF' - A ROMANTIC OUTSIDER LOVESTORYSHOT ON 16MM KODAK FILM        FUNDED BY 'FILM- UND MEDIENSTIFTUNG NRW'"
     textRight: "'A DECLARATION OF LOVE TO THE BEAUTY OF SIMPLICITY  - TO QUIRKY ODDITIES OF LIFE «'"
   - layout: milky-landing
-    heading: "Milky Chance"
+    heading: "Milky Chance — Rush"
     meta: "MUSICVIDEO  •  GERMANY  •  2019  •  4MIN   •  STOP MOTION"
     link: /works/milky-chance/
     poster: /images/milky-chance-posterklein.png
@@ -31,18 +31,14 @@ sections:
       - Milky-Chance-Egg-ausschnitt-Quivcktimebcd
       - Uhrklein
     teaserMp4: /media/Milky-Chance-Rush-ProRes-Teaser.mp4
-    textLeft: "Milky Chance - Rush"
-    textRight: ""
   - layout: oracles-landing
-    heading: "Ωracles"
+    heading: "Ωracles — Melt Tonight"
     meta: "MUSICVIDEO  •  FRANCE  •  2014  •  4MIN   •  MIXED MEDIA"
     link: /works/oracals/
     videos:
       - Zoom-Gif-Small
       - Berg-Looup-Logomov
       - guitar-dance-loop
-    textLeft: "Ωracles  'Melt Tonight'   "
-    textRight: ""
   - layout: junk-landing
     heading: "Junk Jornal"
     meta: "Photography-Series  •  ongoing  •  35mm / 120mm / Polaroid "
@@ -53,7 +49,7 @@ sections:
       - src: /images/Ill-Delta-Dez16ana.jpg
   - layout: luz-landing
     heading: "LUZ"
-    meta: "Fiction, Germany, 2018, 70 min, 16mm"
+    meta: "Fiction  •  Germany  •  2018  •  70min   •  16mm"
     link: /works/luz/
     poster: /images/LUZ_Poster-1.jpeg
     images:

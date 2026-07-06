@@ -11,7 +11,7 @@ const {
   vimeoId,
   placeholderId,
   manageButton = true,
-  params = 'autoplay=0&loop=0&autopause=1&muted=0&portrait=0&byline=0',
+  params = 'autoplay=0&loop=0&autopause=1&muted=0&portrait=0&byline=0&title=0&dnt=1',
 } = Astro.props;
 const src = `https://player.vimeo.com/video/${vimeoId}?${params}`;
 ---

@@ -1,0 +1,23 @@
+---
+// Credits im Filmplakat-Stil: eine rote Linie, "Credits", alle Einträge
+// als kompakter Billing-Block, optional Besetzung oben und Fußzeile unten.
+import { inline } from '../lib/text';
+
+interface Props {
+  entries: string[];
+  starring?: string;
+  footer?: string;
+}
+const { entries, starring, footer } = Astro.props;
+---
+<div class="fp-credits">
+  <img src="/images/Line.png" loading="lazy" alt="" class="fp-credits-line">
+  <div class="fp-credits-title capital">Credits</div>
+  {starring && <div class="fp-credit fp-credit-starring capital text-size centered" set:html={inline(starring)}></div>}
+  <div class="fp-credits-billing">
+    {entries.map((e) => (
+      <div class="fp-credit capital text-size centered" set:html={inline(e)}></div>
+    ))}
+  </div>
+  {footer && <div class="fp-credits-footer capital text-size centered" set:html={inline(footer)}></div>}
+</div>

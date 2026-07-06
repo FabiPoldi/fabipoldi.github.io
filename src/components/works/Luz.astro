@@ -3,7 +3,7 @@
 import Img from '../Img.astro';
 import BgVideo from '../BgVideo.astro';
 import VimeoGated from '../VimeoGated.astro';
-import CreditLines from '../CreditLines.astro';
+import PosterCredits from '../PosterCredits.astro';
 import { inline } from '../../lib/text';
 
 const { data } = Astro.props;
@@ -37,6 +37,6 @@ const { posterGrid, imageText, collage, vimeo, credits, outro } = data;
     <VimeoGated vimeoId={vimeo.id} placeholderId="placeholder_luz" />
     <BgVideo base={vimeo.thumbnailVideo} dataWId="53c01967-bc19-27d3-e1c6-59757d433db4" videoId="53c01967-bc19-27d3-e1c6-59757d433db4-video" wrapperClass="video-thumbnail luz" /><img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" alt="" class="cta-img">
   </div>
-  <CreditLines items={credits} trailingLine={true} id="w-node-f58eaab3-8ddb-5c5f-c4db-dd2b01e39004-7dc36928" />
-  <h1 id="w-node-c7b8420a-d080-03b7-ad93-1e3e0ebf1a25-7dc36928" class="capital text-size h3 centered" set:html={inline(outro)}></h1>
+  <div class="capital text-size h3 centered fp-quote" set:html={inline(outro)}></div>
 </div>
+<PosterCredits entries={credits} />

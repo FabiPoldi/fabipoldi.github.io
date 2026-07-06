@@ -3,6 +3,7 @@
 // Inhalte kommen aus content/works/say-wuff.yml.
 import Img from '../Img.astro';
 import VimeoGated from '../VimeoGated.astro';
+import PosterCredits from '../PosterCredits.astro';
 import { inline } from '../../lib/text';
 
 const { data } = Astro.props;
@@ -36,23 +37,7 @@ const { hero, stills, vimeo, bts, credits, laurels } = data;
   <div id="w-node-_0ed66dba-bec2-5926-d4ff-06c6ba4ec175-7dc36924" class="capital text-size" set:html={inline(bts.caption)}></div>
 </div>
 <div id="w-node-_40f4c1e5-789b-2ad9-8cfc-fcd7477229f9-7dc36924" class="div-block-51"><Img src={credits.logo} class="image-16" />
-  <div class="credits-div">
-    <div class="capital text-size centered" set:html={inline(credits.starring)}></div><img src="/images/Line.png" loading="lazy" alt="" class="line-small hide-desktop">
-    <div class="div-block-54">
-      {credits.columns.map((column: any, colIndex: number) => (
-        <div class="credits-sub-div">
-          {column.entries.map((item: string, i: number) => (
-            <>
-              <div class="capital text-size centered" set:html={inline(item)}></div>
-              {(i < column.entries.length - 1) && <img src="/images/Line.png" loading="lazy" alt="" class="line-small">}
-              {(i === column.entries.length - 1 && colIndex === 0) && <img src="/images/Line.png" loading="lazy" alt="" class="line-small hide-desktop">}
-            </>
-          ))}
-        </div>
-      ))}
-    </div><img src="/images/Line.png" loading="lazy" alt="" class="line-small hide-desktop">
-    <div class="capital text-size centered" set:html={inline(credits.footer)}></div>
-  </div>
+  <PosterCredits starring={credits.starring} entries={credits.columns.flatMap((c: any) => c.entries)} footer={credits.footer} />
 </div>
 <div class="festival-div">
   {laurels.map((img: any) => (
