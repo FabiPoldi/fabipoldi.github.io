@@ -2,7 +2,7 @@ title: "Fabian Podeszwa"
 hero:
   welcomeImage: /images/Start-Page-Farbe-Mit-Hi-There.png
   welcomeText: /images/WELCOME-TEXT-klein-new.png
-  showreelMp4: /videos/Showreel-2024-F-b.mp4
+  showreelMp4: /media/Showreel-2024-F-b.mp4
   thumbnailVideo: Showreel-Thumbnail-Video
 sections:
   - layout: say-wuff-landing
@@ -18,7 +18,7 @@ sections:
         id: w-node-_84180a6e-41ee-b68e-9987-8f99d91651fe-7dc36922
       - src: /images/01-Say-Wuff-Still-1.png
         id: w-node-_16133a4d-50db-fe0b-7eb1-236be4d53ed1-7dc36922
-    teaserMp4: /videos/Say-Wuff-Trailer-H264-mini.mp4
+    teaserMp4: /media/Say-Wuff-Trailer-H264-mini.mp4
     textLeft: "'SAY WUFF' - A ROMANTIC OUTSIDER LOVESTORYSHOT ON 16MM KODAK FILM        FUNDED BY 'FILM- UND MEDIENSTIFTUNG NRW'"
     textRight: "'A DECLARATION OF LOVE TO THE BEAUTY OF SIMPLICITY  - TO QUIRKY ODDITIES OF LIFE «'"
   - layout: milky-landing
@@ -30,7 +30,7 @@ sections:
       - Milky-Chance-Rush-ProRe-bett-grabb
       - Milky-Chance-Egg-ausschnitt-Quivcktimebcd
       - Uhrklein
-    teaserMp4: /videos/Milky-Chance-Rush-ProRes-Teaser.mp4
+    teaserMp4: /media/Milky-Chance-Rush-ProRes-Teaser.mp4
     textLeft: "Milky Chance - Rush"
     textRight: ""
   - layout: oracles-landing

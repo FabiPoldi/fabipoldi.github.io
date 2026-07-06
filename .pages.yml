@@ -11,8 +11,8 @@ media:
     categories: [image]
   - name: videos
     label: Videos
-    input: public/videos
-    output: /videos
+    input: public/media
+    output: /media
 
 components:
   bild:

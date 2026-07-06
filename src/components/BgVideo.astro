@@ -14,9 +14,9 @@ interface Props {
 }
 const { base, file, poster: posterProp, videoId, wrapperClass, wrapperId, dataWId } = Astro.props;
 
-const mp4 = base ? `/videos/${base}-transcode.mp4` : file!;
-const webm = base ? `/videos/${base}-transcode.webm` : undefined;
-const poster = posterProp ?? (base ? `/videos/${base}-poster-00001.jpg` : undefined);
+const mp4 = base ? `/media/${base}-transcode.mp4` : file!;
+const webm = base ? `/media/${base}-transcode.webm` : undefined;
+const poster = posterProp ?? (base ? `/media/${base}-poster-00001.jpg` : undefined);
 const videoUrls = webm ? `${mp4},${webm}` : mp4;
 ---
 <div data-poster-url={poster} data-video-urls={videoUrls} data-autoplay="true" data-loop="true" data-wf-ignore="true" id={wrapperId} data-w-id={dataWId} class={`${wrapperClass} w-background-video w-background-video-atom`}><video id={videoId} autoplay loop style={poster ? `background-image:url("${poster}")` : undefined} muted playsinline data-wf-ignore="true" data-object-fit="cover">
