@@ -279,7 +279,7 @@ video { pointer-events: none; }
 .fp-credits-footer { opacity: .7; margin-top: .6rem; font-size: .8rem; }
 
 /* Zitat unter dem Player (LUZ) */
-.fp-quote { align-self: center; text-align: center; margin-top: 1.75rem; max-width: 44rem; }
+.fp-quote { text-align: center; margin: 1.75rem auto 0; max-width: 44rem; }
 
 /* ---------- 10) Say Wuff: Trailer-Vorschau bündig mit den Stills ----------
    Der Container bringt 80px Seiten-Padding mit — weg damit, dann ist das
@@ -298,11 +298,7 @@ video { pointer-events: none; }
   aspect-ratio: 1024 / 429; /* Seitenverhältnis des Vorschau-Stills */
   background-size: contain;
 }
-.video-div.luz > .fp-quote {
-  grid-column: 1 / -1;
-  justify-self: center;
-  width: 100%;
-}
+.video-div.luz > .fp-quote { width: 100%; }
 
 /* Vorschaubilder mit Standbild-Hintergrund: das innen liegende Loop-Video
    bleibt unsichtbar (sonst blitzt es beim Hover über dem Standbild auf) */
