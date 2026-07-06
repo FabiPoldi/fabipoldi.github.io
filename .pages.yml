@@ -178,6 +178,9 @@ content:
               - name: heading
                 label: Überschrift
                 type: string
+              - name: vimeoId
+                label: Vimeo-Video-ID (Klick aufs große GIF spielt dieses Video)
+                type: string
               - name: meta
                 label: Info-Zeile
                 type: string

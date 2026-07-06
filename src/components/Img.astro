@@ -19,5 +19,13 @@ const { src, alt = '', class: cls, id, width, loading = 'lazy', dataWId, ...rest
 const auto = responsive(src);
 const srcset = rest.srcset ?? auto.srcset;
 const sizes = rest.sizes ?? (srcset ? auto.sizes : undefined);
+// Explizite width/height-Attribute: Browser kennen das Seitenverhältnis vor dem
+// Laden — verhindert Layout-Sprünge und den Safari-Grid-Bug (falsch skalierte,
+// überlappende Bilder, weil Rasterzeilen nicht neu berechnet werden).
+const attrWidth = width ?? auto.width;
+const attrHeight =
+  width && auto.width && auto.height
+    ? Math.round((Number(width) * auto.height) / auto.width)
+    : auto.height;
 ---
-<img src={src} loading={loading} id={id} width={width} data-w-id={dataWId} sizes={srcset ? sizes : undefined} srcset={srcset} alt={alt} class={cls} />
+<img src={src} loading={loading} id={id} width={attrWidth} height={attrHeight} data-w-id={dataWId} sizes={srcset ? sizes : undefined} srcset={srcset} alt={alt} class={cls} />

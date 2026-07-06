@@ -80,15 +80,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Oracles: Klick auf den großen Loop startet den Haupt-Player weiter unten
-  Array.prototype.slice.call(document.querySelectorAll('.fp-play-main')).forEach(function (el) {
+  // Großer Oracles-Loop: Klick tauscht das GIF an Ort und Stelle gegen den
+  // laufenden Vimeo-Player (dnt=1: Vimeo ohne Tracking).
+  Array.prototype.slice.call(document.querySelectorAll('.fp-play-main[data-vimeo-id]')).forEach(function (el) {
     el.addEventListener('click', function () {
-      var thumb = document.querySelector('.main-body .video-div .video-thumbnail');
-      if (!thumb) return;
-      var vd = thumb.closest('.video-div');
-      thumb.click();
-      if (vd) vd.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    });
+      var id = el.getAttribute('data-vimeo-id');
+      if (!id) return;
+      var h = el.getBoundingClientRect().height;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://player.vimeo.com/video/' + id + '?autoplay=1&muted=0&byline=0&portrait=0&title=0&dnt=1';
+      iframe.setAttribute('allow', 'autoplay; fullscreen');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('frameborder', '0');
+      iframe.style.cssText = 'width:100%;height:100%;border:0;display:block;';
+      el.style.height = h + 'px';
+      el.style.cursor = 'auto';
+      el.innerHTML = '';
+      el.appendChild(iframe);
+    }, { once: true });
   });
 
   // Junk Jornal: beide Foto-Spalten so breit machen, dass sie oben UND

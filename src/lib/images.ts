@@ -6,16 +6,16 @@ import { imageSize } from 'image-size';
 // Responsive-Varianten (-p-500, -p-800, …) in public/ ab.
 // Bilder ohne Varianten bekommen kein srcset (wie im Original).
 
-const cache = new Map<string, { srcset?: string; sizes?: string }>();
+const cache = new Map<string, { srcset?: string; sizes?: string; width?: number; height?: number }>();
 
-export function responsive(src: string): { srcset?: string; sizes?: string } {
+export function responsive(src: string): { srcset?: string; sizes?: string; width?: number; height?: number } {
   if (cache.has(src)) return cache.get(src)!;
   const result = compute(src);
   cache.set(src, result);
   return result;
 }
 
-function compute(src: string): { srcset?: string; sizes?: string } {
+function compute(src: string): { srcset?: string; sizes?: string; width?: number; height?: number } {
   try {
     const abs = path.join(process.cwd(), 'public', decodeURI(src));
     if (!fs.existsSync(abs)) return {};
@@ -32,16 +32,17 @@ function compute(src: string): { srcset?: string; sizes?: string } {
       .filter((m): m is RegExpMatchArray => !!m)
       .map((m) => parseInt(m[1], 10))
       .sort((a, b) => a - b);
-    if (widths.length === 0) return {};
-    const originalWidth = imageSize(fs.readFileSync(abs)).width;
-    if (!originalWidth) return {};
+    const size = imageSize(fs.readFileSync(abs));
+    const dims = size.width && size.height ? { width: size.width, height: size.height } : {};
+    if (widths.length === 0 || !size.width) return dims;
     const parts = widths
-      .filter((w) => w < originalWidth)
+      .filter((w) => w < size.width!)
       .map((w) => `${stem}-p-${w}${ext} ${w}w`);
-    parts.push(`${src} ${originalWidth}w`);
+    parts.push(`${src} ${size.width}w`);
     return {
+      ...dims,
       srcset: parts.join(', '),
-      sizes: `(max-width: ${originalWidth}px) 100vw, ${originalWidth}px`,
+      sizes: `(max-width: ${size.width}px) 100vw, ${size.width}px`,
     };
   } catch {
     return {};

@@ -76,11 +76,11 @@ const oraclesVideos = [
 
           {s.layout === 'oracles-landing' && (
             <div class="w-layout-grid grid-9">
-              <a id="w-node-_673b79ac-6560-3bc8-b097-9782c434ed26-7dc36922" href={s.link} class="w-inline-block">
+              <div id="w-node-_673b79ac-6560-3bc8-b097-9782c434ed26-7dc36922" class="fp-play-main w-inline-block" data-vimeo-id={s.vimeoId}>
                 <BgVideo base={s.videos[0]} videoId={oraclesVideos[0].videoId} wrapperClass={oraclesVideos[0].class} />
-              </a>
+              </div>
               {s.videos.slice(1).map((base: string, i: number) => (
-                <a id={oraclesVideos[i + 1]?.wrapperId} href={s.link} class="w-inline-block">
+                <a id={oraclesVideos[i + 1]?.wrapperId} href={s.link} class="fp-loop-link w-inline-block">
                   <BgVideo base={base} videoId={oraclesVideos[i + 1]?.videoId ?? `home-oracles-${i}-video`} wrapperClass={oraclesVideos[i + 1]?.class ?? 'background-video-10'} />
                 </a>
               ))}
