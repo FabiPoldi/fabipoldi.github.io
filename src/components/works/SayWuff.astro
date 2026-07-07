@@ -28,12 +28,12 @@ const { hero, stills, vimeo, bts, credits, laurels } = data;
   </div>
 </div>
 <div class="div-block-78">
+  <div id="w-node-_0ed66dba-bec2-5926-d4ff-06c6ba4ec175-7dc36924" class="capital text-size" set:html={inline(bts.caption)}></div>
   <div class="w-layout-grid grid-10">
     {bts.images.map((img: any) => (
       <Img src={img.src} id={img.id} class={img.class ?? 'image-29 say-wuff-making-of'} alt={img.alt} />
     ))}
   </div>
-  <div id="w-node-_0ed66dba-bec2-5926-d4ff-06c6ba4ec175-7dc36924" class="capital text-size" set:html={inline(bts.caption)}></div>
 </div>
 <div id="w-node-_40f4c1e5-789b-2ad9-8cfc-fcd7477229f9-7dc36924" class="div-block-51"><Img src={credits.logo} class="image-16" />
   <PosterCredits starring={credits.starring} entries={credits.columns.flatMap((c: any) => c.entries)} footer={credits.footer} />

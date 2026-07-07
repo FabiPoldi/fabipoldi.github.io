@@ -190,13 +190,34 @@ img:where([width][height]) { height: auto; }
   margin-top: -2rem;
 }
 
-/* ---------- 6) Play-Cursor + Hover-Verhalten ----------
-   Play-Symbol nur als weiße/graue Umrisslinie (ohne Füllung). */
+/* ---------- 6) Play-Pfeil mittig auf den Vorschaubildern ----------
+   Schlichter, transparenter Umriss-Pfeil, immer sichtbar; beim Hover wird er
+   gräulich-kräftiger. Mauszeiger bleibt der normale Klick-Zeiger. */
 .video-thumbnail,
-.video-thumbnail img,
 .play-button,
-.fp-play-main {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M9 5 L27 16 L9 27 Z" fill="none" stroke="rgba(40,40,40,0.45)" stroke-width="5" stroke-linejoin="round"/><path d="M9 5 L27 16 L9 27 Z" fill="none" stroke="%23f2f2f2" stroke-width="2.4" stroke-linejoin="round"/></svg>') 16 16, pointer;
+.fp-play-main,
+.fp-thumb-wrap { cursor: pointer; }
+
+.fp-thumb-wrap { position: relative; display: block; }
+.fp-play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+  color: #fff;
+  opacity: .55;
+  transition: opacity .15s ease, color .15s ease;
+  filter: drop-shadow(0 1px 6px rgba(0, 0, 0, .35));
+}
+.fp-play-overlay svg { width: 58px; height: 58px; }
+.video-thumbnail:hover .fp-play-overlay,
+.fp-thumb-wrap:hover .fp-play-overlay,
+.fp-play-main:hover .fp-play-overlay {
+  color: #e3e3e3;
+  opacity: .9;
 }
 
 /* Click-to-Watch-Flächen: beim Hover leicht verkleinern und halten,
@@ -228,19 +249,11 @@ img:where([width][height]) { height: auto; }
 .video-wrapper.fp-unmuted .fp-snd-waves { display: none; }
 .video-wrapper.fp-unmuted .fp-snd-x { display: block; }
 
-/* ---------- 8) Sidebar: alles mittig über dem Banner, stufenlos ----------
-   Der Banner (274x1024, background-attachment: fixed, contain, links unten
-   verankert) ist immer 26,8vh breit — seine Mitte liegt bei 13,4vh.
-   Logo und WORKS/ABOUT werden per Margin exakt darauf zentriert. */
-.works-about-div {
-  width: min(20vh, 80%);
-  max-width: none;
-  margin-left: max(0px, calc(13.4vh - min(10vh, 40%)));
-}
-.sidemenu > a {
-  align-self: flex-start;
-  margin-left: max(0px, calc(13.4vh - min(115px, 12.5vh)));
-}
+/* ---------- 8) Sidebar: Original-Anker links, nur Größen skalieren mit ----------
+   Die Menü-Grafiken liegen deckungsgleich auf im Hintergrund eingezeichneten
+   Flecken — Position bleibt Original, nur die Breiten sind in vh gedeckelt,
+   damit bei niedrigen Fenstern nichts über das Banner hinausragt. */
+.works-about-div { max-width: min(80%, 20vh); }
 .sidemenu .logo { width: min(230px, 25vh); }
 .img_standby.email, .img_hover.email { width: min(71px, 8vh); }
 .image-11 { width: min(58px, 6.5vh); }
@@ -400,6 +413,7 @@ img:where([width][height]) { height: auto; }
 .fp-sw-poster {
   align-self: center;
   width: min(100%, 30rem);
+  margin-top: -3.4rem;
 }
 .fp-sw-poster img { width: 100%; height: auto; }
 .fp-stills {
@@ -407,13 +421,22 @@ img:where([width][height]) { height: auto; }
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   width: 100%;
+  margin-top: -3.4rem;
 }
-.fp-stills img { width: 100%; height: auto; display: block; }
+/* Alle Stills auf ein gemeinsames Seitenverhältnis bringen — Zeilen schließen
+   bündig ab, Ausreißer werden minimal beschnitten (object-fit: cover) */
+.fp-stills img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2.55 / 1;
+  object-fit: cover;
+  display: block;
+}
 @media screen and (max-width: 479px) {
   .fp-stills { grid-template-columns: 1fr; }
 }
 .fp-sw-text {
   text-align: center;
-  margin: .5rem auto 0;
+  margin: -3rem auto 0;
   max-width: 44rem;
 }

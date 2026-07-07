@@ -50,6 +50,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Play-Pfeil mittig auf alle Vorschaubilder legen (Golf hat eigene Buttons)
+  var PLAY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M10 6 L26 16 L10 26 Z"/></svg>';
+  Array.prototype.slice.call(document.querySelectorAll('.video-thumbnail, .fp-play-main')).forEach(function (t) {
+    if (t.querySelector && t.querySelector('.play-button')) return;
+    var overlay = document.createElement('div');
+    overlay.className = 'fp-play-overlay';
+    overlay.innerHTML = PLAY_SVG;
+    if (t.tagName === 'IMG') {
+      var wrap = document.createElement('span');
+      wrap.className = 'fp-thumb-wrap';
+      t.parentNode.insertBefore(wrap, t);
+      wrap.appendChild(t);
+      wrap.appendChild(overlay);
+    } else {
+      t.appendChild(overlay);
+    }
+  });
+
   // Click-to-Watch: Klick aufs Vorschaubild spielt das Video sofort ab —
   // selbstgehostete Videos bekommen direkt Ton, Vimeo-Player werden mit
   // autoplay neu geladen (das Ausblenden übernimmt die Webflow-Interaktion).
@@ -59,6 +77,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var wrap = thumb.closest('.video-div') || thumb.parentElement;
     if (!wrap) return;
     thumb.style.display = 'none';
+    // Falls das Vorschaubild in einem Overlay-Wrapper steckt: alles ausblenden
+    var tw = thumb.closest('.fp-thumb-wrap');
+    if (tw) tw.style.display = 'none';
 
     var video = wrap.querySelector('video.bg-video');
     if (video) {
