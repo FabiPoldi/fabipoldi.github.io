@@ -6,10 +6,22 @@ document.addEventListener('DOMContentLoaded', function () {
     return video.closest('.video-wrapper') || video.parentElement;
   }
 
-  // Der Mauszeiger kommuniziert den Ton-Zustand (Lautsprecher mit Wellen / mit X)
+  // Badge-Logik: stumm = X dauerhaft sichtbar; Ton an = Wellen, faden aus
+  var badgeTimers = new WeakMap();
   function syncCursor(video) {
     var w = wrapperFor(video);
-    if (w) w.classList.toggle('fp-unmuted', !video.muted);
+    if (!w) return;
+    var unmuted = !video.muted;
+    w.classList.toggle('fp-unmuted', unmuted);
+    clearTimeout(badgeTimers.get(w));
+    if (unmuted) {
+      w.classList.add('fp-badge-show');
+      badgeTimers.set(w, setTimeout(function () {
+        w.classList.remove('fp-badge-show');
+      }, 1600));
+    } else {
+      w.classList.remove('fp-badge-show');
+    }
   }
 
   function muteAll() {
@@ -131,6 +143,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { once: true });
   });
 
+  // Mobil: Loop-Videos (Oracles) übernehmen ihr echtes Seitenverhältnis
+  function fitLoopAspect() {
+    if (window.innerWidth >= 768) return;
+    Array.prototype.slice.call(document.querySelectorAll('.grid-8 > .w-background-video, .grid-9 .fp-loop-link > .w-background-video, .grid-9 .fp-play-main > .w-background-video')).forEach(function (wrap) {
+      var v = wrap.querySelector('video');
+      if (!v) return;
+      var apply = function () {
+        if (v.videoWidth && v.videoHeight) wrap.style.aspectRatio = v.videoWidth + ' / ' + v.videoHeight;
+      };
+      if (v.readyState >= 1) apply();
+      else v.addEventListener('loadedmetadata', apply, { once: true });
+    });
+  }
+  fitLoopAspect();
+  window.addEventListener('resize', fitLoopAspect);
+
   // Junk Jornal: beide Foto-Spalten so breit machen, dass sie oben UND
   // unten bündig abschließen (Spaltenbreiten ~ umgekehrt proportional zur
   // Summe der Bild-Seitenverhältnisse), Gesamtbreite bleibt gleich/zentriert.
@@ -157,8 +185,9 @@ document.addEventListener('DOMContentLoaded', function () {
       var colGap = parseFloat(getComputedStyle(grid).columnGap) || 10;
 
       grid.style.gridTemplateColumns = '';
+      if (window.innerWidth < 768) return; // mobil: einspaltig (CSS)
       var W = grid.clientWidth - colGap;
-      if (W < 320) return; // mobil: Original-Layout lassen
+      if (W < 320) return;
 
       var w0 = (W * ratioSum[1] + gaps[1] - gaps[0]) / (ratioSum[0] + ratioSum[1]);
       grid.style.gridTemplateColumns = w0 + 'px ' + (W - w0) + 'px';

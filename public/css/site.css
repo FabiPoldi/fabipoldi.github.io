@@ -199,6 +199,7 @@ img:where([width][height]) { height: auto; }
 .fp-thumb-wrap { cursor: pointer; }
 
 .fp-thumb-wrap { position: relative; display: block; }
+.fp-play-main { position: relative; display: block; }
 .fp-play-overlay {
   position: absolute;
   inset: 0;
@@ -208,17 +209,20 @@ img:where([width][height]) { height: auto; }
   pointer-events: none;
   z-index: 5;
   color: #fff;
-  opacity: .55;
+  opacity: .38;
   transition: opacity .15s ease, color .15s ease;
-  filter: drop-shadow(0 1px 6px rgba(0, 0, 0, .35));
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .25));
 }
-.fp-play-overlay svg { width: 58px; height: 58px; }
+.fp-play-overlay svg { width: 52px; height: 52px; stroke-width: 1.6; }
 .video-thumbnail:hover .fp-play-overlay,
 .fp-thumb-wrap:hover .fp-play-overlay,
 .fp-play-main:hover .fp-play-overlay {
-  color: #e3e3e3;
-  opacity: .9;
+  color: #dedede;
+  opacity: .75;
 }
+/* Showreel-GIF hat Handschrift im Bild: Pfeil dort fast unsichtbar */
+.video-thumbnail.showreel .fp-play-overlay { opacity: .13; }
+.video-thumbnail.showreel:hover .fp-play-overlay { opacity: .3; }
 
 /* Click-to-Watch-Flächen: beim Hover leicht verkleinern und halten,
    beim Verlassen federnd zurück in die Originalgröße */
@@ -228,26 +232,28 @@ img:where([width][height]) { height: auto; }
 
 /* Click-to-Watch-Grafik ist eine reine Anmerkung: keine Animation, kein Hover */
 
-/* ---------- 7) Ton-Videos: Lautsprecher-Badge erscheint beim Hover ----------
-   Stumm: Lautsprecher mit Wellen (Klick = Ton an).
-   Ton an: Lautsprecher mit X (Klick = Ton aus). Mauszeiger bleibt normal. */
+/* ---------- 7) Ton-Videos: dezentes Lautsprecher-Badge oben rechts ----------
+   Stumm: Lautsprecher mit X, dauerhaft sichtbar (sehr transparent).
+   Klick: Ton an, Wellen-Symbol erscheint und fadet von selbst aus. */
 .video-wrapper { cursor: pointer; }
 .fp-sound-badge {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 14px;
+  right: 14px;
   z-index: 10;
   color: #fff;
-  opacity: 0;
-  transition: opacity .15s ease;
+  opacity: .4;
+  transition: opacity .6s ease;
   pointer-events: none;
-  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, .55));
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .3));
 }
-.video-wrapper:hover .fp-sound-badge { opacity: 1; }
-.fp-sound-badge svg { width: 34px; height: 34px; display: block; }
-.fp-sound-badge .fp-snd-x { display: none; }
-.video-wrapper.fp-unmuted .fp-snd-waves { display: none; }
-.video-wrapper.fp-unmuted .fp-snd-x { display: block; }
+.fp-sound-badge svg { width: 30px; height: 30px; display: block; stroke-width: 1.6; }
+.fp-sound-badge .fp-snd-waves { display: none; }
+.video-wrapper.fp-unmuted .fp-snd-x { display: none; }
+.video-wrapper.fp-unmuted .fp-snd-waves { display: block; }
+.video-wrapper.fp-unmuted .fp-sound-badge { opacity: 0; }
+.video-wrapper.fp-unmuted.fp-badge-show .fp-sound-badge,
+.video-wrapper.fp-unmuted:hover .fp-sound-badge { opacity: .4; }
 
 /* ---------- 8) Sidebar: Original-Anker links, nur Größen skalieren mit ----------
    Die Menü-Grafiken liegen deckungsgleich auf im Hintergrund eingezeichneten
@@ -440,3 +446,30 @@ img:where([width][height]) { height: auto; }
   margin: -3rem auto 0;
   max-width: 44rem;
 }
+
+/* ---------- 16) Mobil-Feinschliff ---------- */
+@media screen and (max-width: 767px) {
+  /* Junk Jornal: eine Spalte, volle Fotos */
+  .junk-grid.page { grid-template-columns: 1fr !important; }
+
+  /* Oracles-Startseite: kleine Loops brauchen eigene Höhe (16:9) */
+  .grid-9 > a.fp-loop-link { height: auto; }
+  .grid-9 > a.fp-loop-link > .w-background-video { height: auto; aspect-ratio: 16 / 9; }
+
+  /* Oracles-Projektseite: Loops einspaltig, im echten Video-Format */
+  .grid-8 { grid-template-columns: 1fr !important; }
+  .grid-8 > .w-background-video { height: auto; aspect-ratio: 16 / 9; }
+}
+
+/* Kleiner grauer Cookies-Link neben Legal (About-Seite) */
+.fp-cookie-link {
+  font-size: .68rem;
+  letter-spacing: .08em;
+  color: #333;
+  opacity: .45;
+  text-decoration: none;
+  text-transform: uppercase;
+  align-self: center;
+  margin-left: 1rem;
+}
+.fp-cookie-link:hover { opacity: .8; }
