@@ -267,7 +267,7 @@ img:where([width][height]) { height: auto; }
    Der Banner (274x1024, attachment: fixed) füllt immer die volle Fensterhöhe;
    jedes Element sitzt absolut in vh-Einheiten — alles bewegt und skaliert
    sich bei jeder Fenstergröße exakt gemeinsam, ohne Obergrenze. */
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   .sidemenu {
     position: relative;
     width: 25vh;
@@ -292,14 +292,20 @@ img:where([width][height]) { height: auto; }
   }
   .email-n-1-div {
     position: absolute;
-    top: 93.5vh;
+    top: 94vh;
     left: 0;
     width: 25vh;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 3.2vh;
     padding-left: 2.2vh;
-    padding-right: 3.3vh;
+    padding-right: 0;
   }
-  .img_standby.email, .img_hover.email { width: 7.7vh; }
-  .image-11 { width: 6.3vh; }
+  .img_standby.email, .img_hover.email { width: 6.4vh; }
+  .email-div, .div-block-44 { width: 6.4vh; }
+  .image-11 { width: 4.9vh; }
+  /* ABOUT ein Stück nach rechts, bündig unter WORKS */
+  .div-about-menu { margin-left: 1.7vh; }
 }
 
 /* ---------- 9) Credits im Filmplakat-Stil (Billing-Block) ---------- */
