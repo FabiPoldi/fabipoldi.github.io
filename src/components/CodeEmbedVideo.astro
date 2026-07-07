@@ -5,8 +5,10 @@ interface Props {
   src: string;
   /** 'hero' = Startseiten-Showreel (versteckt, contain), 'teaser' = Trailer-Block */
   variant?: 'hero' | 'teaser';
+  /** Deutlicher Play-Pfeil in der Mitte, verschwindet beim ersten Klick (Ton an) */
+  playOverlay?: boolean;
 }
-const { src, variant = 'teaser' } = Astro.props;
+const { src, variant = 'teaser', playOverlay = false } = Astro.props;
 const isHero = variant === 'hero';
 ---
 <div style={isHero ? 'display:none' : undefined} class={isHero ? 'code-embed show-reel w-embed' : 'code-embed w-embed'}>
@@ -15,6 +17,11 @@ const isHero = variant === 'hero';
       <source src={src} type="video/mp4">
       Your browser does not support the video tag.
     </video>
+    {playOverlay && <div class="fp-play-overlay" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" width="52" height="52">
+        <path d="M10 6 L26 16 L10 26 Z"></path>
+      </svg>
+    </div>}
     <div class="fp-sound-badge" aria-hidden="true">
       <svg class="fp-snd-waves" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
         <path d="M5 12 h5 l7 -6 v20 l-7 -6 h-5 z"></path>

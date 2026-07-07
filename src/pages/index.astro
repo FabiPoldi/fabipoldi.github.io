@@ -106,14 +106,11 @@ const oraclesVideos = [
             </div>
           )}
 
-          {s.teaserMp4 && <CodeEmbedVideo src={s.teaserMp4} variant="teaser" />}
+          {s.teaserMp4 && <CodeEmbedVideo src={s.teaserMp4} variant="teaser" playOverlay={s.layout === 'say-wuff-landing'} />}
 
-          {(s.textLeft !== undefined || s.textRight !== undefined) && (
+          {s.textLeft && (
             <div class="film-text landing">
-              <div class="left-right-text">
-                <div class="text-block-2 left capital text-size" set:html={inline(s.textLeft)}></div>
-                <div class="text-block-2 right capital text-size" set:html={inline(s.textRight)}></div>
-              </div>
+              <div class="capital text-size fp-film-note" set:html={inline(s.textLeft)}></div>
             </div>
           )}
 

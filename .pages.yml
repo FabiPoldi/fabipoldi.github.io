@@ -137,10 +137,7 @@ content:
                 label: Trailer-Video (MP4-URL)
                 type: string
               - name: textLeft
-                label: Text links
-                type: text
-              - name: textRight
-                label: Text rechts
+                label: Text unter dem Video (zentriert)
                 type: text
           - name: milky-landing
             label: "Abschnitt: Milky Chance"
@@ -167,10 +164,7 @@ content:
                 label: Trailer-Video (MP4-URL)
                 type: string
               - name: textLeft
-                label: Text links
-                type: text
-              - name: textRight
-                label: Text rechts
+                label: Text unter dem Video (zentriert)
                 type: text
           - name: oracles-landing
             label: "Abschnitt: Oracles"
@@ -192,10 +186,7 @@ content:
                 type: string
                 list: true
               - name: textLeft
-                label: Text links
-                type: text
-              - name: textRight
-                label: Text rechts
+                label: Text unter dem Video (zentriert)
                 type: text
           - name: junk-landing
             label: "Abschnitt: Junk Jornal (3 Fotos)"
@@ -235,10 +226,7 @@ content:
                 component: bild
                 list: true
               - name: textLeft
-                label: Text links
-                type: text
-              - name: textRight
-                label: Text rechts
+                label: Text unter dem Video (zentriert)
                 type: text
 
   # ---------- Menü & Einstellungen ----------

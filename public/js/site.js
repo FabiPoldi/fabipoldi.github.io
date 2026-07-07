@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     w.classList.toggle('fp-unmuted', unmuted);
     clearTimeout(badgeTimers.get(w));
     if (unmuted) {
+      w.classList.add('fp-played');
       w.classList.add('fp-badge-show');
       badgeTimers.set(w, setTimeout(function () {
         w.classList.remove('fp-badge-show');
@@ -31,6 +32,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Vimeo-Player pausieren (wenn ein Loop-Video Ton bekommt) …
+  function pauseVimeos() {
+    Array.prototype.slice.call(document.querySelectorAll('iframe')).forEach(function (f) {
+      if ((f.src || '').indexOf('player.vimeo.com') < 0) return;
+      try { f.contentWindow.postMessage(JSON.stringify({ method: 'pause' }), '*'); } catch (err) {}
+    });
+  }
+
+  // … und umgekehrt: startet ein Vimeo-Player, werden die Loops stumm.
+  window.addEventListener('message', function (e) {
+    if (typeof e.data !== 'string' || String(e.origin).indexOf('vimeo.com') < 0) return;
+    var d;
+    try { d = JSON.parse(e.data); } catch (err) { return; }
+    if (d.event === 'ready' && e.source) {
+      try { e.source.postMessage(JSON.stringify({ method: 'addEventListener', value: 'play' }), '*'); } catch (err) {}
+    }
+    if (d.event === 'play') muteAll();
+  });
+
   videos.forEach(function (video) {
     var loopedOnce = false;
     syncCursor(video);
@@ -40,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var wasMuted = video.muted;
       muteAll();
       if (wasMuted) {
+        pauseVimeos();
         video.muted = false;
         loopedOnce = false;
         video.play();
@@ -80,6 +101,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // Showreel-GIF: dezentes Ton-aus-Badge (X) oben rechts
+  var X_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M5 12 h5 l7 -6 v20 l-7 -6 h-5 z"/><path d="M21.5 12.5 L28.5 19.5"/><path d="M28.5 12.5 L21.5 19.5"/></svg>';
+  Array.prototype.slice.call(document.querySelectorAll('.video-thumbnail.showreel')).forEach(function (t) {
+    var badge = document.createElement('div');
+    badge.className = 'fp-sound-badge fp-badge-static';
+    badge.innerHTML = X_SVG;
+    t.appendChild(badge);
+  });
+
   // Click-to-Watch: Klick aufs Vorschaubild spielt das Video sofort ab —
   // selbstgehostete Videos bekommen direkt Ton, Vimeo-Player werden mit
   // autoplay neu geladen (das Ausblenden übernimmt die Webflow-Interaktion).
@@ -96,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var video = wrap.querySelector('video.bg-video');
     if (video) {
       muteAll();
+      pauseVimeos();
       video.muted = false;
       video.play();
       syncCursor(video);

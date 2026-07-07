@@ -214,21 +214,27 @@ img:where([width][height]) { height: auto; }
   filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .25));
 }
 .fp-play-overlay svg { width: 52px; height: 52px; stroke-width: 1.6; }
-.video-thumbnail:hover .fp-play-overlay,
-.fp-thumb-wrap:hover .fp-play-overlay,
-.fp-play-main:hover .fp-play-overlay {
-  color: #dedede;
-  opacity: .75;
+@media (hover: hover) {
+  .video-thumbnail:hover .fp-play-overlay,
+  .fp-thumb-wrap:hover .fp-play-overlay,
+  .fp-play-main:hover .fp-play-overlay {
+    color: #dedede;
+    opacity: .75;
+  }
 }
 /* Showreel-GIF hat Handschrift im Bild: Pfeil dort fast unsichtbar */
 .video-thumbnail.showreel .fp-play-overlay { opacity: .13; }
-.video-thumbnail.showreel:hover .fp-play-overlay { opacity: .3; }
+@media (hover: hover) {
+  .video-thumbnail.showreel:hover .fp-play-overlay { opacity: .3; }
+}
 
 /* Click-to-Watch-Flächen: beim Hover leicht verkleinern und halten,
    beim Verlassen federnd zurück in die Originalgröße */
 .video-thumbnail { transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
-.video-thumbnail:hover { transform: scale(.98); }
-.video-thumbnail.oracles:hover { filter: brightness(.92); }
+@media (hover: hover) {
+  .video-thumbnail:hover { transform: scale(.98); }
+  .video-thumbnail.oracles:hover { filter: brightness(.92); }
+}
 
 /* Click-to-Watch-Grafik ist eine reine Anmerkung: keine Animation, kein Hover */
 
@@ -252,17 +258,50 @@ img:where([width][height]) { height: auto; }
 .video-wrapper.fp-unmuted .fp-snd-x { display: none; }
 .video-wrapper.fp-unmuted .fp-snd-waves { display: block; }
 .video-wrapper.fp-unmuted .fp-sound-badge { opacity: 0; }
-.video-wrapper.fp-unmuted.fp-badge-show .fp-sound-badge,
-.video-wrapper.fp-unmuted:hover .fp-sound-badge { opacity: .4; }
+.video-wrapper.fp-unmuted.fp-badge-show .fp-sound-badge { opacity: .4; }
+@media (hover: hover) {
+  .video-wrapper.fp-unmuted:hover .fp-sound-badge { opacity: .4; }
+}
 
-/* ---------- 8) Sidebar: Original-Anker links, nur Größen skalieren mit ----------
-   Die Menü-Grafiken liegen deckungsgleich auf im Hintergrund eingezeichneten
-   Flecken — Position bleibt Original, nur die Breiten sind in vh gedeckelt,
-   damit bei niedrigen Fenstern nichts über das Banner hinausragt. */
-.works-about-div { max-width: min(80%, 20vh); }
-.sidemenu .logo { width: min(230px, 25vh); }
-.img_standby.email, .img_hover.email { width: min(71px, 8vh); }
-.image-11 { width: min(58px, 6.5vh); }
+/* ---------- 8) Sidebar: Banner und alle Overlays skalieren im Gleichschritt ----
+   Der Banner (274x1024, attachment: fixed) wird auf min(100vh, 920px) Höhe
+   fixiert; jedes Element sitzt absolut in denselben Einheiten
+   (min(Xvh, X*9.2px)). Ziehst du das Fenster höher/niedriger, bewegt und
+   skaliert sich ALLES exakt mit dem Banner — nichts driftet mehr. */
+@media screen and (min-width: 992px) {
+  .sidemenu {
+    position: relative;
+    width: min(25vh, 230px);
+    background-position: 0 0;
+    background-size: auto min(100vh, 920px);
+  }
+  .sidemenu > a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+  }
+  .sidemenu .logo { width: min(25vh, 230px); }
+  .sticker-1 { width: min(4.1vh, 37px); }
+  .works-about-div {
+    position: absolute;
+    top: min(30.7vh, 282px);
+    left: 0;
+    width: min(20vh, 184px);
+    max-width: none;
+    grid-row-gap: min(23.3vh, 214px);
+  }
+  .email-n-1-div {
+    position: absolute;
+    top: min(93.5vh, 860px);
+    left: 0;
+    width: min(25vh, 230px);
+    padding-left: min(2.2vh, 20px);
+    padding-right: min(3.3vh, 30px);
+  }
+  .img_standby.email, .img_hover.email { width: min(7.7vh, 71px); }
+  .image-11 { width: min(6.3vh, 58px); }
+}
 
 /* ---------- 9) Credits im Filmplakat-Stil (Billing-Block) ---------- */
 .fp-credits {
@@ -473,3 +512,29 @@ img:where([width][height]) { height: auto; }
   margin-left: 1rem;
 }
 .fp-cookie-link:hover { opacity: .8; }
+
+/* ---------- 17) Feinschliff Runde 8 ---------- */
+/* Weniger Leerraum zwischen Showreel und erstem Projekt */
+@media screen and (min-width: 768px) {
+  .hero-landing { margin-bottom: -5rem; }
+}
+
+/* "More here" größer (mobil deutlich) */
+.div-block-65 { width: 26%; }
+@media screen and (max-width: 767px) {
+  .div-block-65 { width: 46%; min-width: 130px; }
+}
+
+/* Text unterm Video: eine zentrierte Zeile statt links/rechts-Spalten */
+.fp-film-note {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 52rem;
+}
+
+/* Say-Wuff-Teaser: deutlicherer Play-Pfeil, verschwindet beim ersten Klick */
+.video-wrapper .fp-play-overlay { opacity: .5; }
+.video-wrapper.fp-played .fp-play-overlay { opacity: 0; }
+
+/* Statisches Ton-aus-Badge auf dem Showreel-GIF */
+.fp-sound-badge.fp-badge-static { opacity: .4; }
