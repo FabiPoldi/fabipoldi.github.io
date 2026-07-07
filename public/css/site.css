@@ -264,16 +264,15 @@ img:where([width][height]) { height: auto; }
 }
 
 /* ---------- 8) Sidebar: Banner und alle Overlays skalieren im Gleichschritt ----
-   Der Banner (274x1024, attachment: fixed) wird auf min(100vh, 920px) Höhe
-   fixiert; jedes Element sitzt absolut in denselben Einheiten
-   (min(Xvh, X*9.2px)). Ziehst du das Fenster höher/niedriger, bewegt und
-   skaliert sich ALLES exakt mit dem Banner — nichts driftet mehr. */
+   Der Banner (274x1024, attachment: fixed) füllt immer die volle Fensterhöhe;
+   jedes Element sitzt absolut in vh-Einheiten — alles bewegt und skaliert
+   sich bei jeder Fenstergröße exakt gemeinsam, ohne Obergrenze. */
 @media screen and (min-width: 992px) {
   .sidemenu {
     position: relative;
-    width: min(25vh, 230px);
+    width: 25vh;
     background-position: 0 0;
-    background-size: auto min(100vh, 920px);
+    background-size: auto 100vh;
   }
   .sidemenu > a {
     position: absolute;
@@ -281,26 +280,26 @@ img:where([width][height]) { height: auto; }
     left: 0;
     margin: 0;
   }
-  .sidemenu .logo { width: min(25vh, 230px); }
-  .sticker-1 { width: min(4.1vh, 37px); }
+  .sidemenu .logo { width: 25vh; }
+  .sticker-1 { width: 4.1vh; }
   .works-about-div {
     position: absolute;
-    top: min(30.7vh, 282px);
+    top: 30.7vh;
     left: 0;
-    width: min(20vh, 184px);
+    width: 20vh;
     max-width: none;
-    grid-row-gap: min(23.3vh, 214px);
+    grid-row-gap: 23.3vh;
   }
   .email-n-1-div {
     position: absolute;
-    top: min(93.5vh, 860px);
+    top: 93.5vh;
     left: 0;
-    width: min(25vh, 230px);
-    padding-left: min(2.2vh, 20px);
-    padding-right: min(3.3vh, 30px);
+    width: 25vh;
+    padding-left: 2.2vh;
+    padding-right: 3.3vh;
   }
-  .img_standby.email, .img_hover.email { width: min(7.7vh, 71px); }
-  .image-11 { width: min(6.3vh, 58px); }
+  .img_standby.email, .img_hover.email { width: 7.7vh; }
+  .image-11 { width: 6.3vh; }
 }
 
 /* ---------- 9) Credits im Filmplakat-Stil (Billing-Block) ---------- */
@@ -519,10 +518,16 @@ img:where([width][height]) { height: auto; }
   .hero-landing { margin-bottom: -5rem; }
 }
 
-/* "More here" größer (mobil deutlich) */
-.div-block-65 { width: 26%; }
+/* "More here": dezent größer als Original, mit Luft zum Projekt darüber
+   und (mobil) deutlich mehr Abstand zum nächsten Projekt */
+.div-block-65 { width: 22%; margin-top: 1.5rem; }
 @media screen and (max-width: 767px) {
-  .div-block-65 { width: 46%; min-width: 130px; }
+  .div-block-65 {
+    width: 34%;
+    min-width: 110px;
+    margin-top: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
 }
 
 /* Text unterm Video: eine zentrierte Zeile statt links/rechts-Spalten */
