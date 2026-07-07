@@ -228,16 +228,19 @@ img:where([width][height]) { height: auto; }
 .video-wrapper.fp-unmuted .fp-snd-waves { display: none; }
 .video-wrapper.fp-unmuted .fp-snd-x { display: block; }
 
-/* ---------- 8) Sidebar: alles skaliert weich mit und bleibt mittig ----------
-   Caps in vh, abgeleitet vom Seitenverhältnis des Banner-Hintergrunds
-   (274×1024, background-size: contain). Banner und Menü-Elemente sind
-   horizontal zentriert — nichts wandert mehr stufig nach links/rechts. */
-.sidemenu {
-  background-position: 50% 100%;
-  align-items: center;
+/* ---------- 8) Sidebar: alles mittig über dem Banner, stufenlos ----------
+   Der Banner (274x1024, background-attachment: fixed, contain, links unten
+   verankert) ist immer 26,8vh breit — seine Mitte liegt bei 13,4vh.
+   Logo und WORKS/ABOUT werden per Margin exakt darauf zentriert. */
+.works-about-div {
+  width: min(20vh, 80%);
+  max-width: none;
+  margin-left: max(0px, calc(13.4vh - min(10vh, 40%)));
 }
-.email-n-1-div { align-self: stretch; }
-.works-about-div { max-width: min(80%, 20vh); align-self: center; }
+.sidemenu > a {
+  align-self: flex-start;
+  margin-left: max(0px, calc(13.4vh - min(115px, 12.5vh)));
+}
 .sidemenu .logo { width: min(230px, 25vh); }
 .img_standby.email, .img_hover.email { width: min(71px, 8vh); }
 .image-11 { width: min(58px, 6.5vh); }
@@ -387,13 +390,30 @@ img:where([width][height]) { height: auto; }
 .grid-9 > .fp-play-main > .w-background-video { height: 100%; }
 .grid-9 > .fp-play-main > .background-video-8 { height: auto; }
 
-/* Next Project: Bleistift-Ellipse um den Titel */
-.fp-next { position: relative; padding: .9rem 1.6rem; }
-.fp-next-circle {
-  position: absolute;
-  inset: 0;
+
+/* ---------- 15) Say Wuff: neu aufgebaute Seite ---------- */
+.fp-sw-intro {
+  text-align: center;
+  margin: -1.4rem auto 0;
+  max-width: 44rem;
+}
+.fp-sw-poster {
+  align-self: center;
+  width: min(100%, 30rem);
+}
+.fp-sw-poster img { width: 100%; height: auto; }
+.fp-stills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
   width: 100%;
-  height: 100%;
-  pointer-events: none;
-  opacity: .55;
+}
+.fp-stills img { width: 100%; height: auto; display: block; }
+@media screen and (max-width: 479px) {
+  .fp-stills { grid-template-columns: 1fr; }
+}
+.fp-sw-text {
+  text-align: center;
+  margin: .5rem auto 0;
+  max-width: 44rem;
 }

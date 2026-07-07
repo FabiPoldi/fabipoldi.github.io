@@ -1,6 +1,8 @@
 ---
-// Projektseite "Say Wuff!" — exakte Struktur des Webflow-Exports,
-// Inhalte kommen aus content/works/say-wuff.yml.
+// Projektseite "Say Wuff!" — 07/2026 neu aufgebaut:
+// Titel → Einzeiler → Plakat → Stills → Synopsis → Trailer → BTS →
+// Logo → Credits → Laurels. Das Still-Raster ist ein simples,
+// browserfestes 2-Spalten-Grid (ersetzt das fragile Webflow-Raster).
 import Img from '../Img.astro';
 import VimeoGated from '../VimeoGated.astro';
 import PosterCredits from '../PosterCredits.astro';
@@ -9,29 +11,21 @@ import { inline } from '../../lib/text';
 const { data } = Astro.props;
 const { hero, stills, vimeo, bts, credits, laurels } = data;
 ---
-<div class="fp-laurels">
-  {laurels.map((img: any) => (
+<div class="capital text-size fp-sw-intro" set:html={inline(hero.text)}></div>
+<div class="fp-sw-poster">
+  <Img src={hero.poster} loading="eager" />
+</div>
+<div class="fp-stills">
+  {stills.images.map((img: any) => (
     <Img src={img.src} alt={img.alt} />
   ))}
 </div>
-<div class="w-layout-blockcontainer say-wuff-hero-block w-container">
-  <div class="film-img-grid say-wuff-hero"><Img src={hero.poster} loading="eager" sizes={hero.posterSizes} class="image-5 _2" /></div>
-  <div id="w-node-_881943ee-af2a-2523-3206-5afa6a78cd53-7dc36924" class="capital text-size" set:html={inline(hero.text)}></div>
-</div>
-<div class="div-block-77">
-  <div class="grid-4">
-    {stills.images.map((img: any) => (
-      <Img src={img.src} id={img.id} class={img.class} sizes={img.sizes} alt={img.alt} />
-    ))}
-  </div>
-  <div class="capital text-size" set:html={inline(stills.text)}></div>
-</div>
+<div class="capital text-size fp-sw-text" set:html={inline(stills.text)}></div>
 <div class="video-div">
   <div class="video-div showreel">
     <VimeoGated vimeoId={vimeo.id} placeholderId="placeholder_say_wuff" />
     <Img src={vimeo.thumbnail} dataWId="a868358e-1468-bd3b-5852-f1d9161aa9e9" class="video-thumbnail say-wuff" /><img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" alt="" class="cta-img">
   </div>
-  <div class="capital text-size" set:html={inline(vimeo.caption)}></div>
 </div>
 <div class="div-block-78">
   <div class="w-layout-grid grid-10">
@@ -43,4 +37,9 @@ const { hero, stills, vimeo, bts, credits, laurels } = data;
 </div>
 <div id="w-node-_40f4c1e5-789b-2ad9-8cfc-fcd7477229f9-7dc36924" class="div-block-51"><Img src={credits.logo} class="image-16" />
   <PosterCredits starring={credits.starring} entries={credits.columns.flatMap((c: any) => c.entries)} footer={credits.footer} />
+</div>
+<div class="fp-laurels">
+  {laurels.map((img: any) => (
+    <Img src={img.src} alt={img.alt} />
+  ))}
 </div>

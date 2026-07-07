@@ -63,9 +63,6 @@ const wfPageId = data.wfPageId ?? '6a4619bec66319687dc36924';
     <Layout data={data} />
     {nextProject && !nextProject.current && (
       <a href={nextProject.href} class="fp-next w-inline-block">
-        <svg class="fp-next-circle" viewBox="0 0 220 78" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M110 5 C 158 2, 214 14, 212 38 C 210 62, 158 75, 106 73 C 54 71, 8 60, 9 36 C 10 14, 60 8, 110 5 Z" fill="none" stroke="#555" stroke-width="1.4"></path>
-        </svg>
         <div class="fp-next-label capital">Next Project</div>
         <div class="fp-next-title capital">{nextProject.label} →</div>
         <img src="/images/Line.png" loading="lazy" alt="" class="fp-next-line">

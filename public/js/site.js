@@ -97,6 +97,16 @@ document.addEventListener('DOMContentLoaded', function () {
       el.style.cursor = 'auto';
       el.innerHTML = '';
       el.appendChild(iframe);
+      // Fläche ans echte Video-Seitenverhältnis anpassen (volle Breite,
+      // bündig mit den GIFs darunter — keine schwarzen Balken)
+      fetch('https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F' + id)
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d && d.width && d.height) {
+            el.style.height = (el.clientWidth * d.height / d.width) + 'px';
+          }
+        })
+        .catch(function () { /* Fallback: GIF-Höhe behalten */ });
     }, { once: true });
   });
 
