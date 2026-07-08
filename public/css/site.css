@@ -562,3 +562,11 @@ img:where([width][height]) { height: auto; }
 
 /* About: auch der Section-Hintergrund ist fixiert — kein Mitscrollen/Bouncen */
 .section.about { background-attachment: fixed; }
+
+/* Mobil-Header: etwas höher und mit weichem Schatten nach unten */
+@media screen and (max-width: 767px) {
+  .mobil-header {
+    min-height: 92px;
+    box-shadow: 0 10px 18px -8px rgba(0, 0, 0, .28);
+  }
+}

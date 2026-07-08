@@ -663,6 +663,10 @@ content:
           - name: title
             label: Titel
             type: string
+          - name: paddingTop
+            label: Seitenverhältnis (technisch, Höhe/Breite in %)
+            type: string
+            hidden: true
       - name: credits
         label: Credits
         type: text

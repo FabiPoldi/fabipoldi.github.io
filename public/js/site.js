@@ -176,12 +176,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Mobil: Loop-Videos (Oracles) übernehmen ihr echtes Seitenverhältnis
   function fitLoopAspect() {
-    if (window.innerWidth >= 768) return;
-    Array.prototype.slice.call(document.querySelectorAll('.grid-8 > .w-background-video, .grid-9 .fp-loop-link > .w-background-video, .grid-9 .fp-play-main > .w-background-video')).forEach(function (wrap) {
+    var els = Array.prototype.slice.call(document.querySelectorAll('.grid-8 > .w-background-video, .grid-9 .fp-loop-link > .w-background-video, .grid-9 .fp-play-main > .w-background-video'));
+    if (window.innerWidth >= 768) {
+      // Desktop: Handy-Formate wieder entfernen, sonst stimmen die Raster nicht mehr
+      els.forEach(function (wrap) { wrap.style.aspectRatio = ''; });
+      return;
+    }
+    els.forEach(function (wrap) {
       var v = wrap.querySelector('video');
       if (!v) return;
       var apply = function () {
-        if (v.videoWidth && v.videoHeight) wrap.style.aspectRatio = v.videoWidth + ' / ' + v.videoHeight;
+        if (window.innerWidth < 768 && v.videoWidth && v.videoHeight) wrap.style.aspectRatio = v.videoWidth + ' / ' + v.videoHeight;
       };
       if (v.readyState >= 1) apply();
       else v.addEventListener('loadedmetadata', apply, { once: true });

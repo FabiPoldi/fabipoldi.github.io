@@ -26,6 +26,7 @@ pressLogos:
 player:
   vimeoId: "278552417"
   title: "Oracles - Melt Tonight"
+  paddingTop: "62.284%"
 credits:
   - "<strong>Director, Dop, Editor </strong>\nFabian Podeszwa"
   - "<strong>Assistant Director\n</strong>Elodie Paul "
