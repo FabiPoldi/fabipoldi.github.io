@@ -558,10 +558,11 @@ img:where([width][height]) { height: auto; }
 .video-wrapper.fp-played .fp-play-overlay { opacity: 0; }
 
 /* scroll-audio.js: erstes Loop-Video zeigt nur den Play-Pfeil (noch kein Ton-Status zu
-   zeigen); ist der Sound einmal global entsperrt, verschwinden Pfeil+Badge bei allen. */
+   zeigen, da global noch nichts entsperrt ist). Nach dem Entsperren verschwindet nur
+   der Pfeil - das Sound-Badge bleibt (Hover zeigt es, Klick schaltet den Ton global
+   um) und verhaelt sich exakt wie das bestehende .fp-unmuted-System. */
 .video-wrapper.fp-scroll-audio-hide-badge .fp-sound-badge { display: none; }
-.video-wrapper.fp-scroll-audio-unlocked .fp-play-overlay,
-.video-wrapper.fp-scroll-audio-unlocked .fp-sound-badge { display: none; }
+.video-wrapper.fp-scroll-audio-unlocked .fp-play-overlay { display: none; }
 
 /* Statisches Ton-aus-Badge auf dem Showreel-GIF */
 .fp-sound-badge.fp-badge-static { opacity: .4; }

@@ -13,7 +13,7 @@ const isHero = variant === 'hero';
 ---
 <div style={isHero ? 'display:none' : undefined} class={isHero ? 'code-embed show-reel w-embed' : 'code-embed w-embed'}>
   <div class="video-wrapper" style="position: relative;">
-    <video class="bg-video" autoplay muted playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload noremoteplayback noplaybackrate" style={isHero ? 'width: 100%; height: 100%; object-fit: contain;' : 'width: 100%; height: auto; object-fit: cover;'}>
+    <video class="bg-video" autoplay={isHero} loop={!isHero} preload={isHero ? undefined : 'auto'} muted playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload noremoteplayback noplaybackrate" style={isHero ? 'width: 100%; height: 100%; object-fit: contain;' : 'width: 100%; height: auto; object-fit: cover;'}>
       <source src={src} type="video/mp4">
       Your browser does not support the video tag.
     </video>

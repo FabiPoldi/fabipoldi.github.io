@@ -5,6 +5,10 @@
 // irgendwo auf der Seite schaltet den AudioContext frei (Browser-Autoplay-Policy laesst
 // sich nicht umgehen) - danach uebernimmt ausschliesslich das Scrollen.
 //
+// Kernregel: es spielt IMMER nur genau ein Loop-Video hoerbar - das, dessen Mitte der
+// Viewport-Mitte am naechsten ist. Alle anderen sind hart still (kein "leiser Bodensatz").
+// Wechselt der Fokus, blendet das alte Video weich aus und das neue weich ein (~1-2s).
+//
 // Kurvenform + Signalkette sind an TapeWriters "Far Away"-Preset angelehnt (Potenzkurven
 // fuer Filter-Sweeps, Lowpass+Reverb-Send als "Distanz"-Eindruck) - eigenstaendig neu
 // geschrieben, ohne jede Code-/Architektur-Uebernahme (kein Store, keine Keyframes).
@@ -16,26 +20,28 @@
   if (!teaserVideos.length) return;
 
   // ---------------------------------------------------------------------
-  // Tuning-Konstanten - nach Gehoer feinjustieren. Bewusst zurueckhaltend
-  // gewaehlt: der Effekt soll kaum auffallen, nur "aufgeraeumt smooth" wirken.
+  // Tuning-Konstanten - nach Gehoer feinjustieren.
   // ---------------------------------------------------------------------
   var CENTER_ZONE = 0.20;        // +/-20% der Viewport-Hoehe um die Mitte: trocken, voll
   var MIN_CUTOFF_HZ = 500;       // Tiefpass-Grenzfrequenz ganz am Rand des Sichtfelds
   var MAX_CUTOFF_HZ = 21000;     // praktisch "kein Filter" in der Center-Zone
-  var MIN_VOLUME_DB = -16;       // leiseste Lautstaerke ganz am Rand des Sichtfelds
-  var MAX_REVERB_MIX = 0.22;     // Hall-Anteil ganz am Rand des Sichtfelds (dezent!)
+  var MIN_VOLUME_DB = -60;       // "aus" - nicht fokussierte/weit entfernte Videos landen hier
+  var MAX_REVERB_MIX = 0.42;     // Hall-Anteil ganz am Rand des Sichtfelds - soll deutlich hoerbar sein
   var PARAM_RAMP_SEC = 0.12;     // AudioParam setTargetAtTime Zeitkonstante (Declick)
-  var SMOOTH_HALFLIFE_MS = 180;  // Traegheit der Positions-Nachfuehrung (Zipper-Schutz)
+  var FOCUS_SMOOTH_MS = 550;     // Traegheit bei Fokuswechsel/Positions-Nachfuehrung (~2s Uebergang)
+  var REVERB_RELEASE_MS = 900;   // Hall klingt etwas traeger ab als er einsetzt (haengt "nach")
+  var PRELOAD_MARGIN_PX = 220;   // wie viele Pixel vorher der erste Loop-Durchlauf startet
   var DUCK_OUT_SEC = 0.35;       // Ausblenden, wenn Showreel/Vimeo Ton bekommt
   var DUCK_IN_SEC = 0.7;         // Wiedereinblenden danach (etwas sanfter)
+  var MUTE_FADE_SEC = 0.4;       // Fade beim globalen Stumm/Laut-Toggle
   var NAV_FADE_MS = 220;         // Fade-out-Dauer vor internem Seitenwechsel
 
   var ctx = null;
   var unlocked = false;
-  var nodes = []; // { video, wrapper, filter, gain, reverbSend, smoothedT }
+  var nodes = []; // { video, wrapper, filter, gain, reverbSend, smoothedT, badgeTimer }
   var sharedReverb = null;
-  var duckTarget = 1; // 1 = normal, 0 = geduckt (anderes Video/Vimeo spielt mit Ton)
-  var duckLevel = 1;
+  var duckTarget = 1, duckLevel = 1;     // 1 = normal, 0 = geduckt (anderes Video/Vimeo spielt)
+  var muteTarget = 1, muteLevel = 1;     // 1 = Ton an, 0 = global stummgeschaltet
   var rafId = null;
 
   function buildImpulseResponse(context, seconds, decay) {
@@ -64,7 +70,7 @@
     if (!Ctx) return null;
     ctx = new Ctx();
     sharedReverb = { convolver: ctx.createConvolver(), returnGain: ctx.createGain() };
-    sharedReverb.convolver.buffer = buildImpulseResponse(ctx, 2.4, 3.4);
+    sharedReverb.convolver.buffer = buildImpulseResponse(ctx, 3.0, 1.8);
     sharedReverb.returnGain.gain.value = 1;
     sharedReverb.convolver.connect(sharedReverb.returnGain);
     sharedReverb.returnGain.connect(ctx.destination);
@@ -93,10 +99,12 @@
     source.connect(filter);
     filter.connect(gain);
     gain.connect(ctx.destination);
-    gain.connect(reverbSend);
+    // Wichtig: der Reverb-Send zweigt VOR dem (ausfadenden) Lautstaerke-Gain ab, sonst
+    // verhungert der Hall genau dann, wenn er eigentlich hoerbar einsetzen soll.
+    filter.connect(reverbSend);
     reverbSend.connect(sharedReverb.convolver);
 
-    return { video: video, wrapper: wrapper, filter: filter, gain: gain, reverbSend: reverbSend, smoothedT: 1 };
+    return { video: video, wrapper: wrapper, filter: filter, gain: gain, reverbSend: reverbSend, smoothedT: 1, smoothedReverb: 0, badgeTimer: null };
   }
 
   function computeRawT(wrapper) {
@@ -110,32 +118,78 @@
     return Math.min(1, (offset - zoneHalf) / fadeSpan);
   }
 
-  function applyParams(node, t, duck) {
-    var eased = smootherstep(t);
+  function applyParams(node, mult) {
+    var eased = smootherstep(node.smoothedT);
     var cutoff = MAX_CUTOFF_HZ - eased * (MAX_CUTOFF_HZ - MIN_CUTOFF_HZ);
     var volDb = eased * MIN_VOLUME_DB;
-    var reverb = eased * MAX_REVERB_MIX;
     var now = ctx.currentTime;
     node.filter.frequency.setTargetAtTime(cutoff, now, PARAM_RAMP_SEC);
-    node.gain.gain.setTargetAtTime(dbToGain(volDb) * duck, now, PARAM_RAMP_SEC);
-    node.reverbSend.gain.setTargetAtTime(reverb * duck, now, PARAM_RAMP_SEC);
+    node.gain.gain.setTargetAtTime(dbToGain(volDb) * mult, now, PARAM_RAMP_SEC);
+    node.reverbSend.gain.setTargetAtTime(node.smoothedReverb * mult, now, PARAM_RAMP_SEC);
   }
 
   function tick() {
     rafId = requestAnimationFrame(tick);
-    var alpha = 1 - Math.exp(-16 / SMOOTH_HALFLIFE_MS);
-    duckLevel += (duckTarget - duckLevel) * alpha;
-    nodes.forEach(function (node) {
-      var target = computeRawT(node.wrapper);
-      node.smoothedT += (target - node.smoothedT) * alpha;
-      applyParams(node, node.smoothedT, duckLevel);
+    if (!nodes.length) return;
+
+    var duckAlpha = 1 - Math.exp(-16 / ((duckTarget < duckLevel ? DUCK_OUT_SEC : DUCK_IN_SEC) * 1000));
+    duckLevel += (duckTarget - duckLevel) * duckAlpha;
+    var muteAlpha = 1 - Math.exp(-16 / (MUTE_FADE_SEC * 1000));
+    muteLevel += (muteTarget - muteLevel) * muteAlpha;
+    var mult = duckLevel * muteLevel;
+
+    // Fokus: das Video, dessen Mitte der Viewport-Mitte am naechsten ist - nur dieses
+    // eine bekommt ueberhaupt eine Chance auf Lautstaerke, alle anderen zielen auf "weg".
+    var vh = window.innerHeight || 1;
+    var bestIndex = -1, bestDist = Infinity;
+    nodes.forEach(function (node, i) {
+      var rect = node.wrapper.getBoundingClientRect();
+      var dist = Math.abs(rect.top + rect.height / 2 - vh / 2);
+      if (dist < bestDist) { bestDist = dist; bestIndex = i; }
+    });
+
+    var focusAlpha = 1 - Math.exp(-16 / FOCUS_SMOOTH_MS);
+    nodes.forEach(function (node, i) {
+      var focused = i === bestIndex;
+      var raw = focused ? computeRawT(node.wrapper) : 1;
+      node.smoothedT += (raw - node.smoothedT) * focusAlpha;
+
+      // Reverb ist bewusst NICHT an denselben "wie weit weg fuer immer"-Wert gekoppelt
+      // wie die Lautstaerke: er soll nur waehrend der aktiven Ein-/Ausblende-Bewegung
+      // des fokussierten Videos hoerbar reinkicken (an der Filterfahrt "dranhaengen")
+      // und danach wieder auf 0 abklingen - nicht dauerhaft auf dem Maximum stehen bleiben,
+      // nur weil ein Video gerade nicht fokussiert ist.
+      var reverbTarget = focused ? smootherstep(node.smoothedT) * MAX_REVERB_MIX : 0;
+      var releasing = reverbTarget < node.smoothedReverb;
+      var reverbAlpha = 1 - Math.exp(-16 / ((releasing ? REVERB_RELEASE_MS : FOCUS_SMOOTH_MS)));
+      node.smoothedReverb += (reverbTarget - node.smoothedReverb) * reverbAlpha;
+
+      applyParams(node, mult);
     });
   }
 
   function duck() { duckTarget = 0; }
   function unduck() { duckTarget = 1; }
 
-  // --- Ducken, wenn das Showreel oder ein Vimeo-Player Ton bekommt ---------
+  // --- Gestaffelter Loop-Start: jedes Video beginnt erst kurz bevor es in den --------
+  // --- Viewport kommt (nicht alle gleichzeitig beim Laden). Laeuft unabhaengig davon, --
+  // --- ob der Ton schon entsperrt wurde - betrifft erstmal nur den (stummen) Loop. -----
+  function setupStaggeredStart() {
+    if (!('IntersectionObserver' in window)) {
+      teaserVideos.forEach(function (v) { v.play().catch(function () {}); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.play().catch(function () {});
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: PRELOAD_MARGIN_PX + 'px 0px' });
+    teaserVideos.forEach(function (v) { observer.observe(v); });
+  }
+
+  // --- Ducken, wenn das Showreel oder ein Vimeo-Player Ton bekommt -------------------
   function watchHeroShowreel() {
     var hero = document.querySelector('.code-embed.show-reel.w-embed video.bg-video');
     if (!hero) return;
@@ -161,7 +215,31 @@
     });
   }
 
-  // --- Sanfter Fade-out vor internen Seitenwechseln -------------------------
+  // --- Globaler Stumm/Laut-Schalter: Klick auf irgendein Loop-Video -----------------
+  // --- schaltet den Ton fuer ALLE um (kein Solo pro Video). Hover zeigt das Badge, ---
+  // --- Klick togglet - exakt das bestehende .fp-unmuted/.fp-badge-show-Verhalten. ----
+  function flashBadges() {
+    nodes.forEach(function (node) {
+      if (!node.wrapper) return;
+      node.wrapper.classList.add('fp-badge-show');
+      clearTimeout(node.badgeTimer);
+      node.badgeTimer = setTimeout(function () {
+        node.wrapper.classList.remove('fp-badge-show');
+      }, 1600);
+    });
+  }
+  function applyMuteUI() {
+    nodes.forEach(function (node) {
+      if (node.wrapper) node.wrapper.classList.toggle('fp-unmuted', muteTarget === 1);
+    });
+  }
+  function toggleGlobalMute() {
+    muteTarget = muteTarget === 1 ? 0 : 1;
+    applyMuteUI();
+    flashBadges();
+  }
+
+  // --- Sanfter Fade-out vor internen Seitenwechseln ----------------------------------
   function watchInternalNav() {
     document.addEventListener('click', function (e) {
       if (!unlocked || !nodes.length) return;
@@ -187,7 +265,7 @@
   }
 
   // --- UI: erstes Loop-Video zeigt nur den Play-Pfeil (kein Badge), bis --
-  // --- entsperrt ist; danach verschwinden Pfeil+Badge bei allen. --------
+  // --- entsperrt ist; danach uebernimmt bei allen das normale Hover-Badge. --------
   teaserVideos.forEach(function (video, i) {
     var wrapper = video.closest('.video-wrapper');
     if (!wrapper) return;
@@ -205,9 +283,10 @@
         var node = buildGraph(video);
         if (node) {
           nodes.push(node);
-          if (node.wrapper) node.wrapper.classList.add('fp-scroll-audio-unlocked');
+          node.wrapper.classList.remove('fp-scroll-audio-hide-badge');
+          node.wrapper.classList.add('fp-scroll-audio-unlocked', 'fp-unmuted');
+          node.wrapper.addEventListener('click', toggleGlobalMute);
         }
-        video.play().catch(function () {});
       });
       if (rafId == null) tick();
     });
@@ -217,6 +296,7 @@
   document.addEventListener('touchstart', unlock, { once: true, passive: true });
   document.addEventListener('keydown', unlock, { once: true });
 
+  setupStaggeredStart();
   watchHeroShowreel();
   watchVimeo();
   watchInternalNav();
@@ -231,6 +311,7 @@
         reverbMix: Math.round(n.reverbSend.gain.value * 100) / 100,
         t: Math.round(n.smoothedT * 100) / 100,
         duck: Math.round(duckLevel * 100) / 100,
+        mute: Math.round(muteLevel * 100) / 100,
       };
     });
   };
