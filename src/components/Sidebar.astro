@@ -45,8 +45,5 @@ const isAbout = current === 'about';
         <a href={item.href ?? '#'} aria-current={item.current ? 'page' : undefined} class={navClass(item)}>{item.label}</a>
       ))}
     </div>
-    <div class="showreel">
-      <a href="/" aria-current={isHome ? 'page' : undefined} class:list={['sidebar-button', 'text-size', 'w-button', { 'w--current': isHome }]}>Showreel</a>
-    </div>
   </div>
 </div>
