@@ -1,6 +1,9 @@
 // site.js — Video-/Interaktionsverhalten der Website
 document.addEventListener('DOMContentLoaded', function () {
-  var videos = Array.prototype.slice.call(document.querySelectorAll('video.bg-video'));
+  // Die drei Teaser-Loops (Say Wuff, Milky Chance, Luz) werden seit scroll-audio.js
+  // per Scroll-Position gesteuert, nicht mehr per Klick - hier bewusst ausgeschlossen,
+  // damit sich beide Systeme nicht in die Quere kommen. Übrig bleibt nur das Showreel.
+  var videos = Array.prototype.slice.call(document.querySelectorAll('.code-embed.show-reel.w-embed video.bg-video'));
 
   function wrapperFor(video) {
     return video.closest('.video-wrapper') || video.parentElement;
