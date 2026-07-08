@@ -1,90 +1,7 @@
 // site.js — Video-/Interaktionsverhalten der Website
 document.addEventListener('DOMContentLoaded', function () {
-  // Die drei Teaser-Loops (Say Wuff, Milky Chance, Luz) werden seit scroll-audio.js
-  // per Scroll-Position gesteuert, nicht mehr per Klick - hier bewusst ausgeschlossen,
-  // damit sich beide Systeme nicht in die Quere kommen. Übrig bleibt nur das Showreel.
-  var videos = Array.prototype.slice.call(document.querySelectorAll('.code-embed.show-reel.w-embed video.bg-video'));
-
-  function wrapperFor(video) {
-    return video.closest('.video-wrapper') || video.parentElement;
-  }
-
-  // Badge-Logik: stumm = X dauerhaft sichtbar; Ton an = Wellen, faden aus
-  var badgeTimers = new WeakMap();
-  function syncCursor(video) {
-    var w = wrapperFor(video);
-    if (!w) return;
-    var unmuted = !video.muted;
-    w.classList.toggle('fp-unmuted', unmuted);
-    clearTimeout(badgeTimers.get(w));
-    if (unmuted) {
-      w.classList.add('fp-played');
-      w.classList.add('fp-badge-show');
-      badgeTimers.set(w, setTimeout(function () {
-        w.classList.remove('fp-badge-show');
-      }, 1600));
-    } else {
-      w.classList.remove('fp-badge-show');
-    }
-  }
-
-  function muteAll() {
-    videos.forEach(function (v) {
-      v.muted = true;
-      syncCursor(v);
-    });
-  }
-
-  // Vimeo-Player pausieren (wenn ein Loop-Video Ton bekommt) …
-  function pauseVimeos() {
-    Array.prototype.slice.call(document.querySelectorAll('iframe')).forEach(function (f) {
-      if ((f.src || '').indexOf('player.vimeo.com') < 0) return;
-      try { f.contentWindow.postMessage(JSON.stringify({ method: 'pause' }), '*'); } catch (err) {}
-    });
-  }
-
-  // … und umgekehrt: startet ein Vimeo-Player, werden die Loops stumm.
-  window.addEventListener('message', function (e) {
-    if (typeof e.data !== 'string' || String(e.origin).indexOf('vimeo.com') < 0) return;
-    var d;
-    try { d = JSON.parse(e.data); } catch (err) { return; }
-    if (d.event === 'ready' && e.source) {
-      try { e.source.postMessage(JSON.stringify({ method: 'addEventListener', value: 'play' }), '*'); } catch (err) {}
-    }
-    if (d.event === 'play') muteAll();
-  });
-
-  videos.forEach(function (video) {
-    var loopedOnce = false;
-    syncCursor(video);
-
-    // Klick auf die Videofläche schaltet den Ton um; alle anderen werden stumm.
-    function toggleSound() {
-      var wasMuted = video.muted;
-      muteAll();
-      if (wasMuted) {
-        pauseVimeos();
-        video.muted = false;
-        loopedOnce = false;
-        video.play();
-      }
-      syncCursor(video);
-    }
-
-    var clickTarget = wrapperFor(video);
-    if (clickTarget) clickTarget.addEventListener('click', toggleSound);
-
-    // Nach einem kompletten Durchlauf mit Ton wieder stumm loopen (wie im Original)
-    video.addEventListener('ended', function () {
-      if (!loopedOnce) {
-        loopedOnce = true;
-        video.muted = true;
-        syncCursor(video);
-      }
-      video.currentTime = 0;
-      video.play();
-    });
-  });
+  // Sämtliche Ton-Logik (Showreel + Teaser-Loops) lebt in scroll-audio.js —
+  // hier bleiben nur Vorschaubilder, Overlays, Vimeo-Thumbnails und Layout-Helfer.
 
   // Play-Pfeil mittig auf alle Vorschaubilder legen (Golf hat eigene Buttons)
   var PLAY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M10 6 L26 16 L10 26 Z"/></svg>';
@@ -128,11 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var video = wrap.querySelector('video.bg-video');
     if (video) {
-      muteAll();
-      pauseVimeos();
-      video.muted = false;
-      video.play();
-      syncCursor(video);
+      if (window.fpAudio) window.fpAudio.reveal(video);
+      else { video.muted = false; video.play().catch(function () {}); }
       return;
     }
 

@@ -557,12 +557,12 @@ img:where([width][height]) { height: auto; }
 .video-wrapper .fp-play-overlay { opacity: .5; }
 .video-wrapper.fp-played .fp-play-overlay { opacity: 0; }
 
-/* scroll-audio.js: erstes Loop-Video zeigt nur den Play-Pfeil (noch kein Ton-Status zu
-   zeigen, da global noch nichts entsperrt ist). Nach dem Entsperren verschwindet nur
-   der Pfeil - das Sound-Badge bleibt (Hover zeigt es, Klick schaltet den Ton global
-   um) und verhaelt sich exakt wie das bestehende .fp-unmuted-System. */
-.video-wrapper.fp-scroll-audio-hide-badge .fp-sound-badge { display: none; }
-.video-wrapper.fp-scroll-audio-unlocked .fp-play-overlay { display: none; }
+/* scroll-audio.js: Vor dem Entsperren zeigen die Videos nur den Play-Pfeil
+   (es gibt noch keinen Ton-Status). Nach dem Entsperren übernehmen die
+   Sound-Badges (X = stumm, Wellen = an), die Pfeile verschwinden. */
+.video-wrapper .fp-sound-badge { display: none; }
+.video-wrapper.fp-audio-ready .fp-sound-badge { display: block; }
+.video-wrapper.fp-audio-ready .fp-play-overlay { display: none; }
 
 /* Statisches Ton-aus-Badge auf dem Showreel-GIF */
 .fp-sound-badge.fp-badge-static { opacity: .4; }
