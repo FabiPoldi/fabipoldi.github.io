@@ -200,6 +200,7 @@ img:where([width][height]) { height: auto; }
 
 .fp-thumb-wrap { position: relative; display: block; }
 .fp-play-main { position: relative; display: block; }
+.video-thumbnail { position: relative; }
 .fp-play-overlay {
   position: absolute;
   inset: 0;
@@ -292,7 +293,7 @@ img:where([width][height]) { height: auto; }
   }
   .email-n-1-div {
     position: absolute;
-    top: 94vh;
+    top: 93.2vh;
     left: 0;
     width: 25vh;
     justify-content: flex-start;
@@ -302,8 +303,17 @@ img:where([width][height]) { height: auto; }
     padding-right: 0;
   }
   .img_standby.email, .img_hover.email { width: 6.4vh; }
-  .email-div, .div-block-44 { width: 6.4vh; }
-  .image-11 { width: 4.9vh; }
+  .email-div { width: 6.4vh; }
+  .div-block-44 {
+    width: 6.4vh;
+    height: 4.85vh; /* 127x96-PNG: Höhe = Breite x 0,756 */
+    position: relative;
+  }
+  .image-11 {
+    width: 4.4vh;
+    opacity: .8;
+    margin-left: .8vh;
+  }
   /* ABOUT ein Stück nach rechts, bündig unter WORKS */
   .div-about-menu { margin-left: 1.7vh; }
 }
@@ -549,3 +559,6 @@ img:where([width][height]) { height: auto; }
 
 /* Statisches Ton-aus-Badge auf dem Showreel-GIF */
 .fp-sound-badge.fp-badge-static { opacity: .4; }
+
+/* About: auch der Section-Hintergrund ist fixiert — kein Mitscrollen/Bouncen */
+.section.about { background-attachment: fixed; }
