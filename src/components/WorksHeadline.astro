@@ -8,8 +8,10 @@ interface Props {
   logoClass?: string;
   title: string;
   metaLines?: string[];
+  /** Eigene Rolle im Projekt (nur für Seiten ohne Credits-Block) */
+  role?: string;
 }
-const { logo, logoClass = 'image-40', title, metaLines = [] } = Astro.props;
+const { logo, logoClass = 'image-40', title, metaLines = [], role } = Astro.props;
 ---
 <div class="works-headline">
   {logo && <Img src={logo} class={logoClass} />}
@@ -19,4 +21,5 @@ const { logo, logoClass = 'image-40', title, metaLines = [] } = Astro.props;
   {metaLines.map((line) => (
     <h1 class="capital text-size h3" set:html={inline(line)}></h1>
   ))}
+  {role && <div class="fp-credits-role fp-headline-role capital">Fabian Podeszwa worked on this project as <strong>{role}</strong></div>}
 </div>

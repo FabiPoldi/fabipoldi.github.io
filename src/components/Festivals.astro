@@ -1,0 +1,48 @@
+---
+// Festival-Liste einer Projektseite: Überschrift mit roter Linie, optional
+// Laurel-Logos, darunter jede Station als gleich formatierte Zeile
+// (Datum · Festival/Ort · Premiere/Preis). Preise werden hervorgehoben.
+import Img from './Img.astro';
+
+interface Festival {
+  name: string;
+  edition?: string;
+  section?: string;
+  place?: string;
+  date?: string;
+  premiere?: string;
+  award?: string;
+}
+interface Props {
+  title?: string;
+  festivals: Festival[];
+  laurels?: { src: string; alt?: string }[];
+}
+const { title = 'Festivals', festivals = [], laurels = [] } = Astro.props;
+---
+<div class="fp-festivals">
+  <div class="fp-credits-head">
+    <div class="fp-credits-title capital">{title}</div>
+    <img src="/images/Line.png" loading="lazy" alt="" class="fp-credits-line">
+  </div>
+  {laurels.length > 0 && (
+    <div class="fp-laurels">
+      {laurels.map((img) => <Img src={img.src} alt={img.alt} />)}
+    </div>
+  )}
+  <ol class="fp-festival-list">
+    {festivals.map((f) => (
+      <li class={`fp-festival${f.award ? ' fp-festival-award' : ''}`}>
+        <div class="fp-festival-date capital">{f.date}</div>
+        <div class="fp-festival-main">
+          <div class="fp-festival-name capital">{f.edition && <span class="fp-festival-edition">{f.edition} </span>}{f.name}</div>
+          <div class="fp-festival-meta capital">{[f.section, f.place].filter(Boolean).join('  ·  ')}</div>
+        </div>
+        <div class="fp-festival-side capital">
+          {f.premiere && <div class="fp-festival-premiere">{f.premiere}</div>}
+          {f.award && <div class="fp-festival-prize">{f.award}</div>}
+        </div>
+      </li>
+    ))}
+  </ol>
+</div>

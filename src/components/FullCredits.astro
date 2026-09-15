@@ -1,0 +1,84 @@
+---
+// Ausklappbare vollständige Credit-Liste (Abspann-Stil).
+// Jeder Abschnitt hat optional eine Überschrift und einen Textblock; pro Zeile gilt:
+//   "Rolle: Name, Name"  → Rolle links, Namen rechts (ab 6 Namen in mehreren Spalten)
+//   "# Titel"            → Songtitel / Zwischenüberschrift
+//   "> Notiz"            → kleine Anmerkung (z. B. „written by …“)
+//   "---"                → neue Spalte: die Blöcke stehen nebeneinander
+//   Leerzeile            → Abstand
+//   sonst                → zentrierte Zeile (z. B. Dankesliste)
+interface Section {
+  heading?: string;
+  lines: string;
+}
+interface Props {
+  label?: string;
+  sections: Section[];
+}
+const { label = 'Full Credits', sections = [] } = Astro.props;
+
+type Row =
+  | { kind: 'role'; role: string; names: string[] }
+  | { kind: 'title'; text: string }
+  | { kind: 'note'; text: string }
+  | { kind: 'gap' }
+  | { kind: 'plain'; text: string };
+
+function parseColumn(text: string): Row[] {
+  const rows: Row[] = [];
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line) { rows.push({ kind: 'gap' }); continue; }
+    if (line.startsWith('# ')) { rows.push({ kind: 'title', text: line.slice(2).trim() }); continue; }
+    if (line.startsWith('> ')) { rows.push({ kind: 'note', text: line.slice(2).trim() }); continue; }
+    const m = line.match(/^([^:]{1,60}):\s+(.+)$/);
+    if (m) {
+      rows.push({ kind: 'role', role: m[1].trim(), names: m[2].split(/,\s*/).map((n) => n.trim()).filter(Boolean) });
+      continue;
+    }
+    rows.push({ kind: 'plain', text: line });
+  }
+  while (rows.length && rows[0].kind === 'gap') rows.shift();
+  while (rows.length && rows[rows.length - 1].kind === 'gap') rows.pop();
+  return rows;
+}
+
+function parse(text: string): Row[][] {
+  return (text ?? '').split(/^\s*---\s*$/m).map(parseColumn).filter((c) => c.length);
+}
+---
+<details class="fp-fullcredits">
+  <summary class="fp-fullcredits-toggle capital">
+    <span class="fp-fullcredits-label">{label}</span>
+    <svg class="fp-fullcredits-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6 L8 11 L13 6"/></svg>
+  </summary>
+  <div class="fp-fullcredits-body">
+    {sections.map((s) => {
+      const cols = parse(s.lines);
+      return (
+        <section class="fp-fc-section">
+          {s.heading && <h3 class="fp-fc-heading capital">{s.heading}</h3>}
+          <div class={`fp-fc-cols fp-fc-cols-${cols.length}`}>
+            {cols.map((rows) => (
+              <div class="fp-fc-rows">
+                {rows.map((r) => {
+                  if (r.kind === 'gap') return <div class="fp-fc-gap"></div>;
+                  if (r.kind === 'title') return <div class="fp-fc-title capital">{r.text}</div>;
+                  if (r.kind === 'note') return <div class="fp-fc-note capital">{r.text}</div>;
+                  if (r.kind === 'plain') return <div class="fp-fc-plain capital">{r.text}</div>;
+                  const multi = r.names.length >= 6;
+                  return (
+                    <div class={`fp-fc-row${multi ? ' fp-fc-row-multi' : ''}`}>
+                      <div class="fp-fc-role capital">{r.role}</div>
+                      <div class={`fp-fc-names capital${multi ? ' fp-fc-names-multi' : ''}`}>{r.names.map((n) => <div>{n}</div>)}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    })}
+  </div>
+</details>

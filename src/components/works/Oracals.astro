@@ -44,4 +44,4 @@ const playerSrc = `https://player.vimeo.com/video/${player.vimeoId}?autoplay=0&l
   <div style={`display:none;padding-top:${player.paddingTop ?? '56.25%'}`} class="vimeo-video w-video w-embed"><iframe fs-cc-src={playerSrc} fs-cc-placeholder="#placeholder_oracles" fs-cc-category="analytics" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title={player.title}></iframe></div>
   <div data-w-id="763717ab-5934-04cc-a543-ee8dd4ea9794" class="video-thumbnail oracles"></div><img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" alt="" class="cta-img">
 </div>
-<PosterCredits entries={credits} />
+<PosterCredits entries={credits} role={data.role} />

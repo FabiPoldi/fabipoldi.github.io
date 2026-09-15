@@ -412,13 +412,17 @@ content:
         label: Behind the Scenes
         type: object
         fields:
-          - name: images
-            label: Bilder
-            component: bild
-            list: true
+          - name: image
+            label: Grafik (steht ganz unten, mittig)
+            type: image
+            options:
+              media: images
           - name: caption
-            label: Bildunterschrift
+            label: Alternativtext
             type: string
+      - name: role
+        label: Meine Rolle in diesem Projekt (z. B. Writer, Director & Editor)
+        type: string
       - name: credits
         label: Credits
         type: object
@@ -444,9 +448,53 @@ content:
             label: Abschlusszeile (Producer/Copyright)
             type: text
       - name: laurels
-        label: Festival-Laurels
+        label: Festival-Laurels (Logos)
         component: bild
         list: true
+      - name: festivalsTitle
+        label: Überschrift der Festival-Liste
+        type: string
+      - name: festivals
+        label: Festivals & Preise
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Festival
+            type: string
+          - name: edition
+            label: Ausgabe (z. B. 47th)
+            type: string
+          - name: section
+            label: Sektion / Wettbewerb
+            type: string
+          - name: place
+            label: Ort, Land
+            type: string
+          - name: date
+            label: Datum
+            type: string
+          - name: premiere
+            label: Premiere (z. B. World Premiere)
+            type: string
+          - name: award
+            label: Preis / Nominierung
+            type: string
+      - name: fullCreditsLabel
+        label: Beschriftung des Ausklapp-Buttons
+        type: string
+      - name: fullCredits
+        label: Vollständige Credits (ausklappbar)
+        description: "Pro Zeile: „Rolle: Name, Name“. „# Titel“ = Zwischenüberschrift, „> Text“ = kleine Anmerkung, Leerzeile = Abstand, „---“ = neue Spalte nebeneinander."
+        type: object
+        list: true
+        fields:
+          - name: heading
+            label: Abschnitt
+            type: string
+          - name: lines
+            label: Zeilen
+            type: text
 
   - name: junk-jornal
     label: "Projekt: Junk Jornal"
@@ -494,6 +542,9 @@ content:
         hidden: true
       - name: seo
         component: seo
+      - name: role
+        label: Meine Rolle in diesem Projekt (z. B. Writer, Director & Editor)
+        type: string
       - name: headline
         component: headline
       - name: posterGrid
@@ -579,6 +630,9 @@ content:
         hidden: true
       - name: seo
         component: seo
+      - name: role
+        label: Meine Rolle in diesem Projekt (z. B. Writer, Director & Editor)
+        type: string
       - name: headline
         component: headline
       - name: hero
@@ -638,6 +692,9 @@ content:
         hidden: true
       - name: seo
         component: seo
+      - name: role
+        label: Meine Rolle in diesem Projekt (z. B. Writer, Director & Editor)
+        type: string
       - name: headline
         component: headline
       - name: singleLoop
@@ -692,6 +749,9 @@ content:
         hidden: true
       - name: seo
         component: seo
+      - name: role
+        label: Meine Rolle in diesem Projekt (z. B. Writer, Director & Editor)
+        type: string
       - name: headline
         component: headline
       - name: videos

@@ -59,7 +59,7 @@ const wfPageId = data.wfPageId ?? '6a4619bec66319687dc36924';
   <MobileMenu nav={nav} current={entry.id} />
   <Sidebar nav={nav} current={entry.id} worksClicked={data.sidebarWorksClicked ?? false} />
   <div class="main-body desktop works">
-    <WorksHeadline {...data.headline} />
+    <WorksHeadline {...data.headline} role={data.showRoleInHeadline ? data.role : undefined} />
     <Layout data={data} />
     {nextProject && !nextProject.current && (
       <a href={nextProject.href} class="fp-next w-inline-block">

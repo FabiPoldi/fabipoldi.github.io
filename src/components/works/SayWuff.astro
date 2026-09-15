@@ -1,45 +1,64 @@
 ---
-// Projektseite "Say Wuff!" — 07/2026 neu aufgebaut:
-// Titel → Einzeiler → Plakat → Stills → Synopsis → Trailer → BTS →
-// Logo → Credits → Laurels. Das Still-Raster ist ein simples,
-// browserfestes 2-Spalten-Grid (ersetzt das fragile Webflow-Raster).
+// Projektseite "Say Wuff!" — Aufbau (09/2026):
+// Titel/Meta (WorksHeadline) → Zitat (klein, grau) → Laurel-Leiste →
+// Plakat + 3 Stills daneben → Logline (klein, linksbündig) → 3 Stills
+// bildfüllend → Trailer → Festival-Liste → Logo + Credits → Full Credits
+// (ausklappbar) → Behind-the-Scenes-Grafik (mittig, Plakatbreite).
+// Die ersten drei Stills der Liste stehen neben dem Plakat, die restlichen
+// laufen in voller Breite darunter.
 import Img from '../Img.astro';
 import VimeoGated from '../VimeoGated.astro';
 import PosterCredits from '../PosterCredits.astro';
+import Festivals from '../Festivals.astro';
+import FullCredits from '../FullCredits.astro';
 import { inline } from '../../lib/text';
 
 const { data } = Astro.props;
-const { hero, stills, vimeo, bts, credits, laurels } = data;
+const { hero, stills, vimeo, bts, credits, laurels, festivals, festivalsTitle, fullCredits, fullCreditsLabel, role } = data;
+const sideStills = (stills.images ?? []).slice(0, 3);
+const wideStills = (stills.images ?? []).slice(3);
 ---
-<div class="capital text-size fp-sw-intro" set:html={inline(hero.text)}></div>
-<div class="fp-sw-poster">
-  <Img src={hero.poster} loading="eager" />
+<div class="capital text-size fp-sw-quote" set:html={inline(hero.text)}></div>
+{laurels?.length > 0 && (
+  <div class="fp-laurel-bar">
+    {laurels.map((img: any) => <Img src={img.src} alt={img.alt} />)}
+  </div>
+)}
+<div class="fp-sw-hero">
+  <div class="fp-sw-poster">
+    <Img src={hero.poster} loading="eager" />
+  </div>
+  <div class="fp-sw-side-stills">
+    <div class="fp-sw-side-stills-inner">
+      {sideStills.map((img: any) => (
+        <Img src={img.src} alt={img.alt} />
+      ))}
+    </div>
+  </div>
 </div>
-<div class="fp-stills">
-  {stills.images.map((img: any) => (
-    <Img src={img.src} alt={img.alt} />
-  ))}
-</div>
-<div class="capital text-size fp-sw-text" set:html={inline(stills.text)}></div>
+<div class="capital text-size fp-sw-logline" set:html={inline(stills.text)}></div>
+{wideStills.length > 0 && (
+  <div class="fp-sw-wide-stills">
+    {wideStills.map((img: any) => (
+      <Img src={img.src} alt={img.alt} />
+    ))}
+  </div>
+)}
 <div class="video-div">
   <div class="video-div showreel">
     <VimeoGated vimeoId={vimeo.id} placeholderId="placeholder_say_wuff" />
     <Img src={vimeo.thumbnail} dataWId="a868358e-1468-bd3b-5852-f1d9161aa9e9" class="video-thumbnail say-wuff" /><img src="/images/Click-to-Watch-mit-Pfeil-small.png" loading="lazy" alt="" class="cta-img">
   </div>
 </div>
-<div class="div-block-78">
-  <div id="w-node-_0ed66dba-bec2-5926-d4ff-06c6ba4ec175-7dc36924" class="capital text-size" set:html={inline(bts.caption)}></div>
-  <div class="w-layout-grid grid-10">
-    {bts.images.map((img: any) => (
-      <Img src={img.src} id={img.id} class={img.class ?? 'image-29 say-wuff-making-of'} alt={img.alt} />
-    ))}
-  </div>
-</div>
+{festivals?.length > 0 && (
+  <Festivals title={festivalsTitle} festivals={festivals} />
+)}
 <div id="w-node-_40f4c1e5-789b-2ad9-8cfc-fcd7477229f9-7dc36924" class="div-block-51"><Img src={credits.logo} class="image-16" />
-  <PosterCredits starring={credits.starring} entries={credits.columns.flatMap((c: any) => c.entries)} footer={credits.footer} />
+  <PosterCredits starring={credits.starring} entries={credits.columns.flatMap((c: any) => c.entries)} footer={credits.footer} role={role} />
+  {fullCredits?.length > 0 && <FullCredits label={fullCreditsLabel} sections={fullCredits} />}
 </div>
-<div class="fp-laurels">
-  {laurels.map((img: any) => (
-    <Img src={img.src} alt={img.alt} />
-  ))}
-</div>
+{bts?.image && (
+  <div class="fp-sw-bts">
+    <Img src={bts.image} alt={bts.caption} loading="eager" />
+  </div>
+)}

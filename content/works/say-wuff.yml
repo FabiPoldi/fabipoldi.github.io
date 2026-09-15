@@ -2,6 +2,7 @@ title: "Say Wuff!"
 layout: say-wuff
 wfPageId: 6a4619bec66319687dc36924
 sidebarWorksClicked: true
+role: "Writer, Director, Editor & Colorist"
 seo:
   description: "Say Wuff!  is a declaration of love to the beauty of simplicity  - to quirky oddities of life and to the one and only believable truth  »Wuff!«"
   ogTitle: "Say Wuff!"
@@ -15,31 +16,21 @@ hero:
   posterSizes: "(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px"
   text: "‘Say Wuff!’ is Podeszwa’s declaration of love to the beauty of simplicity to quirky oddities of life and to the one and only believable truth:\n‍<strong> »Wuff!«</strong>"
 stills:
+  # Die ersten drei Bilder stehen neben dem Plakat, alle weiteren bildfüllend darunter
   images:
     - src: /images/01-Say-Wuff-Still-3.png
-      class: image-41
-    - src: /images/04-Say-Wuff-Still.jpg
     - src: /images/06-bSay-Wuff-Still-klein.jpg
-      class: image-27
-    - src: /images/05-Say-Wuff-Still_klein.jpg
-      class: image-7
-      id: w-node-_3937ba75-4ef0-214f-fc89-f0c7ea733bad-7dc36924
     - src: /images/07-Say-Wuff-Still.jpg
-      class: image-7
-      id: w-node-_21bbd7c9-4aa5-1fc7-8643-19fc40b0d6cf-7dc36924
+    - src: /images/04-Say-Wuff-Still.jpg
+    - src: /images/05-Say-Wuff-Still_klein.jpg
     - src: /images/07-Say-Wuff-Still-klein.jpg
-      class: image-7
-      id: w-node-_65a24283-8896-b652-f439-d5db95b31dde-7dc36924
   text: "Set in the streets of an unknown german city in the 90s - Jakarta, a 21-year-old Indonesian, is obsessed with the legendary stories his father told him as a child. Just like in those stories, he wants to create something special. When he falls in love with a mysterious, blue-haired hairdresser, he decides to gather all his friends and create the greatest magic trick ever seen."
 vimeo:
   id: 1015245973
   thumbnail: /images/Say-Wuff-Thumb-Website.jpg
   caption: "The 30 minute long romantic outsider lovestory is Podeszwa’s thesis-film at the ‘Academy of Media Arts Cologne’. It was funded by ‘Film- und Medienstiftung NRW’."
 bts:
-  images:
-    - src: /images/11-BTS-klein.jpg
-      id: w-node-_0ed66dba-bec2-5926-d4ff-06c6ba4ec177-7dc36924
-    - src: /images/10-BTS.jpg
+  image: /images/Say-Wuff-Behind-The-Scenes.webp
   caption: "behind the scenes "
 credits:
   logo: /images/Say-Wuff-Logo-Print-klein.png
@@ -53,11 +44,225 @@ credits:
     - entries:
         - "<strong>Productiondesign</strong>\nNikolai Meierjohann"
         - "<strong>CostumeDesign</strong>\nLeah Bauthamy "
+        - "<strong>Producer</strong>\nFabian Podeszwa  ·  Béla Gábor Lenz"
         - "<strong>SOUND Design</strong>\nJanis Ahnert "
         - "<strong>Mixing</strong>\nHenry Uhl"
-  footer: "<strong>Producer</strong>\nFabian Podeszwa\nBéla Gábor Lenz\n‍\n© 2023 KHM / PODESZWA . ALL RIGHTS RESERVED"
+  footer: "© 2023 KHM / PODESZWA . ALL RIGHTS RESERVED"
 laurels:
-  - src: /images/SITGES-LAUREL-2024-1.png
-  - src: /images/Norwich-Laurel.png
-  - src: /images/Etuida-Laurel.png
-  - src: /images/Sitges-Laurels.png
+  - src: /images/laurels/Sitges-Winner-2024.png
+    alt: "Sitges Film Festival – Winner Noves Visions Petit Format 2024"
+  - src: /images/laurels/HollyShorts-Best-Editing-2025.png
+    alt: "HollyShorts Film Festival – Best Editing 2025"
+  - src: /images/laurels/Flensburger-Kurzfilmtage-Bester-Spielfilm-2024.png
+    alt: "Flensburger Kurzfilmtage – Bester Spielfilm 2024"
+  - src: /images/laurels/Etiuda-Anima-Krakow-2024.png
+    alt: "IFF Etiuda&Anima Krakow – Official Selection 2024"
+  - src: /images/laurels/DISFF-Drama-Official-Selection-2024.png
+    alt: "Drama International Short Film Festival – Official Selection 2024"
+  - src: /images/laurels/Norwich-Film-Festival.png
+    alt: "Norwich Film Festival – Official Selection"
+  - src: /images/laurels/McMinnville-2025.png
+    alt: "McMinnville Short Film Festival – Official Selection 2025"
+  - src: /images/laurels/20minmax-2025.png
+    alt: "20minmax – Official Selection 2025"
+  - src: /images/laurels/Sehsuechte-2025.png
+    alt: "Sehsüchte – Official Selection 2025"
+  - src: /images/laurels/In-The-Palace-2025.png
+    alt: "In the Palace – Official Selection 2025"
+  - src: /images/laurels/GIFF-Guanajuato-Seleccion-Oficial.png
+    alt: "Guanajuato International Film Festival – Selección Oficial"
+  - src: /images/laurels/Braziers-2025.png
+    alt: "Braziers International Film Festival – Official Selection 2025"
+festivalsTitle: "Festivals"
+festivals:
+  - name: "Drama International Short Film Festival"
+    edition: "47th"
+    place: "Drama, Greece"
+    date: "September 4, 2024"
+    premiere: "World Premiere"
+  - name: "Sitges Film Festival"
+    place: "Sitges, Spain"
+    date: "October 4, 2024"
+    premiere: "Spanish Premiere"
+    award: "Winner – Best Short Noves Visions Petit Format"
+  - name: "International Film Festival Etiuda&Anima"
+    place: "Krakow, Poland"
+    date: "October 22, 2024"
+    premiere: "Polish Premiere"
+    award: "Bronze Dinosaur – 3rd Place Official Competition"
+  - name: "Norwich Film Festival"
+    place: "Norwich, United Kingdom"
+    date: "November 11, 2024"
+    premiere: "UK Premiere"
+  - name: "Flensburger Kurzfilmtage"
+    place: "Flensburg, Germany"
+    date: "November 14, 2024"
+    premiere: "German Premiere"
+    award: "Winner – Best Film"
+  - name: "McMinnville Short Film Festival"
+    place: "Portland, USA"
+    date: "February 27, 2025"
+    premiere: "US Premiere"
+    award: "Nominated – Best Comedy & Grand Jury Award"
+  - name: "20minmax International Short Film Festival"
+    section: "International Competition"
+    place: "Ingolstadt, Germany"
+    date: "April 12, 2025"
+  - name: "Sehsüchte Film Festival"
+    section: "International Competition"
+    place: "Potsdam, Germany"
+    date: "April 23, 2025"
+  - name: "In the Palace International Short Film Festival"
+    place: "Pernik, Bulgaria"
+    date: "June 27, 2025"
+  - name: "Guanajuato International Film Festival"
+    section: "Short Film Competition"
+    place: "Guanajuato, Mexico"
+    date: "July 25, 2025"
+  - name: "HollyShorts Film Festival"
+    place: "Hollywood, Los Angeles, USA"
+    date: "August 11, 2025"
+    award: "Winner – Best Editing"
+  - name: "Braziers International Film Festival"
+    place: "Braziers, United Kingdom"
+    date: "August 31, 2025"
+  - name: "Fantasy Filmfest"
+    place: "Cologne, Germany"
+    date: "September 12, 2026"
+fullCreditsLabel: "Full Credits"
+fullCredits:
+  - heading: "Cast"
+    lines: |
+      Jakarta: Julien Wolff
+      Bela: Carlotta Truman
+      Jasper: Béla Gábor Lenz
+      Zoe: Tatiana Feldman
+
+      Cosmo: Marco Jorge Rudolph
+      Jakarta's Father: Gen Seto
+      Mercedes Benz Kids #1: Valentin Schwerdfeger
+      Mercedes Benz Kids #2: Biniam Graffe
+      Mercedes Benz Kids #3: Marc Aurelius Lansen
+      Mercedes Benz Kids #4: Yosh Hollender
+      Barkeeperin: Dana Cebulla
+      Barber: Moses Kasasa
+      Susi: Hannah Schiller
+      Gi: Poki Wong
+      Mr. Maroni: Kleber Valim
+
+      Komparsen: Markus Nettesheim, Eveline Schönfeld, Nils Asthoff, Ron Hollender, Fitore Muzaqi, Felix Wystrychowski, Felizia Langsdorf, Josy Wong, Milan Knell, Oliver Hoppe, Milo Podeszwa, Lotte Becker, Leni Wolf, Marje Hirvonen, Alina Graff, Yannick Leisner, Kim Lea Sakkal, Clara Schramm, Domonik Christoffel
+  - heading: "Crew"
+    lines: |
+      Drehbuch & Regie: Fabian Podeszwa
+      1. Regieassistenz: David Morsi
+      2. Regieassistenz: Alina Graff
+      Script / Continuity: Kim Lea Sakkal, Evelin Schönefeld
+
+      Kamera: Paul Faltz
+      1. Kameraassistenz: Pedro Carnicer
+      2. Kameraassistenz: Hamza Malik, Yannick Bündgen
+      Dolly / Grip / Stedicam: Alexander Jopke
+      Oberbeleuchter: Eric Cabutí
+      Beleuchter*in: Alexander Kukshausen, Montell Taraschewski
+      Lichtassistenz: Jan Nieschulz
+
+      Produktionsleitung: Fitore Muzaqi
+      Produktiondesign: Nikolai Meierjohann, Dario Méndez Acosta
+      Art Department Koordinatorin: Judith Süggeler
+  - lines: |
+      Szenenbild: Antionius Mashadhiarto Wieryandto, Peter Krohn, Sina Guntermann, Rafael Andrade-Córdova
+      Szenenbildassistenz: Wolfgang Petrasch, Felix Wystrychowski, Andrew Collberg, Hans Lietz
+      Kapiteldesign: Thomas Lambertz
+      Titeldesign: Simon Geistliger
+      ---
+      Kostümbild: Leah Bauthamy
+      Kostümbildassistenz: Herehau Ragonneau
+      Kostümbereitstellung: Sissi Goetze
+      Maskenbild: Carla Bellgardt
+      Zusatzmaske: Dilek Noyan
+      Grafiken: Simon Geistliger, Valentina Beltran, Clara Schramm
+      VFX Verleih: CFX VFX
+      VFX: Loris Pieper
+  - lines: |
+      Schnitt: Fabian Podeszwa
+      Sound Design: Janis Ahnert
+      Mischung: Henry Uhl
+      Dialogschnitt: Marek Forreiter
+      Foleys: Lauritz Baudisch
+      Foleyassistenz: Janis Carbotta
+      Mastering: Bryan Kessler
+      DCP: Ewald Hentze
+      ---
+      Tonmeister: Lukas Soboll, Lukas Erler, Tarik Badaoui
+      Tonassistenz: Kürsat Ülkü
+      Dubbing: Hanno Kahl, Lauritz Baudisch
+  - lines: |
+      Standfotos: Dora Cohnen
+      Set-Aufnahmeleitung: Simon Becker, Joel Hessel, Sergiu Zorger, Christoph Otto, Michel Dulisch
+      Choreographie: Marje Hirvonen
+      Hundebesitzer*innen: Sabrina Heringlehner, Markus Breyer, Nadine Karsten Trulla Waldbuch
+      Produktionsfahrer: Linus van Doren, Wolfgang Petrasch, Nils Asthoff
+      Filmentwicklung und Abtastung: Haghefilm Digitaal
+      ---
+      Betreuende Dozent*innen: Katrin Laur, Sophie Maintigneux, Luis Negrón
+      Förderreferentin: Nazgol Majlessi, Sabrina Schneider
+      Festivalbüro: Ute Dilger
+      Projekt­organisation: Rüdiger Dill, Elke Feist, Kasia Paczesniowska-Renner, Tanja Baran
+      Casting: Sabine Schwedhelm
+      Technikausleihe: Christian Turner, Lars Langen, Falco Pixel
+      ---
+      Stunt Koordination: Tobias Nied
+      Schauspielcoach: Karen Dahmen, Alina Graff, Kim Lea Sakkal, Corinna Nilson
+      Rechtsberatung: Christian Füllgraf
+      Reisekosten­koordination: Judith Süggeler
+      Komparsen­koordination: Alina Graff
+      Location Scouting: Rafael Andrade-Córdova, Tristan Kramer, Nikolai Meier Johann, Antionius Mashadhiarto Wieryandto
+      Catering: Mark Rusniok, David Baviera Garcia, Wieslaw Podeszwa
+  - lines: |
+      Runner: Calvin Castenow, Sergio Cuomo, Timofei Konjaev, Liridon Muzaqi, Leni Wolf, Christopher Albrodt, Anna Weber, Felizia Langsdorf, Yannik Leisner, Tristan Kramer, Moritz Laumert, Peter Krohn, Ernst Mermagen, Hans Lietz, Natalie Bernei
+  - heading: "Original Music by Andrew Collberg"
+    lines: |
+      # "Say Wuff! Theme"
+      > Written and performed by Andrew Collberg & Miguel Ortiz Caturani
+      Guitar & Drums: Andrew Collberg
+      Piano: Miguel Ortiz Caturani
+      Written & Arranged: Andrew Collberg
+
+      # "Circle I & II"
+      > By Andrew Collberg
+      Piano / Synth / Guitar: Andrew Collberg
+      Guitar: Naim Amor
+      Voice: Diane-Sophie Durigon, Sophia Spies
+
+      # "Circle I & II Rooftop Alternate"
+      > By Andrew Collberg
+      Piano / Synth / Guitar: Andrew Collberg
+      Saxophone: Tidypaws
+      Voice: Sophia Spies
+      ---
+      # "V"
+      > By Andrew Collberg
+      Piano & Guitar: Andrew Collberg
+
+      # "V Vibraphone Alternative"
+      > By Andrew Collberg
+      Vibraphone: Casey Hadland
+
+      # "Tape Loops Ambient I"
+      > Written & performed by Andrew Collberg & Fabian Podeszwa
+      Piano: Andrew Collberg
+      Loops: Fabian Podeszwa
+
+      # "The Girl with the Blue Hair"
+      > Arranged by Andrew Collberg & Fabian Podeszwa
+      Pedal Steel: Connor Gallaher
+      Vibraphone: Casey Hadland
+      Saxophone: Tidypaws
+  - heading: "Vielen Dank an"
+    lines: |
+      Sissi Goetze, Jens Hamann, Rafael Andrade Cordóva, Tobias Nied, Ananda Cihesa, Rheinlust, Günther Schmitz, IFS, Thomas Lenz, Claudia Neidig, Agentur Scvhwarz, Haus Burgpark, Franz-Josef Heumannskämper, Kurdischer Verein (Zehntstraße) Niehler Freiheit, Haus Licht, Ron Hollender, Petra Clemens, Rüdiger Dill, Lubosz Podeszwa, Julian Stetter, Heinrich Podeszwa, Niehler Freiheit
+  - lines: |
+      Ein Produktion von: Fabian Podeszwa
+      In Kooperation mit der: Kunsthochschule für Medien Köln
+      Mit freundlicher Unterstützung von: Béla Gábor Lenz
+      Gefördert durch die: Film- und Medienstiftung NRW
