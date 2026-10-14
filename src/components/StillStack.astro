@@ -1,0 +1,26 @@
+---
+// Stills neben einem Plakat (Codex 06.10.2026): Jedes Bild sitzt in einer
+// eigenen Zelle. So nimmt Safari nicht die Eigenhöhe des Bildes als Zeilenhöhe
+// und streckt die Stills nicht über das Plakat hinaus. Mobil: natürliches Format.
+import Img from './Img.astro';
+import { responsive } from '../lib/images';
+interface Props { images: { src: string; alt?: string }[]; }
+const { images } = Astro.props;
+---
+<div class="fp-still-stack" style={`--still-count:${images.length}`}>
+  {images.map(img => {
+    const { width, height } = responsive(img.src);
+    return <div class="fp-still-cell" style={`--still-ratio:${width ?? 16}/${height ?? 9}`}>
+      <Img src={img.src} alt={img.alt} class="fp-still-image" />
+    </div>;
+  })}
+</div>
+<style>
+  .fp-still-stack { position: absolute; inset: 0; display: grid; grid-template-rows: repeat(var(--still-count), minmax(0, 1fr)); gap: 10px; }
+  .fp-still-cell { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+  .fp-still-cell :global(img) { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+  @media (max-width: 767px) {
+    .fp-still-stack { position: static; grid-template-rows: none; }
+    .fp-still-cell { aspect-ratio: var(--still-ratio); }
+  }
+</style>

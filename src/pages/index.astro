@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar.astro';
 import MobileMenu from '../components/MobileMenu.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import Img from '../components/Img.astro';
+import StillStack from '../components/StillStack.astro';
 import BgVideo from '../components/BgVideo.astro';
 import CodeEmbedVideo from '../components/CodeEmbedVideo.astro';
 import { getNav } from '../lib/nav';
@@ -55,9 +56,7 @@ const oraclesVideos = [
             <div class="w-layout-grid grid say-wuff landing">
               <a href={s.link} class="w-inline-block"><Img src={s.poster} class="img-in-grid" /></a>
               <a href={s.link} class="grid-inner-div index say-wuff w-inline-block">
-                {s.images.map((img: any) => (
-                  <Img src={img.src} id={img.id} class="img-in-grid cut" alt={img.alt} />
-                ))}
+                <StillStack images={s.images} />
               </a>
             </div>
           )}
@@ -99,9 +98,7 @@ const oraclesVideos = [
             <div class="w-layout-grid grid luz landing">
               <a href={s.link} class="w-inline-block"><Img src={s.poster} class="image-in-grid" /></a>
               <a href={s.link} class="grid-inner-div w-inline-block">
-                {s.images.map((img: any) => (
-                  <Img src={img.src} id={img.id} class="image-in-grid" alt={img.alt} />
-                ))}
+                <StillStack images={s.images} />
               </a>
             </div>
           )}

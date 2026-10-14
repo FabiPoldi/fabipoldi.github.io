@@ -12,6 +12,26 @@ video { pointer-events: none; }
    :where() hält die Spezifität bei null, Klassen-Regeln gewinnen weiter. */
 img:where([width][height]) { height: auto; }
 
+/* ---------- 0b) Plakat + Stills, Junk-Fotos (Codex 04./06.10., Hotfix 14.10.) ----------
+   Das Plakat gibt die Zeilenhöhe vor; StillStack.astro teilt sie in gleich
+   hohe Zellen, damit Safari die Stills nicht über das Plakat hinaus streckt. */
+.grid.luz.landing { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); }
+.grid.say-wuff.landing { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid.luz.landing,
+.grid.say-wuff.landing { grid-template-rows: auto; }
+.grid.landing > a { min-width: 0; }
+.grid.landing > a:first-child > img { display: block; height: auto; }
+.grid.landing > .grid-inner-div { position: relative; display: block; height: auto; min-height: 0; }
+@media screen and (max-width: 767px) {
+  .grid.luz.landing,
+  .grid.say-wuff.landing { grid-template-columns: minmax(0, 1fr); }
+}
+/* Junk Journal (Startseite): Fotos füllen die Spalte, statt bei ihrer Dateibreite aufzuhören */
+.junk-div > .junk-img { width: 100%; height: auto; }
+/* Inhalt darf beim Verkleinern des Fensters mitschrumpfen (Safari blieb sonst breit) */
+.body > .main-body:not(.about):not(.legal),
+.main-body.works { min-width: 0; }
+
 /* ---------- 1) Cookie-Banner: clean, ohne Hintergrundbild ---------- */
 .fs-cc-banner2_component {
   background-image: none;
@@ -529,20 +549,6 @@ img:where([width][height]) { height: auto; }
 .fp-sw-poster { min-width: 0; }
 .fp-sw-poster img { width: 100%; height: auto; display: block; }
 .fp-sw-side-stills { position: relative; min-width: 0; }
-.fp-sw-side-stills-inner {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-rows: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-.fp-sw-side-stills-inner img {
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  object-fit: cover;
-  display: block;
-}
 /* Logline: schlichter Blocksatz, bündig mit den Bildern */
 .fp-sw-logline {
   text-align: justify;
@@ -568,8 +574,6 @@ img:where([width][height]) { height: auto; }
 .fp-sw-wide-stills img { width: 100%; height: auto; display: block; }
 @media screen and (max-width: 767px) {
   .fp-sw-hero { grid-template-columns: 1fr; }
-  .fp-sw-side-stills-inner { position: static; grid-template-rows: none; }
-  .fp-sw-side-stills-inner img { height: auto; }
 }
 /* Behind-the-Scenes-Grafik ganz unten: mittig in Plakatbreite, mobil volle Breite */
 .fp-sw-bts {

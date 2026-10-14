@@ -7,6 +7,7 @@
 // Die ersten drei Stills der Liste stehen neben dem Plakat, die restlichen
 // laufen in voller Breite darunter.
 import Img from '../Img.astro';
+import StillStack from '../StillStack.astro';
 import VimeoGated from '../VimeoGated.astro';
 import PosterCredits from '../PosterCredits.astro';
 import Festivals from '../Festivals.astro';
@@ -29,11 +30,7 @@ const wideStills = (stills.images ?? []).slice(3);
     <Img src={hero.poster} loading="eager" />
   </div>
   <div class="fp-sw-side-stills">
-    <div class="fp-sw-side-stills-inner">
-      {sideStills.map((img: any) => (
-        <Img src={img.src} alt={img.alt} />
-      ))}
-    </div>
+    <StillStack images={sideStills} />
   </div>
 </div>
 <div class="capital text-size fp-sw-logline" set:html={inline(stills.text)}></div>

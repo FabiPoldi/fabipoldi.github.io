@@ -1,6 +1,7 @@
 ---
 // Projektseite "LUZ" — exakte Struktur des Webflow-Exports.
 import Img from '../Img.astro';
+import StillStack from '../StillStack.astro';
 import BgVideo from '../BgVideo.astro';
 import VimeoGated from '../VimeoGated.astro';
 import PosterCredits from '../PosterCredits.astro';
@@ -13,9 +14,7 @@ const { posterGrid, imageText, collage, vimeo, credits, outro } = data;
   <div class="w-layout-grid grid luz landing _2">
     <a href="/works/luz/" aria-current="page" class="w-inline-block w--current"><Img src={posterGrid.poster} class="image-in-grid" /></a>
     <a href="/works/luz/" aria-current="page" class="grid-inner-div w-inline-block w--current">
-      {posterGrid.images.map((img: any) => (
-        <Img src={img.src} id={img.id} class="image-in-grid" alt={img.alt} />
-      ))}
+      <StillStack images={posterGrid.images} />
     </a>
   </div>
   <div class="capital text-size centered" set:html={inline(posterGrid.quote)}></div>
